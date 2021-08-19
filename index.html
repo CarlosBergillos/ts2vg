@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ts2vg: Time series to visibility graphs &#8212; ts2vg 1.0 documentation</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon-32x32.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .admonition-title").show();
+        $(".toggle .admonition-title").click(function() {
+            $(this).parent().children().not(".admonition-title").toggle(400);
+            $(this).parent().children(".admonition-title").toggleClass("open");
+        })
+    });
+</script>
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="#">
+<p class="title">ts2vg</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="examples.html">
+  Examples
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="api/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="changelog.html">
+  Changelog
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/CarlosBergillos/ts2vg" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/ts2vg" rel="noopener" target="_blank" title="PyPI">
+            <span><i class="fas fa-cube"></i></span>
+            <label class="sr-only">PyPI</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installation">
+   Installation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-usage">
+   Basic usage
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visibility-graph">
+     Visibility graph
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#horizontal-visibility-graph">
+     Horizontal visibility graph
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#degree-distribution">
+     Degree distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#directed-visibility-graph">
+     Directed visibility graph
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#weighted-visibility-graph">
+     Weighted visibility graph
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#interoperability-with-other-libraries">
+   Interoperability with other libraries
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#command-line-interface">
+   Command line interface
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#contributing">
+   Contributing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#license">
+   License
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="ts2vg-time-series-to-visibility-graphs">
+<h1><span class="ts2vg" style="font-weight: bolder">ts2vg</span>: Time series to visibility graphs<a class="headerlink" href="#ts2vg-time-series-to-visibility-graphs" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://pypi.python.org/pypi/ts2vg"><img alt="pypi" src="https://img.shields.io/pypi/v/ts2vg.svg" /></a> <a class="reference external" href="https://pypi.python.org/pypi/ts2vg"><img alt="pyversions" src="https://img.shields.io/pypi/pyversions/ts2vg.svg" /></a> <a class="reference external" href="https://pypi.python.org/pypi/ts2vg"><img alt="wheel" src="https://img.shields.io/pypi/wheel/ts2vg.svg" /></a> <a class="reference external" href="https://pypi.python.org/pypi/ts2vg"><img alt="license" src="https://img.shields.io/pypi/l/ts2vg.svg" /></a></p>
+<p><a class="reference internal" href="_images/cover_vg.png"><img alt="Example plot of a visibility graph" src="_images/cover_vg.png" style="width: 100%;" /></a></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The Python <span class="ts2vg" style="font-weight: bolder">ts2vg</span> package provides high-performance algorithm
+implementations to build visibility graphs from time series data.</p>
+<p>The visibility graphs and some of their properties (e.g. degree
+distributions) are computed quickly and efficiently, even for time
+series with millions of observations thanks to the use of <a class="reference external" href="https://numpy.org/">NumPy</a> and
+a custom C backend (via <a class="reference external" href="https://cython.org/">Cython</a>) developed for the
+visibility algorithms.</p>
+<p>The visibility graphs are provided according to the
+mathematical definitions described in:</p>
+<ul class="simple">
+<li><p>Lucas Lacasa et al., “<em>From time series to complex networks: The visibility graph</em>”, 2008.</p></li>
+<li><p>Lucas Lacasa et al., “<em>Horizontal visibility graphs: exact results for random time series</em>”, 2009.</p></li>
+</ul>
+<p>An efficient divide-and-conquer algorithm is used to compute the graphs,
+as described in:</p>
+<ul class="simple">
+<li><p>Xin Lan et al., “<em>Fast transformation from time series to visibility graphs</em>”, 2015.</p></li>
+</ul>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>The latest released <span class="ts2vg" style="font-weight: bolder">ts2vg</span> version is available at the <a class="reference external" href="https://pypi.org/project/ts2vg">Python Package Index (PyPI)</a>
+and can be easily installed by running:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install ts2vg
+</pre></div>
+</div>
+<p>For other advanced uses, to build <span class="ts2vg" style="font-weight: bolder">ts2vg</span> from source Cython is
+required.</p>
+</div>
+<div class="section" id="basic-usage">
+<h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="visibility-graph">
+<h3>Visibility graph<a class="headerlink" href="#visibility-graph" title="Permalink to this headline">¶</a></h3>
+<p>Building the visibility graph for a time series is very simple:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">NaturalVG</span>
+
+<span class="n">ts</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">()</span>
+<span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+
+<span class="n">edges</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">edges</span>
+</pre></div>
+</div>
+<p>The time series passed can be a list, a tuple, or a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> 1D array.</p>
+</div>
+<div class="section" id="horizontal-visibility-graph">
+<h3>Horizontal visibility graph<a class="headerlink" href="#horizontal-visibility-graph" title="Permalink to this headline">¶</a></h3>
+<p>We can also obtain horizontal visibility in a very similar way:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">HorizontalVG</span>
+
+<span class="n">ts</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">HorizontalVG</span><span class="p">()</span>
+<span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+
+<span class="n">edges</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">edges</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="degree-distribution">
+<h3>Degree distribution<a class="headerlink" href="#degree-distribution" title="Permalink to this headline">¶</a></h3>
+<p>If we are only interested in the degree distribution of the visibility graph
+we can pass <code class="docutils literal notranslate"><span class="pre">only_degrees=True</span></code> to the <code class="docutils literal notranslate"><span class="pre">build</span></code> method.
+This will be more efficient in time and memory than computing the whole graph.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">()</span>
+<span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">only_degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">ks</span><span class="p">,</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">degree_distribution</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="directed-visibility-graph">
+<h3>Directed visibility graph<a class="headerlink" href="#directed-visibility-graph" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="s1">&#39;left_to_right&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="weighted-visibility-graph">
+<h3>Weighted visibility graph<a class="headerlink" href="#weighted-visibility-graph" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">(</span><span class="n">weighted</span><span class="o">=</span><span class="s1">&#39;distance&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>For more information and options see:</strong> <a class="reference external" href="examples.html">Examples</a> and <a class="reference external" href="api/index.html">API Reference</a>.</p>
+</div>
+</div>
+<div class="section" id="interoperability-with-other-libraries">
+<h2>Interoperability with other libraries<a class="headerlink" href="#interoperability-with-other-libraries" title="Permalink to this headline">¶</a></h2>
+<p>The graphs obtained can be easily converted to graph objects
+from other common Python graph libraries such as <a class="reference external" href="https://igraph.org/python/">igraph</a>, <a class="reference external" href="https://networkx.github.io/">NetworkX</a> and <a class="reference external" href="https://snap.stanford.edu/snappy/">SNAP</a>
+for further analysis.</p>
+<p>The following methods are provided:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">as_igraph()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">as_networkx()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">as_snap()</span></code></p></li>
+</ul>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">()</span>
+<span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+
+<span class="n">nx_g</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">as_networkx</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="command-line-interface">
+<h2>Command line interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h2>
+<p><span class="ts2vg" style="font-weight: bolder">ts2vg</span> can also be used as a command line program directly from the console:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ts2vg ./timeseries.txt -o out.edg
+</pre></div>
+</div>
+<p>For more help and a list of options run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ts2vg --help
+</pre></div>
+</div>
+</div>
+<div class="section" id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<p><span class="ts2vg" style="font-weight: bolder">ts2vg</span> can be found <a class="reference external" href="https://github.com/CarlosBergillos/ts2vg">on GitHub</a>.
+Pull requests and issue reports are welcome.</p>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p><span class="ts2vg" style="font-weight: bolder">ts2vg</span> is licensed under the terms of the <a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/LICENSE">MIT License</a>.</p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2021, Carlos Bergillos.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+/* theme customizations */
+:root {
+    --pst-color-brand: 37, 115, 175;
+    --pst-color-inline-code: var(--pst-color-brand);
+    --pst-color-link: 100, 100, 250;
+    --pst-color-link-hover: 250, 100, 100;
+}
+
+.viewcode-link {
+    font-size: 0.8rem;
+}
+
+/* hidden block / drop down */
+/* https://stackoverflow.com/questions/2454577/sphinx-restructuredtext-show-hide-code-snippets */
+/* https://stackoverflow.com/questions/59679797/show-hide-part-of-text-question-answer-in-sphinx-file */
+
+.toggle {
+    background: none repeat scroll 0 0 #e7f2fa;
+}
+
+.toggle.admonition {
+    padding: 0 .6rem 0!important;
+}
+
+.toggle .admonition-title {
+    display: block;
+    clear: both;
+    cursor: pointer;
+}
+
+/* logo-like */
+
+.ts2vg, .navbar-brand p.title {
+    color: rgba(var(--pst-color-brand), 1);
+    font-weight: bolder;
+}
+
+.navbar-brand {
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    padding-left: 0.625rem;
+}
+
+.navbar-brand p.title {
+    font-size: 30px;
+}
