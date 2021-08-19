@@ -1,6 +1,6 @@
 .. |ts2vg| replace:: **ts2vg**
 
-.. |cover| image:: https://raw.githubusercontent.com/CarlosBergillos/ts2vg/main/images/cover_vg.png
+.. |cover| image:: https://raw.githubusercontent.com/CarlosBergillos/ts2vg/main/docs/source/images/cover_vg.png
    :width: 100 %
    :alt: Example plot of a visibility graph
 
