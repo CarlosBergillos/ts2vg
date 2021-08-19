@@ -1,8 +1,23 @@
-import sys
 import argparse
-import numpy as np
 from pathlib import Path
-from ts2vg import NaturalVisibilityGraph
+
+import numpy as np
+
+from ts2vg import NaturalVG, HorizontalVG
+from ts2vg.graph.base import _DIRECTED_OPTIONS, _WEIGHTED_OPTIONS
+
+_OUTPUT_MODES = {
+    'el': 'edge list',
+    'ds': 'degree sequence',
+    'dd': 'degree distribution',
+    'dc': 'degree counts'
+}
+
+_GRAPH_TYPES = {
+    'natural': NaturalVG,
+    'horizontal': HorizontalVG,
+}
+
 
 class SmartFormatter(argparse.HelpFormatter):
     def _split_lines(self, text, width):
@@ -10,60 +25,66 @@ class SmartFormatter(argparse.HelpFormatter):
             return text[2:].splitlines()  
         return argparse.HelpFormatter._split_lines(self, text, width)
 
-output_modes = {
-    'el': 'edge list',
-    'ds': 'degree sequence',
-    'dd': 'degree distribution',
-    'dc': 'degree counts'
-}
 
 def main():
     parser = argparse.ArgumentParser(formatter_class=SmartFormatter, description="Compute the visibility graph from an input time series.")
-    parser.add_argument('input', help="Path to the file containing the input time series.")
-    parser.add_argument('-o', '--output', help="Path to the file where the output corresponding to the visibility graph will be saved.")
-    parser.add_argument('-m', '--outputmode', choices=output_modes.keys(), default='el', #metavar="", 
+    parser.add_argument('input', help="Path to the file containing the input time series. Must be a text file with one value per line.")
+    parser.add_argument('-o', '--output', help="Path to the file where the output corresponding to the visibility graph will be saved. If not provided, output will go to stdout.")
+    parser.add_argument('-t', '--type', choices=_GRAPH_TYPES.keys(), default='natural', help="Type of graph.")
+    parser.add_argument('-d', '--directed', choices=[c for c in _DIRECTED_OPTIONS.keys() if c is not None], default=None)
+    parser.add_argument('-w', '--weighted', choices=[c for c in _WEIGHTED_OPTIONS.keys() if c is not None], default=None)
+    parser.add_argument('-m', '--outputmode', choices=_OUTPUT_MODES.keys(), default='el',  # metavar="",
                         help="R|Graph properties and representation to use for the output. One of:"
-                            "\n  el (default) \tEdge list. Nodes are labelled in the range [0, n-1] corresponding to the order in the input time series."
-                            "\n  ds \t\tDegree sequence. Degree values for the nodes in the range [0, n-1] in the same order as the input time series."
-                            "\n  dd \t\tDegree distribution. 1st column is a degree value (k), and 2nd column is the empirical probability for that degree k."
-                            "\n  dc \t\tDegree counts. Like the degree distribution, but not normalized. 1st column is a degree value (k), and 2nd column is the number of nodes with that degree k.")
-    #todo -dc
-    
+                            "\n el : (default) Edge list. Nodes are labelled in the range [0, n-1] in the same order as the input time series."
+                            "\n ds :           Degree sequence. Degree values for the nodes in the range [0, n-1] in the same order as the input time series."
+                            "\n dd :           Degree distribution. 1st column is a degree value (k) and 2nd column is the empirical probability for that degree k."
+                            "\n dc :           egree counts. 1st column is a degree value (k) and 2nd column is the number of nodes with that degree k.")
+
     args = parser.parse_args()
     input_path = args.input
     output_path = args.output
+    gtype = args.type
+    directed = args.directed
+    weighted = args.weighted
     output_mode = args.outputmode
-    
-    f_output = None
+
+    output_f = None
     if output_path is not None:
-        f_output = open(output_path, 'w')
-    
-    f_input = Path(input_path)
-    if not f_input.is_file():
-        raise FileNotFoundError(f"Input file {input_path} not found.")
+        output_path_ = Path(output_path)
+        if not output_path_.parent.exists():
+            print(f"ERROR: Output folder for '{output_path}' not found.")
+            return
         
-    ts = np.loadtxt(f_input, dtype=float)
-    vg = NaturalVisibilityGraph(ts)
-    
-    degrees = True
+        output_f = open(output_path, 'w')
+
+    input_path_ = Path(input_path)
+    if not input_path_.is_file():
+        print(f"ERROR: Input file '{input_path}' not found.")
+        return
+
+    ts = np.loadtxt(input_path_, dtype='float64')
+
+    g = _GRAPH_TYPES[gtype](directed=directed, weighted=weighted)
+    g.build(ts)
+
     if output_mode == 'el':
-        es = vg.edgelist
-        for a, b in es:
-            print(a, b, file=f_output)
+        es = g.edges
+        for (a, b, *w) in es:
+            print(a, b, *w, file=output_f)
     elif output_mode == 'ds':
-        ds = vg.degree_sequence
+        ds = g.degree_sequence
         for d in ds:
-            print(d, file=f_output)
+            print(d, file=output_f)
     elif output_mode == 'dd':
-        ks, pks = vg.degree_distribution
+        ks, pks = g.degree_distribution
         for k, pk in zip(ks, pks):
-            print(k, pk, file=f_output)
+            print(k, pk, file=output_f)
     elif output_mode == 'dc':
-        ks, nks = vg.degree_counts
+        ks, nks = g.degree_counts
         for k, nk in zip(ks, nks):
-            print(k, nk, file=f_output)
-    
+            print(k, nk, file=output_f)
+
     if output_path is not None:
-        f_output.close()
-        #print(f"Obtained visibility graph with {vg.vcount()} nodes and {vg.ecount()} edges")
-        print(f"Saved {output_modes[output_mode]} to file: {output_path}")
+        output_f.close()
+        print(g.summary())
+        print(f"Saved {_OUTPUT_MODES[output_mode]} to file: {output_path}")

@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 
 # C extensions
+*.c
 *.so
 
 # Distribution / packaging
@@ -69,7 +70,7 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/_build/
+docs/build/
 
 # PyBuilder
 target/
@@ -123,3 +124,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Visual Studio Code
+.vscode/
