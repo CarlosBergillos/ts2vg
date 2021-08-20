@@ -72,7 +72,7 @@ Basic usage
 Visibility graph
 ~~~~~~~~~~~~~~~~
 
-Building the visibility graph for a time series is very simple:
+Building visibility graphs from time series is very simple:
 
 .. code:: python
 
@@ -90,7 +90,7 @@ The time series passed can be a list, a tuple, or a ``numpy`` 1D array.
 Horizontal visibility graph
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We can also obtain horizontal visibility in a very similar way:
+We can also obtain horizontal visibility graphs in a very similar way:
 
 .. code:: python
 
