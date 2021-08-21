@@ -26,6 +26,14 @@
     {% endif %}
     {% endblock %}
 
+    |
+
+    .. rubric:: {{ _('Attribute details') }}
+
+    {% for item in attributes %}
+    .. autoattribute:: {{ item }}
+    {%- endfor %}
+
     .. rubric:: {{ _('Method details') }}
 
     {% for item in methods if item != '__init__' %}

@@ -73,7 +73,7 @@ class BaseVG:
 
     def build(self, ts, xs=None, only_degrees: bool = False):
         """
-        Compute and build the visibility graph for the given time series `ts`.
+        Compute and build the visibility graph for the given time series.
 
         Parameters
         ----------
