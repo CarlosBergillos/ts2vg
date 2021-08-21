@@ -33,9 +33,10 @@ extensions = [
     'sphinx.ext.githubpages',
     'sphinx.ext.mathjax',
     'sphinx.ext.linkcode',
+    'sphinx.ext.autosummary',
 ]
 
-autoclass_content = 'both'
+autoclass_content = 'class'
 autodoc_member_order = 'bysource'
 autodoc_typehints = 'none'
 napoleon_use_rtype = False
@@ -91,6 +92,12 @@ html_theme_options = {
 
 # svg math output
 # mathjax_path = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+
+
+# -- Options for sphinx.ext.autosummary --------------------------------------
+
+autosummary_generate = True
+autosummary_imported_members = True
 
 
 # -- Options for sphinx.ext.linkcode -----------------------------------------

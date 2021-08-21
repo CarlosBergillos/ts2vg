@@ -3,8 +3,10 @@ API Reference
 
 :Release: |version|
 
-.. toctree::
-   :maxdepth: 2
+.. autosummary::
+   :toctree:
+   :nosignatures:
+   :recursive:
 
-   naturalvg
-   horizontalvg
+   ts2vg.NaturalVG
+   ts2vg.HorizontalVG

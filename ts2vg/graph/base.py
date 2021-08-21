@@ -161,7 +161,7 @@ class BaseVG:
         """
         List of edges of the graph.
 
-        Returns the graph edges as an iterable of pairs of integers,
+        Return the graph edges as an iterable of pairs of integers
         where each integer corresponds to a node id (assigned sequentially in the same order as the input time series).
 
         If the graph is weighted, a third value is included for each edge corresponding to its weight.
@@ -182,7 +182,9 @@ class BaseVG:
     @property
     def weights(self):
         """
-        1D array containing the weights of the edges in the graph (listed in the same order as in :attr:`edges`).
+        Weights of the edges of the graph.
+
+        Return a 1D array containing the weights of the edges of the graph (listed in the same order as in :attr:`edges`).
         ``None`` if the graph is unweighted.
         """
         self._validate_is_built()
@@ -197,7 +199,7 @@ class BaseVG:
         """
         Degree sequence of the graph.
 
-        Returns a list of degree values for each node in the graph, in the same order as the input time series.
+        Return a list of degree values for each node in the graph, in the same order as the input time series.
         """
         if self._degrees is not None:
             pass
@@ -248,7 +250,7 @@ class BaseVG:
 
     def adjacency_matrix(self, triangle='both', use_weights=False, no_weight_value=np.nan):
         """
-        Returns the adjacency matrix of the graph.
+        Adjacency matrix of the graph.
 
         Parameters
         ----------
@@ -313,7 +315,8 @@ class BaseVG:
 
     def as_igraph(self):
         """
-        Returns an `igraph <https://igraph.org/python/>`_ graph object corresponding to this graph.
+        Return an `igraph <https://igraph.org/python/>`_ graph object corresponding to this graph.
+        
         The ``igraph`` package is required.
         """
         self._validate_is_built()
@@ -330,7 +333,8 @@ class BaseVG:
 
     def as_networkx(self):
         """
-        Returns a `NetworkX <https://networkx.github.io/>`_ graph object corresponding to this graph.
+        Return a `NetworkX <https://networkx.github.io/>`_ graph object corresponding to this graph.
+        
         The ``networkx`` package is required.
         """
         self._validate_is_built()
@@ -351,7 +355,8 @@ class BaseVG:
 
     def as_snap(self):
         """
-        Returns a `SNAP <https://snap.stanford.edu/snappy/>`_ graph object corresponding to this graph.
+        Return a `SNAP <https://snap.stanford.edu/snappy/>`_ graph object corresponding to this graph.
+        
         The ``snap`` package is required.
         """
         self._validate_is_built()
@@ -376,14 +381,14 @@ class BaseVG:
 
     def node_positions(self):
         """
-        A dictionary with nodes as keys and positions *(x, y)* as values.
+        Dictionary with nodes as keys and positions *(x, y)* as values.
         """
 
         return {i: (self.xs[i], self.ts[i]) for i in range(self.n_vertices)}
 
     def summary(self):
         """
-        Short text summary of information for the graph.
+        Short text summary describing the graph.
 
         Returns
         -------
