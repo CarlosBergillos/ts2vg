@@ -38,7 +38,7 @@ jobs:
           CIBW_TEST_COMMAND: pytest {project}/tests
 
       - name: Upload wheels to artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: dist
           path: ./dist/*.whl
