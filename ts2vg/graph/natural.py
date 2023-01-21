@@ -23,7 +23,7 @@ class NaturalVG(BaseVG):
             Edge directions go from top to bottom according to the series *y* axis.
 
             .. note::
-                If both endpoints of an edge have the same *y* value then the direction 
+                If both endpoints of an edge have the same *y* value then the direction
                 is ambiguous and no consistent direction is guaranteed.
 
         Default ``None``.
@@ -101,7 +101,7 @@ class NaturalVG(BaseVG):
 
             .. math::
                 \arctan \left( \left| \frac{q_y - p_y}{q_x - p_x} \right| \right)
-        
+
         Default ``None``.
 
         .. note::
@@ -127,8 +127,8 @@ class NaturalVG(BaseVG):
         edges = g.edges
     """
 
-    def __init__(self, *, directed: Optional[str] = None, weighted: Optional[str] = None):
-        super().__init__(directed=directed, weighted=weighted)
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
 
     def _compute_graph(self, only_degrees: bool):
         return _compute_graph(self.ts, self.xs, self._directed, self._weighted, only_degrees)
@@ -143,7 +143,7 @@ class NaturalVG(BaseVG):
             txt += " (directed)"
         elif self.is_weighted:
             txt += " (weighted)"
-        
+
         txt += f" with {self.n_vertices} vertices and {self.n_edges} edges."
 
         return txt
