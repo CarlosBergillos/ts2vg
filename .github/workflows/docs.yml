@@ -5,6 +5,9 @@ name: Docs
 on:
   push:
     branches: [main]
+    paths:
+      - docs/**
+      - ts2vg/**
 
 jobs:
   build-and-publish:

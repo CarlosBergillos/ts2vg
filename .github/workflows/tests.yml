@@ -5,6 +5,8 @@ name: Tests
 on:
   push:
     branches: [main]
+    paths:
+      - ts2vg/**
   pull_request:
     branches: [main]
 
