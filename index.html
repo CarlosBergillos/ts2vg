@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ts2vg: Time series to visibility graphs &#8212; ts2vg 1.0.0 documentation</title>
+    <title>ts2vg: Time series to visibility graphs &#8212; ts2vg 1.1.0 documentation</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -159,6 +159,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#supported-graph-types">
+   Supported graph types
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#basic-usage">
    Basic usage
   </a>
@@ -261,8 +266,16 @@ and can be easily installed by running:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>ts2vg
 </pre></div>
 </div>
-<p>For other advanced uses, to build <span class="ts2vg" style="font-weight: bolder">ts2vg</span> from source Cython is
-required.</p>
+<p>For other advanced uses, to build <span class="ts2vg" style="font-weight: bolder">ts2vg</span> from source Cython is required.</p>
+</div>
+<div class="section" id="supported-graph-types">
+<h2>Supported graph types<a class="headerlink" href="#supported-graph-types" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Natural Visibility Graphs (<code class="docutils literal notranslate"><span class="pre">ts2vg.NaturalVG</span></code>)</p></li>
+<li><p>Horizontal Visibility Graphs (<code class="docutils literal notranslate"><span class="pre">ts2vg.HorizontalVG</span></code>)</p></li>
+<li><p>Weighted and Directed Visibility Graphs (via the <code class="docutils literal notranslate"><span class="pre">weighted</span></code> and <code class="docutils literal notranslate"><span class="pre">directed</span></code> parameters)</p></li>
+<li><p>Parametric Visibility Graphs (via the <code class="docutils literal notranslate"><span class="pre">min_weight</span></code> and <code class="docutils literal notranslate"><span class="pre">max_weight</span></code> parameters)</p></li>
+</ul>
 </div>
 <div class="section" id="basic-usage">
 <h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
@@ -392,7 +405,7 @@ Pull requests and issue reports are welcome.</p>
     
     <div class="footer-item">
       <p class="copyright">
-    &copy; Copyright 2021, Carlos Bergillos.<br/>
+    &copy; Copyright 2023, Carlos Bergillos.<br/>
 </p>
     </div>
     
