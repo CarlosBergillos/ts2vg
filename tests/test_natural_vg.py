@@ -1,20 +1,11 @@
-from math import sqrt, atan
+from math import atan, sqrt
 
+import numpy as np
 import pytest
 from pytest import approx
 
 import ts2vg
-import numpy as np
-
-
-@pytest.fixture
-def empty_ts():
-    return []
-
-
-@pytest.fixture
-def sample_ts():
-    return [3.0, 4.0, 2.0, 1.0]
+from fixtures import empty_ts, flat_ts, sample_ts
 
 
 def test_basic(sample_ts):
@@ -346,6 +337,18 @@ def test_empty_ts(empty_ts):
     out_got = ts2vg.NaturalVG().build(empty_ts).edges
 
     out_truth = []
+
+    assert out_got == out_truth
+
+
+def test_flat_ts(flat_ts):
+    out_got = ts2vg.NaturalVG().build(flat_ts).edges
+
+    out_truth = [
+        (0, 1),
+        (1, 2),
+        (2, 3),
+    ]
 
     assert out_got == out_truth
 
