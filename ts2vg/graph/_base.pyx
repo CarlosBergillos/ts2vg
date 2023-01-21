@@ -7,6 +7,7 @@ from libc.math cimport fabs, atan, sqrt, isnan, NAN
 
 from ts2vg.graph.base import _WEIGHTED_OPTIONS
 
+cdef uint _UNWEIGHTED = _WEIGHTED_OPTIONS[None]
 cdef uint _WEIGHTED_DISTANCE = _WEIGHTED_OPTIONS['distance']
 cdef uint _WEIGHTED_SQ_DISTANCE = _WEIGHTED_OPTIONS['sq_distance']
 cdef uint _WEIGHTED_V_DISTANCE = _WEIGHTED_OPTIONS['v_distance']
@@ -33,52 +34,99 @@ cdef uint _argmax(np.float64_t[:] a, uint left, uint right):
     return idx
 
 
-@cython.cdivision(True)
-cdef inline double _get_weight(uint weighted, double x_a, double x_b, double y_a, double y_b, double slope):
-    if weighted == _WEIGHTED_DISTANCE:
-        return sqrt(((x_b - x_a) * (x_b - x_a)) + ((y_b - y_a) * (y_b - y_a)))
-    
-    elif weighted == _WEIGHTED_SQ_DISTANCE:
-        return ((x_b - x_a) * (x_b - x_a)) + ((y_b - y_a) * (y_b - y_a))
-    
-    elif weighted == _WEIGHTED_V_DISTANCE:
-        return y_b - y_a
+cdef inline double _weight_0(double x_a, double x_b, double y_a, double y_b, double slope):
+    return 0
 
-    elif weighted == _WEIGHTED_ABS_V_DISTANCE:
-        return fabs(y_b - y_a)
 
-    elif weighted == _WEIGHTED_H_DISTANCE:
-        return x_b - x_a
-
-    elif weighted == _WEIGHTED_ABS_H_DISTANCE:
-        return fabs(x_b - x_a)
-
-    elif weighted == _WEIGHTED_SLOPE:
-        if isnan(slope):
-            slope = (y_b-y_a) / (x_b-x_a)
-        return slope
-
-    elif weighted == _WEIGHTED_ABS_SLOPE:
-        if isnan(slope):
-            slope = (y_b-y_a) / (x_b-x_a)
-        return fabs(slope)
-
-    elif weighted == _WEIGHTED_ANGLE:
-        if isnan(slope):
-            slope = (y_b-y_a) / (x_b-x_a)
-        return atan(slope)
-
-    elif weighted == _WEIGHTED_ABS_ANGLE:
-        if isnan(slope):
-            slope = (y_b-y_a) / (x_b-x_a)
-        return atan(fabs(slope))
-
+cdef inline double _weight_nan(double x_a, double x_b, double y_a, double y_b, double slope):
     return NAN
 
 
-cdef inline tuple _edge_tuple(uint i_a, uint i_b, double x_a, double x_b, double y_a, double y_b, double slope, uint weighted):
-    if weighted > 0:
-        w = _get_weight(weighted, x_a, x_b, y_a, y_b, slope)
-        return (i_a, i_b, w)
+cdef inline double _weight_distance(double x_a, double x_b, double y_a, double y_b, double slope):
+    return sqrt(((x_b - x_a) * (x_b - x_a)) + ((y_b - y_a) * (y_b - y_a)))
+
+
+cdef inline double _weight_sq_distance(double x_a, double x_b, double y_a, double y_b, double slope):
+    return ((x_b - x_a) * (x_b - x_a)) + ((y_b - y_a) * (y_b - y_a))
+
+
+cdef inline double _weight_v_distance(double x_a, double x_b, double y_a, double y_b, double slope):
+    return y_b - y_a
+
+
+cdef inline double _weight_abs_v_distance(double x_a, double x_b, double y_a, double y_b, double slope):
+    return fabs(y_b - y_a)
+
+
+cdef inline double _weight_h_distance(double x_a, double x_b, double y_a, double y_b, double slope):
+    return x_b - x_a
+
+
+cdef inline double _weight_abs_h_distance(double x_a, double x_b, double y_a, double y_b, double slope):
+    return fabs(x_b - x_a)
+
+
+@cython.cdivision(True)
+cdef inline double _weight_slope(double x_a, double x_b, double y_a, double y_b, double slope):
+    if isnan(slope):
+        slope = (y_b-y_a) / (x_b-x_a)
+    return slope
+
+
+@cython.cdivision(True)
+cdef inline double _weight_abs_slope(double x_a, double x_b, double y_a, double y_b, double slope):
+    if isnan(slope):
+        slope = (y_b-y_a) / (x_b-x_a)
+    return fabs(slope)
+
+
+@cython.cdivision(True)
+cdef inline double _weight_angle(double x_a, double x_b, double y_a, double y_b, double slope):
+    if isnan(slope):
+        slope = (y_b-y_a) / (x_b-x_a)
+    return atan(slope)
+
+
+@cython.cdivision(True)
+cdef inline double _weight_abs_angle(double x_a, double x_b, double y_a, double y_b, double slope):
+    if isnan(slope):
+        slope = (y_b-y_a) / (x_b-x_a)
+    return atan(fabs(slope))
+
+
+cdef weight_func_type _get_weight_func(uint weighted):
+    if weighted == _UNWEIGHTED:
+        return _weight_0
+
+    if weighted == _WEIGHTED_DISTANCE:
+        return _weight_distance
+    
+    elif weighted == _WEIGHTED_SQ_DISTANCE:
+        return _weight_sq_distance
+    
+    elif weighted == _WEIGHTED_V_DISTANCE:
+        return _weight_v_distance
+
+    elif weighted == _WEIGHTED_ABS_V_DISTANCE:
+        return _weight_abs_v_distance
+    
+    elif weighted == _WEIGHTED_H_DISTANCE:
+        return _weight_h_distance
+
+    elif weighted == _WEIGHTED_ABS_H_DISTANCE:
+        return _weight_abs_h_distance
+    
+    elif weighted == _WEIGHTED_SLOPE:
+        return _weight_slope
+
+    elif weighted == _WEIGHTED_ABS_SLOPE:
+        return _weight_abs_slope
+    
+    elif weighted == _WEIGHTED_ANGLE:
+        return _weight_angle
+
+    elif weighted == _WEIGHTED_ABS_ANGLE:
+        return _weight_abs_angle
+
     else:
-        return (i_a, i_b)
+        return _weight_nan

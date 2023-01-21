@@ -60,17 +60,16 @@ and can be easily installed by running:
 
    pip install ts2vg
 
-For other advanced uses, to build |ts2vg| from source Cython is
-required.
+For other advanced uses, to build |ts2vg| from source Cython is required.
 
-.. Graph types
-.. -----------
 
-.. - Natural Visibility Graph [``ts2vg.NaturalVG``]
-..    Weighted directed variations
-.. - Horizontal Visibility Graph [``ts2vg.HorizontalVG``]
-..    Weighted directed variations
-.. - Parametric Natural Visibility Graph [*planned, not implemented yet*]
+Supported graph types
+---------------------
+
+- Natural Visibility Graphs (``ts2vg.NaturalVG``)
+- Horizontal Visibility Graphs (``ts2vg.HorizontalVG``)
+- Weighted and Directed Visibility Graphs (via the ``weighted`` and ``directed`` parameters)
+- Parametric Visibility Graphs (via the ``min_weight`` and ``max_weight`` parameters)
 
 .. - Dual Perspective Visibility Graph [*planned, not implemented yet*]
 

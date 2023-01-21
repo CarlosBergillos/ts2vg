@@ -7,7 +7,7 @@ from ts2vg.graph.base import BaseVG
 class HorizontalVG(BaseVG):
     r"""
     Horizontal Visibility Graph.
-    
+
     Transform a time series to a Horizontal Visibility Graph.
 
     Parameters
@@ -23,7 +23,7 @@ class HorizontalVG(BaseVG):
             Edge directions go from top to bottom according to the series *y* axis.
 
             .. note::
-                If both endpoints of an edge have the same *y* value then the direction 
+                If both endpoints of an edge have the same *y* value then the direction
                 is ambiguous and no consistent direction is guaranteed.
 
         Default ``None``.
@@ -101,12 +101,24 @@ class HorizontalVG(BaseVG):
 
             .. math::
                 \arctan \left( \left| \frac{q_y - p_y}{q_x - p_x} \right| \right)
-        
+
         Default ``None``.
 
         .. note::
             Asymmetrical weight functions (like ``v_distance``, ``h_distance``, ``slope``,  ``angle``) depend on the edge direction.
             If the graph is undirected, a 'left to right' edge direction is used by default when computing the weights.
+
+    min_weight : float, None
+        If provided, only edges with a weight higher than ``min_weight`` (non inclusive) will be included in the final graph.
+        The graph must be weighted and the values used for weight will depend on the ``weighted`` parameter.
+        This acts a generalization of parametric visibility graphs.
+        Default ``None``.
+
+    max_weight : float, None
+        If provided, only edges with a weight lower than ``max_weight`` (non inclusive) will be included in the final graph.
+        The graph must be weighted and the values used for weight will depend on the ``weighted`` parameter.
+        This acts a generalization of parametric visibility graphs.
+        Default ``None``.
 
     References
     ----------
@@ -128,11 +140,19 @@ class HorizontalVG(BaseVG):
 
     """
 
-    def __init__(self, *, directed: Optional[str] = None, weighted: Optional[str] = None):
-        super().__init__(directed=directed, weighted=weighted)
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
 
     def _compute_graph(self, only_degrees: bool):
-        return _compute_graph(self.ts, self.xs, self._directed, self._weighted, only_degrees)
+        return _compute_graph(
+            self.ts,
+            self.xs,
+            self._directed,
+            self._weighted,
+            only_degrees,
+            self.min_weight if self.min_weight is not None else float("-inf"),
+            self.max_weight if self.max_weight is not None else float("inf"),
+        )
 
     def summary(self):
         self._validate_is_built()
@@ -144,7 +164,7 @@ class HorizontalVG(BaseVG):
             txt += " (directed)"
         elif self.is_weighted:
             txt += " (weighted)"
-        
+
         txt += f" with {self.n_vertices} vertices and {self.n_edges} edges."
 
         return txt
