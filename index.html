@@ -279,9 +279,9 @@ required.</p>
 <span class="n">edges</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">edges</span>
 </pre></div>
 </div>
-<p>The time series passed (<cite>ts</cite>) can be any one-dimensional iterable, such as a list or a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> 1D array.</p>
+<p>The time series passed (<code class="docutils literal notranslate"><span class="pre">ts</span></code>) can be any one-dimensional iterable, such as a list or a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> 1D array.</p>
 <p>By default, the input observations are assumed to be equally spaced in time.
-Alternatively, a second 1D iterable (<cite>xs</cite>) can be provided for unevenly spaced time series.</p>
+Alternatively, a second 1D iterable (<code class="docutils literal notranslate"><span class="pre">xs</span></code>) can be provided for unevenly spaced time series.</p>
 </div>
 <div class="section" id="horizontal-visibility-graph">
 <h3>Horizontal visibility graph<a class="headerlink" href="#horizontal-visibility-graph" title="Permalink to this headline">¶</a></h3>
@@ -311,7 +311,7 @@ This will be more efficient in time and memory than computing the whole graph.</
 </div>
 <div class="section" id="directed-visibility-graph">
 <h3>Directed visibility graph<a class="headerlink" href="#directed-visibility-graph" title="Permalink to this headline">¶</a></h3>
-<p>Directed graphs can be obtained by using the <cite>directed</cite> parameter.
+<p>Directed graphs can be obtained by using the <code class="docutils literal notranslate"><span class="pre">directed</span></code> parameter.
 See the reference documentation for the different available options.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="s1">&#39;left_to_right&#39;</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
@@ -320,7 +320,7 @@ See the reference documentation for the different available options.</p>
 </div>
 <div class="section" id="weighted-visibility-graph">
 <h3>Weighted visibility graph<a class="headerlink" href="#weighted-visibility-graph" title="Permalink to this headline">¶</a></h3>
-<p>Weighted graphs can be obtained by using the <cite>weighted</cite> parameter.
+<p>Weighted graphs can be obtained by using the <code class="docutils literal notranslate"><span class="pre">weighted</span></code> parameter.
 See the reference documentation for the different available options.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">(</span><span class="n">weighted</span><span class="o">=</span><span class="s1">&#39;distance&#39;</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
