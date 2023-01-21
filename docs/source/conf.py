@@ -12,15 +12,15 @@ import inspect
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('../../'))
+sys.path.insert(0, os.path.abspath("../../"))
 
 # -- Project information -----------------------------------------------------
 
 import ts2vg
 
-project = 'ts2vg'
-copyright = '2021, Carlos Bergillos'
-author = 'Carlos Bergillos'
+project = "ts2vg"
+copyright = "2023, Carlos Bergillos"
+author = "Carlos Bergillos"
 release = ts2vg.__version__
 version = ts2vg.__version__
 
@@ -28,41 +28,41 @@ version = ts2vg.__version__
 # -- General configuration ---------------------------------------------------
 
 extensions = [
-    'sphinx.ext.napoleon',
-    'sphinx.ext.autodoc',
-    'sphinx.ext.githubpages',
-    'sphinx.ext.mathjax',
-    'sphinx.ext.linkcode',
-    'sphinx.ext.autosummary',
+    "sphinx.ext.napoleon",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.githubpages",
+    "sphinx.ext.mathjax",
+    "sphinx.ext.linkcode",
+    "sphinx.ext.autosummary",
 ]
 
-autoclass_content = 'class'
-autodoc_member_order = 'bysource'
-autodoc_typehints = 'none'
+autoclass_content = "class"
+autodoc_member_order = "bysource"
+autodoc_typehints = "none"
 napoleon_use_rtype = False
 
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 exclude_patterns = []
 
 
 # -- Options for HTML output -------------------------------------------------
 
-html_theme = 'pydata_sphinx_theme'
+html_theme = "pydata_sphinx_theme"
 
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 html_css_files = [
-    'custom.css',
+    "custom.css",
 ]
 
 html_copy_source = False
 html_show_sourcelink = False
 
-html_favicon = '_static/favicon-32x32.png'
+html_favicon = "_static/favicon-32x32.png"
 
 html_theme_options = {
-    'favicons': [
+    "favicons": [
         {
             "rel": "icon",
             "sizes": "16x16",
@@ -74,7 +74,7 @@ html_theme_options = {
             "href": "favicon-32x32.png",
         },
     ],
-    'icon_links': [
+    "icon_links": [
         {
             "name": "GitHub",
             "url": "https://github.com/CarlosBergillos/ts2vg",
@@ -86,8 +86,8 @@ html_theme_options = {
             "icon": "fas fa-cube",
         },
     ],
-    'show_prev_next': False,
-    'navigation_with_keys': False,
+    "show_prev_next": False,
+    "navigation_with_keys": False,
 }
 
 # svg math output
@@ -102,15 +102,16 @@ autosummary_imported_members = True
 
 # -- Options for sphinx.ext.linkcode -----------------------------------------
 
+
 def linkcode_resolve(domain, info):
-    if domain != 'py':
+    if domain != "py":
         return None
-    if not info['module']:
+    if not info["module"]:
         return None
 
-    module = import_module(info['module'])
+    module = import_module(info["module"])
     obj = module
-    for attr in info['fullname'].split('.'):
+    for attr in info["fullname"].split("."):
         if not hasattr(obj, attr):
             return None
 
@@ -126,4 +127,4 @@ def linkcode_resolve(domain, info):
 
     relative_path = module_path.name / source_file.relative_to(module_path)
 
-    return f'https://github.com/CarlosBergillos/ts2vg/blob/main/{relative_path}#L{source_line_from}-L{source_line_to}'
+    return f"https://github.com/CarlosBergillos/ts2vg/blob/main/{relative_path}#L{source_line_from}-L{source_line_to}"
