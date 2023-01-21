@@ -66,7 +66,7 @@ def _compute_graph(np.float64_t[:] ts, np.float64_t[:] xs, uint directed, uint w
                         degrees_in[i] += 1
 
                         if not only_degrees:
-                            edge = _edge_tuple(i, i-d, x_a, x_b, y_a, y_b, NAN, weight_func)
+                            edge = _edge_tuple(i-d, i, x_b, x_a, y_b, y_a, NAN, weight_func)
                             edges.append(edge)
 
                     max_y = y_b
