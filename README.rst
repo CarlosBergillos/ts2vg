@@ -94,10 +94,10 @@ To build a visibility graphs:
 
    edges = g.edges
 
-The time series passed (`ts`) can be any one-dimensional iterable, such as a list or a ``numpy`` 1D array.
+The time series passed (``ts``) can be any one-dimensional iterable, such as a list or a ``numpy`` 1D array.
 
 By default, the input observations are assumed to be equally spaced in time.
-Alternatively, a second 1D iterable (`xs`) can be provided for unevenly spaced time series.
+Alternatively, a second 1D iterable (``xs``) can be provided for unevenly spaced time series.
 
 
 Horizontal visibility graph
@@ -135,7 +135,7 @@ This will be more efficient in time and memory than computing the whole graph.
 Directed visibility graph
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Directed graphs can be obtained by using the `directed` parameter.
+Directed graphs can be obtained by using the ``directed`` parameter.
 See the reference documentation for the different available options.
 
 .. code:: python
@@ -147,7 +147,7 @@ See the reference documentation for the different available options.
 Weighted visibility graph
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Weighted graphs can be obtained by using the `weighted` parameter.
+Weighted graphs can be obtained by using the ``weighted`` parameter.
 See the reference documentation for the different available options.
 
 .. code:: python
