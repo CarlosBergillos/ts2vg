@@ -96,7 +96,7 @@ cdef inline double _weight_abs_angle(double x_a, double x_b, double y_a, double 
 
 cdef weight_func_type _get_weight_func(uint weighted):
     if weighted == _UNWEIGHTED:
-        return NULL
+        return _weight_0
 
     if weighted == _WEIGHTED_DISTANCE:
         return _weight_distance
@@ -130,12 +130,3 @@ cdef weight_func_type _get_weight_func(uint weighted):
 
     else:
         return _weight_nan
-
-
-
-cdef inline tuple _edge_tuple(uint i_a, uint i_b, double x_a, double x_b, double y_a, double y_b, double slope, weight_func_type weight_func):
-    if weight_func:
-        w = weight_func(x_a, x_b, y_a, y_b, slope)
-        return (i_a, i_b, w)
-    else:
-        return (i_a, i_b)
