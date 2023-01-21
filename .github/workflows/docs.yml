@@ -33,7 +33,7 @@ jobs:
           make html
 
       - name: Publish documentation
-        uses: JamesIves/github-pages-deploy-action@4.4.1
+        uses: JamesIves/github-pages-deploy-action@4
         with:
           branch: gh-pages
           folder: docs/build/html
