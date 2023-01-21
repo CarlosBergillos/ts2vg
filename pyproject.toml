@@ -45,10 +45,6 @@ build-backend = "setuptools.build_meta"
 # ts2vg = "ts2vg.cli:main"
 # 
 # [project.optional-dependencies]
-# docs = [
-#     "sphinx",
-#     "pydata-sphinx-theme",
-# ]
 # tests = [
 #     "pytest",
 # ]
