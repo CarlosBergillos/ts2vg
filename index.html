@@ -241,12 +241,10 @@
 <p>The Python <span class="ts2vg" style="font-weight: bolder">ts2vg</span> package provides high-performance algorithm
 implementations to build visibility graphs from time series data.</p>
 <p>The visibility graphs and some of their properties (e.g. degree
-distributions) are computed quickly and efficiently, even for time
-series with millions of observations thanks to the use of <a class="reference external" href="https://numpy.org/">NumPy</a> and
-a custom C backend (via <a class="reference external" href="https://cython.org/">Cython</a>) developed for the
-visibility algorithms.</p>
+distributions) are computed quickly and efficiently even for time
+series with millions of observations.</p>
 <p>The visibility graphs are provided according to the
-mathematical definitions described in:</p>
+mathematical definitions presented in:</p>
 <ul class="simple">
 <li><p>Lucas Lacasa et al., “<em>From time series to complex networks: The visibility graph</em>”, 2008.</p></li>
 <li><p>Lucas Lacasa et al., “<em>Horizontal visibility graphs: exact results for random time series</em>”, 2009.</p></li>
@@ -260,7 +258,7 @@ as described in:</p>
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>The latest released <span class="ts2vg" style="font-weight: bolder">ts2vg</span> version is available at the <a class="reference external" href="https://pypi.org/project/ts2vg">Python Package Index (PyPI)</a>
 and can be easily installed by running:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install ts2vg
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>ts2vg
 </pre></div>
 </div>
 <p>For other advanced uses, to build <span class="ts2vg" style="font-weight: bolder">ts2vg</span> from source Cython is
@@ -270,7 +268,7 @@ required.</p>
 <h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="visibility-graph">
 <h3>Visibility graph<a class="headerlink" href="#visibility-graph" title="Permalink to this headline">¶</a></h3>
-<p>Building visibility graphs from time series is very simple:</p>
+<p>To build a visibility graphs:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">NaturalVG</span>
 
 <span class="n">ts</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]</span>
@@ -281,11 +279,13 @@ required.</p>
 <span class="n">edges</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">edges</span>
 </pre></div>
 </div>
-<p>The time series passed can be a list, a tuple, or a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> 1D array.</p>
+<p>The time series passed (<cite>ts</cite>) can be any one-dimensional iterable, such as a list or a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> 1D array.</p>
+<p>By default, the input observations are assumed to be equally spaced in time.
+Alternatively, a second 1D iterable (<cite>xs</cite>) can be provided for unevenly spaced time series.</p>
 </div>
 <div class="section" id="horizontal-visibility-graph">
 <h3>Horizontal visibility graph<a class="headerlink" href="#horizontal-visibility-graph" title="Permalink to this headline">¶</a></h3>
-<p>We can also obtain horizontal visibility graphs in a very similar way:</p>
+<p>Horizontal visibility graphs can be obtained in a very similar way:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">HorizontalVG</span>
 
 <span class="n">ts</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]</span>
@@ -311,6 +311,8 @@ This will be more efficient in time and memory than computing the whole graph.</
 </div>
 <div class="section" id="directed-visibility-graph">
 <h3>Directed visibility graph<a class="headerlink" href="#directed-visibility-graph" title="Permalink to this headline">¶</a></h3>
+<p>Directed graphs can be obtained by using the <cite>directed</cite> parameter.
+See the reference documentation for the different available options.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="s1">&#39;left_to_right&#39;</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
 </pre></div>
@@ -318,6 +320,8 @@ This will be more efficient in time and memory than computing the whole graph.</
 </div>
 <div class="section" id="weighted-visibility-graph">
 <h3>Weighted visibility graph<a class="headerlink" href="#weighted-visibility-graph" title="Permalink to this headline">¶</a></h3>
+<p>Weighted graphs can be obtained by using the <cite>weighted</cite> parameter.
+See the reference documentation for the different available options.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">(</span><span class="n">weighted</span><span class="o">=</span><span class="s1">&#39;distance&#39;</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
 </pre></div>
@@ -350,11 +354,11 @@ for further analysis.</p>
 <div class="section" id="command-line-interface">
 <h2>Command line interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h2>
 <p><span class="ts2vg" style="font-weight: bolder">ts2vg</span> can also be used as a command line program directly from the console:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ts2vg ./timeseries.txt -o out.edg
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ts2vg<span class="w"> </span>./timeseries.txt<span class="w"> </span>-o<span class="w"> </span>out.edg
 </pre></div>
 </div>
 <p>For more help and a list of options run:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ts2vg --help
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ts2vg<span class="w"> </span>--help
 </pre></div>
 </div>
 </div>
