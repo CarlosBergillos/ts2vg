@@ -8,16 +8,17 @@ on:
     paths:
       - docs/**
       - ts2vg/**
+  workflow_dispatch:
 
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Python 3.8
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.8'
 
@@ -32,7 +33,7 @@ jobs:
           make html
 
       - name: Publish documentation
-        uses: JamesIves/github-pages-deploy-action@4.1.4
+        uses: JamesIves/github-pages-deploy-action@4.4.1
         with:
           branch: gh-pages
           folder: docs/build/html
