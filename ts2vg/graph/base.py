@@ -3,22 +3,22 @@ from typing import Optional
 
 _DIRECTED_OPTIONS = {
     None: 0,
-    'left_to_right': 1,
-    'top_to_bottom': 2,
+    "left_to_right": 1,
+    "top_to_bottom": 2,
 }
 
 _WEIGHTED_OPTIONS = {
     None: 0,
-    'distance': 1,
-    'sq_distance': 2,
-    'v_distance': 3,
-    'abs_v_distance': 4,
-    'h_distance': 5,
-    'abs_h_distance': 6,
-    'slope': 7,
-    'abs_slope': 8,
-    'angle': 9,
-    'abs_angle': 10,
+    "distance": 1,
+    "sq_distance": 2,
+    "v_distance": 3,
+    "abs_v_distance": 4,
+    "h_distance": 5,
+    "abs_h_distance": 6,
+    "slope": 7,
+    "abs_slope": 8,
+    "angle": 9,
+    "abs_angle": 10,
 }
 
 
@@ -32,7 +32,7 @@ class NotBuiltError(Exception):
 class BaseVG:
     """
     Abstract class for a visibility graph (VG).
-    
+
     .. caution::
         Should not be used directly, use one of the subclasses instead,
         e.g :class:`ts2vg.NaturalVG` or :class:`ts2vg.HorizontalVG`.
@@ -40,10 +40,11 @@ class BaseVG:
     Args:
         ts (list of values, or 1d numpy array): Time series data to use as input for the visibility graph.
     """
+
     def __init__(self, *, directed: Optional[str] = None, weighted: Optional[str] = None):
         self.ts = None
         """1D array of the time series. ``None`` if the graph has not been built yet."""
-    
+
         self.xs = None
         """1D array of the X coordinates of the time series. ``None`` if the graph has not been built yet."""
 
@@ -54,14 +55,18 @@ class BaseVG:
         self._degrees_out = None
 
         if directed not in _DIRECTED_OPTIONS:
-            raise ValueError(f"Invalid 'directed' parameter: {directed}. Must be one of {list(_DIRECTED_OPTIONS.keys())}")
+            raise ValueError(
+                f"Invalid 'directed' parameter: {directed}. Must be one of {list(_DIRECTED_OPTIONS.keys())}"
+            )
 
         self.directed = directed
         """`str` indicating the strategy used for the edge directions (same as passed to the constructor). ``None`` if the graph is undirected."""
         self._directed = _DIRECTED_OPTIONS[directed]
 
         if weighted not in _WEIGHTED_OPTIONS:
-            raise ValueError(f"Invalid 'weighted' parameter: {weighted}. Must be one of {list(_WEIGHTED_OPTIONS.keys())}.")
+            raise ValueError(
+                f"Invalid 'weighted' parameter: {weighted}. Must be one of {list(_WEIGHTED_OPTIONS.keys())}."
+            )
 
         self.weighted = weighted
         """`str` indicating the strategy used for the edge weights (same as passed to the constructor). ``None`` if the graph is unweighted."""
@@ -85,7 +90,7 @@ class BaseVG:
             Length of ``xs`` must match length of ``ts``.
 
             If not provided, ``[0, 1, 2...]`` will be used.
-        
+
         only_degrees : bool
             If ``True`` only compute the graph degrees, otherwise compute the whole graph.
             Default ``False``.
@@ -118,7 +123,7 @@ class BaseVG:
 
         self._edges, self._degrees_in, self._degrees_out = self._compute_graph(only_degrees)
         self._degrees = self._degrees_in + self._degrees_out
-        
+
         if only_degrees:  # `_compute_graph` doesn't return valid edges when only_degrees=True
             self._edges = None
 
@@ -172,7 +177,7 @@ class BaseVG:
 
     @property
     def _edges_array(self):
-        arr = np.asarray(self._edges, dtype='int64')  # could be 'uint64' but then it breaks np.bincount
+        arr = np.asarray(self._edges, dtype="int64")  # could be 'uint64' but then it breaks np.bincount
 
         if self.is_weighted:
             return arr[:, :2]
@@ -188,11 +193,11 @@ class BaseVG:
         ``None`` if the graph is unweighted.
         """
         self._validate_is_built()
-        
+
         if self.weighted is None:
             return None
-        
-        return np.fromiter((w for (_, _, w) in self.edges), dtype='float64', count=self.n_edges)
+
+        return np.fromiter((w for (_, _, w) in self.edges), dtype="float64", count=self.n_edges)
 
     @property
     def degrees(self):
@@ -248,7 +253,7 @@ class BaseVG:
 
         return ks, ps
 
-    def adjacency_matrix(self, triangle='both', use_weights=False, no_weight_value=np.nan):
+    def adjacency_matrix(self, triangle="both", use_weights=False, no_weight_value=np.nan):
         """
         Adjacency matrix of the graph.
 
@@ -269,10 +274,10 @@ class BaseVG:
 
             Default ``False``.
 
-        no_weight_value : float 
+        no_weight_value : float
             The default value used in the matrix for the cases where the nodes are not connected.
             Only applicable for weighted graphs and when using ``use_weights=True``.
-            
+
             Default ``np.nan``.
 
         Returns
@@ -281,7 +286,7 @@ class BaseVG:
             Adjacency matrix of the graph.
 
         """
-        if triangle not in ['lower', 'upper', 'both']:
+        if triangle not in ["lower", "upper", "both"]:
             raise ValueError(f"'triangle' must be one of 'lower', 'upper', 'both'. Got '{triangle}'.")
 
         if use_weights and not self.is_weighted:
@@ -291,50 +296,46 @@ class BaseVG:
         w = self.weights
 
         if self.is_weighted and use_weights:
-            m = np.full((self.n_vertices, self.n_vertices), fill_value=no_weight_value, dtype='float64')
+            m = np.full((self.n_vertices, self.n_vertices), fill_value=no_weight_value, dtype="float64")
             if self.is_directed:
                 m[e[:, 0], e[:, 1]] = w
             else:
-                if triangle == 'both' or triangle == 'upper':
+                if triangle == "both" or triangle == "upper":
                     m[e[:, 0], e[:, 1]] = w
-                
-                if triangle == 'both' or triangle == 'lower':
+
+                if triangle == "both" or triangle == "lower":
                     m[e[:, 1], e[:, 0]] = w
         else:
-            m = np.zeros((self.n_vertices, self.n_vertices), dtype='uint8')
+            m = np.zeros((self.n_vertices, self.n_vertices), dtype="uint8")
             if self.is_directed:
                 m[e[:, 0], e[:, 1]] = 1
             else:
-                if triangle == 'both' or triangle == 'upper':
+                if triangle == "both" or triangle == "upper":
                     m[e[:, 0], e[:, 1]] = 1
-                
-                if triangle == 'both' or triangle == 'lower':
+
+                if triangle == "both" or triangle == "lower":
                     m[e[:, 1], e[:, 0]] = 1
-        
+
         return m
 
     def as_igraph(self):
         """
         Return an `igraph <https://igraph.org/python/>`_ graph object corresponding to this graph.
-        
+
         The ``igraph`` package is required.
         """
         self._validate_is_built()
 
         from igraph import Graph
 
-        g = Graph.TupleList(
-            self.edges,
-            edge_attrs='weight' if self.is_weighted else None,
-            directed=self.is_directed
-        )
+        g = Graph.TupleList(self.edges, edge_attrs="weight" if self.is_weighted else None, directed=self.is_directed)
 
         return g
 
     def as_networkx(self):
         """
         Return a `NetworkX <https://networkx.github.io/>`_ graph object corresponding to this graph.
-        
+
         The ``networkx`` package is required.
         """
         self._validate_is_built()
@@ -356,7 +357,7 @@ class BaseVG:
     def as_snap(self):
         """
         Return a `SNAP <https://snap.stanford.edu/snappy/>`_ graph object corresponding to this graph.
-        
+
         The ``snap`` package is required.
         """
         self._validate_is_built()
