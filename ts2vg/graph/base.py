@@ -41,7 +41,14 @@ class BaseVG:
         ts (list of values, or 1d numpy array): Time series data to use as input for the visibility graph.
     """
 
-    def __init__(self, *, directed: Optional[str] = None, weighted: Optional[str] = None):
+    def __init__(
+        self,
+        *,
+        directed: Optional[str] = None,
+        weighted: Optional[str] = None,
+        min_weight: Optional[float] = None,
+        max_weight: Optional[float] = None,
+    ):
         self.ts = None
         """1D array of the time series. ``None`` if the graph has not been built yet."""
 
@@ -71,6 +78,16 @@ class BaseVG:
         self.weighted = weighted
         """`str` indicating the strategy used for the edge weights (same as passed to the constructor). ``None`` if the graph is unweighted."""
         self._weighted = _WEIGHTED_OPTIONS[weighted]
+
+        if weighted is None and min_weight is not None:
+            raise ValueError("'min_weight' can only be used in weighted graphs.")
+
+        self.min_weight = min_weight
+
+        if weighted is None and max_weight is not None:
+            raise ValueError("'max_weight' can only be used in weighted graphs.")
+
+        self.max_weight = max_weight
 
     def _validate_is_built(self):
         if self._edges is None:
@@ -397,3 +414,6 @@ class BaseVG:
             A string containing the short summary.
         """
         raise NotImplementedError
+
+    # def _compute_graph(self):
+    #     raise NotImplementedError()
