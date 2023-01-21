@@ -35,13 +35,11 @@ The Python |ts2vg| package provides high-performance algorithm
 implementations to build visibility graphs from time series data.
 
 The visibility graphs and some of their properties (e.g. degree
-distributions) are computed quickly and efficiently, even for time
-series with millions of observations thanks to the use of `NumPy`_ and
-a custom C backend (via `Cython`_) developed for the
-visibility algorithms.
+distributions) are computed quickly and efficiently even for time
+series with millions of observations.
 
 The visibility graphs are provided according to the
-mathematical definitions described in:
+mathematical definitions presented in:
 
 -  Lucas Lacasa et al., "*From time series to complex networks: The visibility graph*", 2008.
 -  Lucas Lacasa et al., "*Horizontal visibility graphs: exact results for random time series*", 2009.
@@ -65,6 +63,17 @@ and can be easily installed by running:
 For other advanced uses, to build |ts2vg| from source Cython is
 required.
 
+.. Graph types
+.. -----------
+
+.. - Natural Visibility Graph [``ts2vg.NaturalVG``]
+..    Weighted directed variations
+.. - Horizontal Visibility Graph [``ts2vg.HorizontalVG``]
+..    Weighted directed variations
+.. - Parametric Natural Visibility Graph [*planned, not implemented yet*]
+
+.. - Dual Perspective Visibility Graph [*planned, not implemented yet*]
+
 
 Basic usage
 -----------
@@ -72,7 +81,7 @@ Basic usage
 Visibility graph
 ~~~~~~~~~~~~~~~~
 
-Building visibility graphs from time series is very simple:
+To build a visibility graphs:
 
 .. code:: python
 
@@ -85,12 +94,16 @@ Building visibility graphs from time series is very simple:
 
    edges = g.edges
 
-The time series passed can be a list, a tuple, or a ``numpy`` 1D array.
+The time series passed (`ts`) can be any one-dimensional iterable, such as a list or a ``numpy`` 1D array.
+
+By default, the input observations are assumed to be equally spaced in time.
+Alternatively, a second 1D iterable (`xs`) can be provided for unevenly spaced time series.
+
 
 Horizontal visibility graph
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We can also obtain horizontal visibility graphs in a very similar way:
+Horizontal visibility graphs can be obtained in a very similar way:
 
 .. code:: python
 
@@ -102,6 +115,7 @@ We can also obtain horizontal visibility graphs in a very similar way:
    g.build(ts)
 
    edges = g.edges
+
 
 Degree distribution
 ~~~~~~~~~~~~~~~~~~~
@@ -117,16 +131,25 @@ This will be more efficient in time and memory than computing the whole graph.
 
    ks, ps = g.degree_distribution
 
+
 Directed visibility graph
 ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Directed graphs can be obtained by using the `directed` parameter.
+See the reference documentation for the different available options.
 
 .. code:: python
 
    g = NaturalVG(directed='left_to_right')
    g.build(ts)
 
+
 Weighted visibility graph
 ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Weighted graphs can be obtained by using the `weighted` parameter.
+See the reference documentation for the different available options.
+
 .. code:: python
 
    g = NaturalVG(weighted='distance')
