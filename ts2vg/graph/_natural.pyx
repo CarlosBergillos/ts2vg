@@ -7,7 +7,7 @@ from libc.math cimport INFINITY
 
 from ts2vg.utils.pairqueue cimport PairQueue
 from ts2vg.graph.base import _DIRECTED_OPTIONS
-from ts2vg.graph._base cimport _argmax, _edge_tuple
+from ts2vg.graph._base cimport _argmax, _edge_tuple, _get_weight_func, weight_func_type
 
 ctypedef unsigned int uint
 
@@ -25,12 +25,15 @@ def _compute_graph(np.float64_t[:] ts, np.float64_t[:] xs, uint directed, uint w
     """
     cdef uint n = ts.size
     edges = []
+    edge = None
     cdef np.uint32_t[:] degrees_in = np.zeros(n, dtype=np.uint32)
     cdef np.uint32_t[:] degrees_out = np.zeros(n, dtype=np.uint32)
 
     cdef uint left, right, i, d
     cdef double x_a, x_b, y_a, y_b
     cdef double slope, max_slope
+
+    cdef weight_func_type weight_func = _get_weight_func(weighted)
 
     cdef PairQueue queue = PairQueue()
     queue.push((0, n))
@@ -56,14 +59,16 @@ def _compute_graph(np.float64_t[:] ts, np.float64_t[:] xs, uint directed, uint w
                         degrees_in[i-d] += 1
 
                         if not only_degrees:
-                            edges.append(_edge_tuple(i, i-d, x_a, x_b, y_a, y_b, -slope, weighted))
+                            edge = _edge_tuple(i, i-d, x_a, x_b, y_a, y_b, -slope, weight_func)
+                            edges.append(edge)
 
                     else:  # left_to_right
                         degrees_out[i-d] += 1
                         degrees_in[i] += 1
 
                         if not only_degrees:
-                            edges.append(_edge_tuple(i-d, i, x_b, x_a, y_b, y_a, -slope, weighted))
+                            edge = _edge_tuple(i-d, i, x_b, x_a, y_b, y_a, -slope, weight_func)
+                            edges.append(edge)
 
                     max_slope = slope
 
@@ -80,7 +85,7 @@ def _compute_graph(np.float64_t[:] ts, np.float64_t[:] xs, uint directed, uint w
                     degrees_in[i+d] += 1
 
                     if not only_degrees:
-                        edges.append(_edge_tuple(i, i+d, x_a, x_b, y_a, y_b, slope, weighted))
+                        edges.append(_edge_tuple(i, i+d, x_a, x_b, y_a, y_b, slope, weight_func))
 
                     max_slope = slope
 
