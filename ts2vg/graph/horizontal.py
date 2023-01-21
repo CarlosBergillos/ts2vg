@@ -108,6 +108,18 @@ class HorizontalVG(BaseVG):
             Asymmetrical weight functions (like ``v_distance``, ``h_distance``, ``slope``,  ``angle``) depend on the edge direction.
             If the graph is undirected, a 'left to right' edge direction is used by default when computing the weights.
 
+    min_weight : float, None
+        If provided, only edges with a weight higher than ``min_weight`` (non inclusive) will be included in the final graph.
+        The graph must be weighted and the values used for weight will depend on the ``weighted`` parameter.
+        This acts a generalization of parametric visibility graphs.
+        Default ``None``.
+
+    max_weight : float, None
+        If provided, only edges with a weight lower than ``max_weight`` (non inclusive) will be included in the final graph.
+        The graph must be weighted and the values used for weight will depend on the ``weighted`` parameter.
+        This acts a generalization of parametric visibility graphs.
+        Default ``None``.
+
     References
     ----------
         - Lucas Lacasa et al., "*Horizontal visibility graphs: exact results for random time series*", 2009.
