@@ -1,7 +1,18 @@
 Changelog
 =========
 
-**1.0** 
+**1.1.0** 
+---------
+
+*21-01-2023*
+
+Highlights:
+
++ Add Parametric Visibility Graph capabilities via ``min_weight`` and ``max_weight``.
++ General clean-up and refactor of some parts of the code.
+
+
+**1.0.0** 
 ---------
 
 *20-08-2021*
