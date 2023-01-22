@@ -19,6 +19,11 @@ cdef uint _WEIGHTED_ABS_SLOPE = _WEIGHTED_OPTIONS['abs_slope']
 cdef uint _WEIGHTED_ANGLE = _WEIGHTED_OPTIONS['angle']
 cdef uint _WEIGHTED_ABS_ANGLE = _WEIGHTED_OPTIONS['abs_angle']
 
+
+cdef inline bint _greater(double a, double b, double tolerance):
+    return (a - b) > tolerance
+
+
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef inline uint _argmax(np.float64_t[:] a, uint left, uint right):
