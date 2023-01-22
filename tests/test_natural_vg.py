@@ -307,8 +307,62 @@ def test_top_to_bottom_abs_angle(sample_ts):
     assert sorted(out_got) == sorted(out_truth)
 
 
-def test_adjacency_matrix(sample_ts):
+def test_adjacency_matrix_upper(sample_ts):
     out_got = ts2vg.NaturalVG().build(sample_ts).adjacency_matrix(triangle="upper")
+
+    out_truth = [
+        [0, 1, 0, 0],
+        [0, 0, 1, 1],
+        [0, 0, 0, 1],
+        [0, 0, 0, 0],
+    ]
+
+    np.testing.assert_array_equal(out_got, out_truth)
+
+
+def test_adjacency_matrix_lower(sample_ts):
+    out_got = ts2vg.NaturalVG().build(sample_ts).adjacency_matrix(triangle="lower")
+
+    out_truth = [
+        [0, 0, 0, 0],
+        [1, 0, 0, 0],
+        [0, 1, 0, 0],
+        [0, 1, 1, 0],
+    ]
+
+    np.testing.assert_array_equal(out_got, out_truth)
+
+
+def test_adjacency_matrix_both(sample_ts):
+    out_got = ts2vg.NaturalVG().build(sample_ts).adjacency_matrix(triangle="both")
+
+    out_truth = [
+        [0, 1, 0, 0],
+        [1, 0, 1, 1],
+        [0, 1, 0, 1],
+        [0, 1, 1, 0],
+    ]
+
+    np.testing.assert_array_equal(out_got, out_truth)
+
+
+def test_adjacency_matrix_directed_upper(sample_ts):
+    ts = ts2vg.NaturalVG(directed="left_to_right").build(sample_ts)
+
+    with pytest.raises(ValueError):
+        ts.adjacency_matrix(triangle="upper")
+
+
+def test_adjacency_matrix_directed_lower(sample_ts):
+    ts = ts2vg.NaturalVG(directed="left_to_right").build(sample_ts)
+
+    with pytest.raises(ValueError):
+        ts.adjacency_matrix(triangle="lower")
+
+
+def test_adjacency_matrix_directed_both(sample_ts):
+    ts = ts2vg.NaturalVG(directed="left_to_right").build(sample_ts)
+    out_got = ts.adjacency_matrix(triangle="both")
 
     out_truth = [
         [0, 1, 0, 0],
