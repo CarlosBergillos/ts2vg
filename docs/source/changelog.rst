@@ -8,7 +8,7 @@ Changelog
 
 Highlights:
 
-+ Add Parametric Visibility Graph capabilities via ``min_weight`` and ``max_weight``.
++ Added Parametric Visibility Graph capabilities via ``min_weight`` and ``max_weight``.
 + General clean-up and refactor of some parts of the code.
 
 
