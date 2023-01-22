@@ -23,7 +23,7 @@ class HorizontalVG(BaseVG):
             Edge directions go from top to bottom according to the series *y* axis.
 
             .. note::
-                If both endpoints of an edge have the same *y* value then the direction
+                If both endpoints of an edge have the exact same *y* value then the direction
                 is ambiguous and no consistent direction is guaranteed.
 
         Default ``None``.
