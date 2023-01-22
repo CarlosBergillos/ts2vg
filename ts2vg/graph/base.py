@@ -36,9 +36,6 @@ class BaseVG:
     .. caution::
         Should not be used directly, use one of the subclasses instead,
         e.g :class:`ts2vg.NaturalVG` or :class:`ts2vg.HorizontalVG`.
-
-    Args:
-        ts (list of values, or 1d numpy array): Time series data to use as input for the visibility graph.
     """
 
     def __init__(
