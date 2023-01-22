@@ -21,7 +21,7 @@ cdef uint _WEIGHTED_ABS_ANGLE = _WEIGHTED_OPTIONS['abs_angle']
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cdef uint _argmax(np.float64_t[:] a, uint left, uint right):
+cdef inline uint _argmax(np.float64_t[:] a, uint left, uint right):
     """Get the argmax of 'a', between indexes 'left' and 'right'."""
     cdef uint i
     cdef uint idx = left
