@@ -374,6 +374,13 @@ def test_adjacency_matrix_directed_both(sample_ts):
     np.testing.assert_array_equal(out_got, out_truth)
 
 
+def test_adjacency_matrix_directed_lower(sample_ts):
+    ts = ts2vg.NaturalVG(directed="left_to_right")
+
+    with pytest.raises(ts2vg.graph.base.NotBuiltError):
+        ts.adjacency_matrix()
+
+
 def test_degrees(sample_ts):
     out_got = ts2vg.NaturalVG().build(sample_ts).degrees
 
