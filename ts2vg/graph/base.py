@@ -303,6 +303,11 @@ class BaseVG:
             Adjacency matrix of the graph.
 
         """
+        self._validate_is_built()
+
+        if triangle != "both" and self.is_directed:
+            raise ValueError(f"'triangle' value '{triangle}' not valid for directed graphs.")
+
         if triangle not in ["lower", "upper", "both"]:
             raise ValueError(f"'triangle' must be one of 'lower', 'upper', 'both'. Got '{triangle}'.")
 

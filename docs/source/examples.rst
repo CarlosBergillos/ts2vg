@@ -49,8 +49,8 @@ and draws the graph with the help of `NetworkX <https://networkx.github.io/>`_.
    :alt: Example plot of a visibility graph
 
 
-Getting the adjacency matrix
-----------------------------
+Obtaining the adjacency matrix
+------------------------------
 
 This example shows how to obtain the adjacency matrix for the visibility graph of a time series.
 
@@ -78,8 +78,8 @@ See :meth:`adjacency_matrix() <ts2vg.NaturalVG.adjacency_matrix>` for more optio
        [0, 0, 0, 0, 1, 1, 1, 0]], dtype=uint8)
 
 
-Getting the degree distribution
--------------------------------
+Obtaining the degree distribution
+---------------------------------
 
 This example shows how to get the degree distribution for the visibility graph of a given time series.
 
@@ -128,8 +128,8 @@ and then compute and plot its degree distribution.
     :alt: Example degree distribution
 
 
-Directed graphs
----------------
+Building directed graphs
+------------------------
 
 This example illustrates different options for the ``directed`` parameter when building visibility graphs.
 
@@ -165,8 +165,8 @@ This example illustrates different options for the ``directed`` parameter when b
         :language: python
 
 
-Weighted graphs
----------------
+Building weighted graphs
+------------------------
 
 This example illustrates different options for the ``weighted`` parameter when building visibility graphs.
 
@@ -205,8 +205,8 @@ This example illustrates different options for the ``weighted`` parameter when b
         :language: python
 
 
-Horizontal visibility graphs
-----------------------------
+Building horizontal visibility graphs
+-------------------------------------
 
 This example illustrates different options for horizontal visiblity graphs.
 

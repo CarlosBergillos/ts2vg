@@ -319,7 +319,7 @@ def test_empty_ts(empty_ts):
 
 
 def test_flat_ts(flat_ts):
-    out_got = ts2vg.NaturalVG().build(flat_ts).edges
+    out_got = ts2vg.HorizontalVG().build(flat_ts).edges
 
     out_truth = [
         (0, 1),
@@ -362,4 +362,4 @@ def test_with_non_monotonic_increasing_xs_2(sample_ts):
     xs = [0.0, 0.0, 2.0, 3.0]
 
     with pytest.raises(ValueError):
-        ts2vg.NaturalVG().build(sample_ts, xs=xs)
+        ts2vg.HorizontalVG().build(sample_ts, xs=xs)
