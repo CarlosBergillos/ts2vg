@@ -32,11 +32,10 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="../_static/favicon-32x32.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Changelog" href="../changelog.html" />
+    <link rel="next" title="Graph options" href="graph_options.html" />
     <link rel="prev" title="ts2vg.NaturalVG" href="ts2vg.NaturalVG.html" />
  <script type="text/javascript">
     $(document).ready(function() {
@@ -148,6 +147,13 @@
   </a>
  </li>
 </ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="graph_options.html">
+   Graph options
+  </a>
+ </li>
+</ul>
 
   </div>
 </nav>
@@ -187,95 +193,28 @@
 <h1>ts2vg.HorizontalVG<a class="headerlink" href="#ts2vg-horizontalvg" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="ts2vg.HorizontalVG">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ts2vg.</span></code><code class="sig-name descname"><span class="pre">HorizontalVG</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/horizontal.py#L7-L170"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ts2vg.</span></code><code class="sig-name descname"><span class="pre">HorizontalVG</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/horizontal.py#L7-L87"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG" title="Permalink to this definition">¶</a></dt>
 <dd><p>Horizontal Visibility Graph.</p>
 <p>Transform a time series to a Horizontal Visibility Graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>directed</strong> (<em>str</em><em>, </em><em>None</em>) – <p>If <code class="docutils literal notranslate"><span class="pre">None</span></code> make an undirected graph, otherwise, a directed graph with one of the following
-options:</p>
-<dl>
-<dt><code class="docutils literal notranslate"><span class="pre">left_to_right</span></code> :</dt><dd><p>Edge directions go from left to right according to the series temporal <em>x</em> axis.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">top_to_bottom</span></code> :</dt><dd><p>Edge directions go from top to bottom according to the series <em>y</em> axis.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If both endpoints of an edge have the same <em>y</em> value then the direction
-is ambiguous and no consistent direction is guaranteed.</p>
-</div>
-</dd>
-</dl>
-<p>Default <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
-</p></li>
-<li><p><strong>weighted</strong> (<em>str</em><em>, </em><em>None</em>) – <p>If <code class="docutils literal notranslate"><span class="pre">None</span></code> make an unweighted graph, otherwise, a weighted graph with one of the following
-options (edges going from point <span class="math notranslate nohighlight">\((p_x, p_y)\)</span> to point <span class="math notranslate nohighlight">\((q_x, q_y)\)</span>):</p>
-<dl>
-<dt><code class="docutils literal notranslate"><span class="pre">distance</span></code> :</dt><dd><p>Euclidean distance.
-Calculated as:</p>
-<div class="math notranslate nohighlight">
-\[\sqrt{(q_x - p_x)^2 \cdot (q_y - p_y)^2}\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">sq_distance</span></code> :</dt><dd><p>Squared Euclidean distance (quicker to compute than regular Euclidean distance).
-Calculated as:</p>
-<div class="math notranslate nohighlight">
-\[(q_x - p_x)^2 \cdot (q_y - p_y)^2\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">v_distance</span></code> :</dt><dd><p>Vertical distance.
-Calculated as:</p>
-<div class="math notranslate nohighlight">
-\[q_y - p_y\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">abs_v_distance</span></code> :</dt><dd><p>Absolute vertical distance.
-Calculated as:</p>
-<div class="math notranslate nohighlight">
-\[\left| q_y - p_y \right|\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">h_distance</span></code>:</dt><dd><p>Horizontal distance.
-Calculated as:</p>
-<div class="math notranslate nohighlight">
-\[q_x - p_x\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">abs_h_distance</span></code>:</dt><dd><p>Absolute horizontal distance.
-Calculated as:</p>
-<div class="math notranslate nohighlight">
-\[\left| q_x - p_x \right|\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">slope</span></code> :</dt><dd><p>Slope, in the range (-∞, +∞).
-Calculated as:</p>
-<div class="math notranslate nohighlight">
-\[\frac{q_y - p_y}{q_x - p_x}\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">abs_slope</span></code> :</dt><dd><p>Absolute slope, in the range (0, +∞).
-Calculated as:</p>
-<div class="math notranslate nohighlight">
-\[\left| \frac{q_y - p_y}{q_x - p_x} \right|\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">angle</span></code> :</dt><dd><p>Slope angle in radians, in the range (-π/2, +π/2).
-Calculated as:</p>
-<div class="math notranslate nohighlight">
-\[\arctan \left( \frac{q_y - p_y}{q_x - p_x} \right)\]</div>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">abs_angle</span></code> :</dt><dd><p>Absolute slope angle in radians, in the range (0, +π/2).
-Calculated as:</p>
-<div class="math notranslate nohighlight">
-\[\arctan \left( \left| \frac{q_y - p_y}{q_x - p_x} \right| \right)\]</div>
-</dd>
-</dl>
-<p>Default <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Asymmetrical weight functions (like <code class="docutils literal notranslate"><span class="pre">v_distance</span></code>, <code class="docutils literal notranslate"><span class="pre">h_distance</span></code>, <code class="docutils literal notranslate"><span class="pre">slope</span></code>,  <code class="docutils literal notranslate"><span class="pre">angle</span></code>) depend on the edge direction.
-If the graph is undirected, a ‘left to right’ edge direction is used by default when computing the weights.</p>
-</div>
-</p></li>
+<li><p><strong>directed</strong> (<em>str</em><em>, </em><em>None</em>) – If <code class="docutils literal notranslate"><span class="pre">None</span></code> make an undirected graph, otherwise, a directed graph by using one of the following values:
+<code class="docutils literal notranslate"><span class="pre">left_to_right</span></code>, <code class="docutils literal notranslate"><span class="pre">top_to_bottom</span></code>.
+See <a class="reference internal" href="graph_options.html#directed-graphs"><span class="std std-ref">Directed graphs</span></a> for more information.
+Default <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>weighted</strong> (<em>str</em><em>, </em><em>None</em>) – If <code class="docutils literal notranslate"><span class="pre">None</span></code> make an unweighted graph, otherwise, a weighted graph by using one of the following values:
+<code class="docutils literal notranslate"><span class="pre">distance</span></code>, <code class="docutils literal notranslate"><span class="pre">sq_distance</span></code>, <code class="docutils literal notranslate"><span class="pre">v_distance</span></code>, <code class="docutils literal notranslate"><span class="pre">abs_v_distance</span></code>, <code class="docutils literal notranslate"><span class="pre">h_distance</span></code>, <code class="docutils literal notranslate"><span class="pre">abs_h_distance</span></code>,
+<code class="docutils literal notranslate"><span class="pre">slope</span></code>, <code class="docutils literal notranslate"><span class="pre">abs_slope</span></code>, <code class="docutils literal notranslate"><span class="pre">angle</span></code>, <code class="docutils literal notranslate"><span class="pre">abs_angle</span></code>.
+See <a class="reference internal" href="graph_options.html#weighted-graphs"><span class="std std-ref">Weighted graphs</span></a> for more information.
+Default <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 <li><p><strong>min_weight</strong> (<em>float</em><em>, </em><em>None</em>) – If provided, only edges with a weight higher than <code class="docutils literal notranslate"><span class="pre">min_weight</span></code> (non inclusive) will be included in the final graph.
 The graph must be weighted and the values used for weight will depend on the <code class="docutils literal notranslate"><span class="pre">weighted</span></code> parameter.
-This acts a generalization of parametric visibility graphs.
+This acts as a generalization of parametric visibility graphs.
 Default <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 <li><p><strong>max_weight</strong> (<em>float</em><em>, </em><em>None</em>) – If provided, only edges with a weight lower than <code class="docutils literal notranslate"><span class="pre">max_weight</span></code> (non inclusive) will be included in the final graph.
 The graph must be weighted and the values used for weight will depend on the <code class="docutils literal notranslate"><span class="pre">weighted</span></code> parameter.
-This acts a generalization of parametric visibility graphs.
+This acts as a generalization of parametric visibility graphs.
 Default <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 </ul>
 </dd>
@@ -451,7 +390,7 @@ where each integer corresponds to a node id (assigned sequentially in the same o
 <p class="rubric">Method details</p>
 <dl class="py method">
 <dt id="ts2vg.HorizontalVG.adjacency_matrix">
-<code class="sig-name descname"><span class="pre">adjacency_matrix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">triangle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'both'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_weight_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">nan</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L273-L336"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.adjacency_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">adjacency_matrix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">triangle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'both'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_weight_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">nan</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L273-L341"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.adjacency_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adjacency matrix of the graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -481,21 +420,21 @@ Only applicable for weighted graphs and when using <code class="docutils literal
 
 <dl class="py method">
 <dt id="ts2vg.HorizontalVG.as_igraph">
-<code class="sig-name descname"><span class="pre">as_igraph</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L338-L350"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_igraph" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">as_igraph</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L343-L355"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_igraph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an <a class="reference external" href="https://igraph.org/python/">igraph</a> graph object corresponding to this graph.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">igraph</span></code> package is required.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ts2vg.HorizontalVG.as_networkx">
-<code class="sig-name descname"><span class="pre">as_networkx</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L352-L372"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_networkx" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">as_networkx</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L357-L377"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_networkx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a <a class="reference external" href="https://networkx.github.io/">NetworkX</a> graph object corresponding to this graph.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">networkx</span></code> package is required.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ts2vg.HorizontalVG.as_snap">
-<code class="sig-name descname"><span class="pre">as_snap</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L374-L398"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_snap" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">as_snap</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L379-L403"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_snap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a <a class="reference external" href="https://snap.stanford.edu/snappy/">SNAP</a> graph object corresponding to this graph.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">snap</span></code> package is required.</p>
 </dd></dl>
@@ -524,13 +463,13 @@ Default <code class="docutils literal notranslate"><span class="pre">False</span
 
 <dl class="py method">
 <dt id="ts2vg.HorizontalVG.node_positions">
-<code class="sig-name descname"><span class="pre">node_positions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L400-L405"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.node_positions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">node_positions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L405-L410"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.node_positions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary with nodes as keys and positions <em>(x, y)</em> as values.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ts2vg.HorizontalVG.summary">
-<code class="sig-name descname"><span class="pre">summary</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/horizontal.py#L157-L170"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.summary" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">summary</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/horizontal.py#L74-L87"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.summary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Short text summary describing the graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>

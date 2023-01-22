@@ -160,28 +160,28 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#getting-the-adjacency-matrix">
-   Getting the adjacency matrix
+  <a class="reference internal nav-link" href="#obtaining-the-adjacency-matrix">
+   Obtaining the adjacency matrix
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#getting-the-degree-distribution">
-   Getting the degree distribution
+  <a class="reference internal nav-link" href="#obtaining-the-degree-distribution">
+   Obtaining the degree distribution
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#directed-graphs">
-   Directed graphs
+  <a class="reference internal nav-link" href="#building-directed-graphs">
+   Building directed graphs
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#weighted-graphs">
-   Weighted graphs
+  <a class="reference internal nav-link" href="#building-weighted-graphs">
+   Building weighted graphs
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#horizontal-visibility-graphs">
-   Horizontal visibility graphs
+  <a class="reference internal nav-link" href="#building-horizontal-visibility-graphs">
+   Building horizontal visibility graphs
   </a>
  </li>
 </ul>
@@ -251,8 +251,8 @@ and draws the graph with the help of <a class="reference external" href="https:/
 <a class="reference internal image-reference" href="_images/example_process.png"><img alt="Example plot of a visibility graph" src="_images/example_process.png" style="width: 100%;" /></a>
 </div>
 </div>
-<div class="section" id="getting-the-adjacency-matrix">
-<h2>Getting the adjacency matrix<a class="headerlink" href="#getting-the-adjacency-matrix" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="obtaining-the-adjacency-matrix">
+<h2>Obtaining the adjacency matrix<a class="headerlink" href="#obtaining-the-adjacency-matrix" title="Permalink to this headline">¶</a></h2>
 <p>This example shows how to obtain the adjacency matrix for the visibility graph of a time series.</p>
 <p>See <a class="reference internal" href="api/ts2vg.NaturalVG.html#ts2vg.NaturalVG.adjacency_matrix" title="ts2vg.NaturalVG.adjacency_matrix"><code class="xref py py-meth docutils literal notranslate"><span class="pre">adjacency_matrix()</span></code></a> for more options.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">NaturalVG</span>
@@ -275,8 +275,8 @@ and draws the graph with the help of <a class="reference external" href="https:/
 </pre></div>
 </div>
 </div>
-<div class="section" id="getting-the-degree-distribution">
-<h2>Getting the degree distribution<a class="headerlink" href="#getting-the-degree-distribution" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="obtaining-the-degree-distribution">
+<h2>Obtaining the degree distribution<a class="headerlink" href="#obtaining-the-degree-distribution" title="Permalink to this headline">¶</a></h2>
 <p>This example shows how to get the degree distribution for the visibility graph of a given time series.</p>
 <p>To illustrate it, we generate a Brownian motion time series with 100.000 data points
 and then compute and plot its degree distribution.</p>
@@ -319,8 +319,8 @@ and then compute and plot its degree distribution.</p>
 <a class="reference internal image-reference" href="_images/example_degree_distribution.svg"><img alt="Example degree distribution" src="_images/example_degree_distribution.svg" width="100%" /></a>
 </div>
 </div>
-<div class="section" id="directed-graphs">
-<h2>Directed graphs<a class="headerlink" href="#directed-graphs" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="building-directed-graphs">
+<h2>Building directed graphs<a class="headerlink" href="#building-directed-graphs" title="Permalink to this headline">¶</a></h2>
 <p>This example illustrates different options for the <code class="docutils literal notranslate"><span class="pre">directed</span></code> parameter when building visibility graphs.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">NaturalVG</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -435,8 +435,8 @@ and then compute and plot its degree distribution.</p>
 </div></blockquote>
 </div>
 </div>
-<div class="section" id="weighted-graphs">
-<h2>Weighted graphs<a class="headerlink" href="#weighted-graphs" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="building-weighted-graphs">
+<h2>Building weighted graphs<a class="headerlink" href="#building-weighted-graphs" title="Permalink to this headline">¶</a></h2>
 <p>This example illustrates different options for the <code class="docutils literal notranslate"><span class="pre">weighted</span></code> parameter when building visibility graphs.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">NaturalVG</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -554,8 +554,8 @@ and then compute and plot its degree distribution.</p>
 </div></blockquote>
 </div>
 </div>
-<div class="section" id="horizontal-visibility-graphs">
-<h2>Horizontal visibility graphs<a class="headerlink" href="#horizontal-visibility-graphs" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="building-horizontal-visibility-graphs">
+<h2>Building horizontal visibility graphs<a class="headerlink" href="#building-horizontal-visibility-graphs" title="Permalink to this headline">¶</a></h2>
 <p>This example illustrates different options for horizontal visiblity graphs.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">HorizontalVG</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
