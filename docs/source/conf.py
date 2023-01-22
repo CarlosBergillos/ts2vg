@@ -34,6 +34,7 @@ extensions = [
     "sphinx.ext.mathjax",
     "sphinx.ext.linkcode",
     "sphinx.ext.autosummary",
+    "sphinx.ext.autosectionlabel",
 ]
 
 autoclass_content = "class"
