@@ -5,7 +5,7 @@ import pytest
 from pytest import approx
 
 import ts2vg
-from fixtures import empty_ts, flat_ts, sample_ts
+from fixtures import empty_ts, flat_ts, sample_ts, linear_ts_small, linear_ts_large, linear_ts_large_negative
 
 
 def test_dual_perspective_ttb():
@@ -226,3 +226,38 @@ def test_degrees(sample_ts):
     out_truth = [3, 3, 3, 3]
 
     np.testing.assert_array_equal(out_got, out_truth)
+
+
+def test_floating_point_linear(linear_ts_small):
+    out_got = ts2vg.NaturalVG(dual_perspective=True).build(linear_ts_small).edges
+
+    out_truth = [
+        (0, 1),
+        (1, 2),
+        (2, 3),
+        (3, 4),
+        (4, 5),
+        (5, 6),
+        (6, 7),
+        (7, 8),
+        (8, 9),
+        (9, 10),
+    ]
+
+    assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)
+
+
+def test_floating_point_linear_large(linear_ts_large):
+    out_got = ts2vg.NaturalVG(dual_perspective=True).build(linear_ts_large).n_edges
+
+    out_truth = len(linear_ts_large) - 1
+
+    assert out_got == out_truth
+
+
+def test_floating_point_linear_large_negative(linear_ts_large_negative):
+    out_got = ts2vg.NaturalVG(dual_perspective=True).build(linear_ts_large_negative).n_edges
+
+    out_truth = len(linear_ts_large_negative) - 1
+
+    assert out_got == out_truth
