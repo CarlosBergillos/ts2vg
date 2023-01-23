@@ -8,17 +8,61 @@ _DIRECTED_OPTIONS = {
 }
 
 _WEIGHTED_OPTIONS = {
-    None: 0,
-    "distance": 1,
-    "sq_distance": 2,
-    "v_distance": 3,
-    "abs_v_distance": 4,
-    "h_distance": 5,
-    "abs_h_distance": 6,
-    "slope": 7,
-    "abs_slope": 8,
-    "angle": 9,
-    "abs_angle": 10,
+    None: {
+        "code": 0,
+        "x_symmetric": True,
+        "y_symmetric": True,
+    },
+    "distance": {
+        "code": 1,
+        "x_symmetric": True,
+        "y_symmetric": True,
+    },
+    "sq_distance": {
+        "code": 2,
+        "x_symmetric": True,
+        "y_symmetric": True,
+    },
+    "v_distance": {
+        "code": 3,
+        "x_symmetric": True,
+        "y_symmetric": False,
+    },
+    "abs_v_distance": {
+        "code": 4,
+        "x_symmetric": True,
+        "y_symmetric": True,
+    },
+    "h_distance": {
+        "code": 5,
+        "x_symmetric": False,
+        "y_symmetric": True,
+    },
+    "abs_h_distance": {
+        "code": 6,
+        "x_symmetric": True,
+        "y_symmetric": True,
+    },
+    "slope": {
+        "code": 7,
+        "x_symmetric": False,
+        "y_symmetric": False,
+    },
+    "abs_slope": {
+        "code": 8,
+        "x_symmetric": True,
+        "y_symmetric": True,
+    },
+    "angle": {
+        "code": 9,
+        "x_symmetric": False,
+        "y_symmetric": False,
+    },
+    "abs_angle": {
+        "code": 10,
+        "x_symmetric": True,
+        "y_symmetric": True,
+    },
 }
 
 
@@ -45,6 +89,7 @@ class BaseVG:
         weighted: Optional[str] = None,
         min_weight: Optional[float] = None,
         max_weight: Optional[float] = None,
+        dual_perspective: bool = False,
     ):
         self.ts = None
         """1D array of the time series. ``None`` if the graph has not been built yet."""
@@ -74,7 +119,7 @@ class BaseVG:
 
         self.weighted = weighted
         """`str` indicating the strategy used for the edge weights (same as passed to the constructor). ``None`` if the graph is unweighted."""
-        self._weighted = _WEIGHTED_OPTIONS[weighted]
+        self._weighted = _WEIGHTED_OPTIONS[weighted]["code"]
 
         if weighted is None and min_weight is not None:
             raise ValueError("'min_weight' can only be used in weighted graphs.")
@@ -85,6 +130,22 @@ class BaseVG:
             raise ValueError("'max_weight' can only be used in weighted graphs.")
 
         self.max_weight = max_weight
+
+        if dual_perspective and directed == "top_to_bottom":
+            # Top-to-bottom is ambiguous in dual-perspective visibility graphs.
+            raise ValueError("'dual_perspective' is not allowed with 'directed=\"top_to_bottom\"'.")
+
+        # if dual_perspective and directed == "top_to_bottom":
+        #     # Y-asymmetrical weight strategies are ambiguous and pose problems for dual-perspective visibility graphs.
+        #     # If we assume that the y-direction used to calculate the weights is reflected along with the visibility calculation,
+        #     # then one same edge (of contiguous data points) can have two different weight values (e.g. slope can be positive in the original ts and negative in the reflected ts).
+        #     # If we assume that the original y-direction is conserved when calculating the weights in the reflected case,
+        #     # Therefore, we must use multigraphs, or, more easily, enforce that the weight of an edge must always be the same in the original and in the reflected case.
+
+        #     raise ValueError("'dual_perspective' is not allowed with 'directed=\"top_to_bottom\"'.")
+
+        self.dual_perspective = dual_perspective
+        """`bool` indicating whether the visibility graph is dual-perspective visibility graph."""
 
     def _validate_is_built(self):
         if self._edges is None:
@@ -113,6 +174,9 @@ class BaseVG:
         -------
             self
         """
+        if self.dual_perspective and only_degrees:
+            raise ValueError("'dual_perspective' is only allowed with 'only_degrees=False'.")
+
         self.ts = np.asarray(ts, dtype=np.float64)
 
         if self.ts.ndim != 1:
@@ -135,7 +199,33 @@ class BaseVG:
         if only_degrees and self.is_weighted:
             raise ValueError("Building with 'only_degrees' is only supported for unweighted graphs.")
 
-        self._edges, self._degrees_in, self._degrees_out = self._compute_graph(only_degrees)
+        self._edges, self._degrees_in, self._degrees_out = self._compute_graph(self.ts, self.xs, only_degrees)
+
+        if self.dual_perspective:
+            # compute vg of reflected ts
+            reflect_weight = self.is_weighted and not _WEIGHTED_OPTIONS[self.weighted]["y_symmetric"]
+
+            r_edges, r_degrees_in, r_degrees_out = self._compute_graph(
+                -self.ts,
+                self.xs,
+                only_degrees,
+                weight_mult=-1.0 if reflect_weight else 1.0,
+                exclude_contiguous=True,
+            )
+
+            # note that the only edges that can exist in both the original and the reflected visibility graphs are edges of contiguous nodes.
+            # if min_weight and max_weight are not defined, then all contiguous nodes are connected in both the original and reflected VGs.
+            # if min_weight or max_weight are defined, then the original and reflected VGs have the same subset of connected contiguous nodes
+            # because we are enforcing that an edge cannot have a different weight in the original and contiguous VG (to accomplish this,
+            # we multiply by -1.0 the weights in the reflected case if needed).
+            # therefore, by excluding edges of contiguous nodes in the reflected visibility graph we have:
+            #   - the edge list of the union of the two graphs is just the concatenation of the previous two edge lists.
+            #   - the degree sequence of the union of the two graphs is just the addition of the previous two degree sequences.
+
+            self._edges.extend(r_edges)
+            self._degrees_in += r_degrees_in
+            self._degrees_out += r_degrees_out
+
         self._degrees = self._degrees_in + self._degrees_out
 
         if only_degrees:  # `_compute_graph` doesn't return valid edges when only_degrees=True

@@ -7,17 +7,17 @@ from libc.math cimport fabs, atan, sqrt, isnan, NAN
 
 from ts2vg.graph.base import _WEIGHTED_OPTIONS
 
-cdef uint _UNWEIGHTED = _WEIGHTED_OPTIONS[None]
-cdef uint _WEIGHTED_DISTANCE = _WEIGHTED_OPTIONS['distance']
-cdef uint _WEIGHTED_SQ_DISTANCE = _WEIGHTED_OPTIONS['sq_distance']
-cdef uint _WEIGHTED_V_DISTANCE = _WEIGHTED_OPTIONS['v_distance']
-cdef uint _WEIGHTED_ABS_V_DISTANCE = _WEIGHTED_OPTIONS['abs_v_distance']
-cdef uint _WEIGHTED_H_DISTANCE = _WEIGHTED_OPTIONS['h_distance']
-cdef uint _WEIGHTED_ABS_H_DISTANCE = _WEIGHTED_OPTIONS['abs_h_distance']
-cdef uint _WEIGHTED_SLOPE = _WEIGHTED_OPTIONS['slope']
-cdef uint _WEIGHTED_ABS_SLOPE = _WEIGHTED_OPTIONS['abs_slope']
-cdef uint _WEIGHTED_ANGLE = _WEIGHTED_OPTIONS['angle']
-cdef uint _WEIGHTED_ABS_ANGLE = _WEIGHTED_OPTIONS['abs_angle']
+cdef uint _UNWEIGHTED = _WEIGHTED_OPTIONS[None]["code"]
+cdef uint _WEIGHTED_DISTANCE = _WEIGHTED_OPTIONS["distance"]["code"]
+cdef uint _WEIGHTED_SQ_DISTANCE = _WEIGHTED_OPTIONS["sq_distance"]["code"]
+cdef uint _WEIGHTED_V_DISTANCE = _WEIGHTED_OPTIONS["v_distance"]["code"]
+cdef uint _WEIGHTED_ABS_V_DISTANCE = _WEIGHTED_OPTIONS["abs_v_distance"]["code"]
+cdef uint _WEIGHTED_H_DISTANCE = _WEIGHTED_OPTIONS["h_distance"]["code"]
+cdef uint _WEIGHTED_ABS_H_DISTANCE = _WEIGHTED_OPTIONS["abs_h_distance"]["code"]
+cdef uint _WEIGHTED_SLOPE = _WEIGHTED_OPTIONS["slope"]["code"]
+cdef uint _WEIGHTED_ABS_SLOPE = _WEIGHTED_OPTIONS["abs_slope"]["code"]
+cdef uint _WEIGHTED_ANGLE = _WEIGHTED_OPTIONS["angle"]["code"]
+cdef uint _WEIGHTED_ABS_ANGLE = _WEIGHTED_OPTIONS["abs_angle"]["code"]
 
 
 cdef inline bint _greater(double a, double b, double tolerance):

@@ -1,5 +1,8 @@
 from typing import Optional
 
+import numpy as np
+import numpy.typing as npt
+
 from ts2vg.graph._natural import _compute_graph
 from ts2vg.graph.base import BaseVG
 
@@ -59,15 +62,24 @@ class NaturalVG(BaseVG):
     # def __init__(self, *args, **kwargs):
     #     super().__init__(*args, **kwargs)
 
-    def _compute_graph(self, only_degrees: bool):
+    def _compute_graph(
+        self,
+        ts: npt.NDArray[np.float64],
+        xs: npt.NDArray[np.float64],
+        only_degrees: bool,
+        weight_mult: float = 1.0,
+        exclude_contiguous: bool = False,
+    ):
         return _compute_graph(
-            self.ts,
-            self.xs,
+            ts,
+            xs,
             self._directed,
             self._weighted,
             only_degrees,
             self.min_weight if self.min_weight is not None else float("-inf"),
             self.max_weight if self.max_weight is not None else float("inf"),
+            weight_mult,
+            exclude_contiguous,
         )
 
     def summary(self):

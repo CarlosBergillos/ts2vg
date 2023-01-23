@@ -20,7 +20,17 @@ cdef uint _DIRECTED_TOP_TO_BOTTOM = _DIRECTED_OPTIONS['top_to_bottom']
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.cdivision(True)
-def _compute_graph(np.float64_t[:] ts, np.float64_t[:] xs, uint directed, uint weighted, bint only_degrees, double min_weight, double max_weight):
+def _compute_graph(
+        np.float64_t[:] ts,
+        np.float64_t[:] xs,
+        uint directed,
+        uint weighted,
+        bint only_degrees,
+        double min_weight = -INFINITY,
+        double max_weight = INFINITY,
+        double weight_mult = 1.0,
+        bint exclude_contiguous = False,
+    ):
     """
     Computes the visibility graph of a time series
     using a divide-and-conquer strategy.
@@ -40,7 +50,12 @@ def _compute_graph(np.float64_t[:] ts, np.float64_t[:] xs, uint directed, uint w
     queue.push((0, n))
 
     def add_edge(uint i1, uint i2, double x1, double x2, double y1, double y2, double slope):
+        cdef uint abs_diff = (i1 - i2) if (i1 > i2) else (i2 - i1)  # cannot use abs(diff) because diff can overflow since i1 and i2 are uint
+        if exclude_contiguous and abs_diff == 1:
+            return
+
         w = weight_func(x1, x2, y1, y2, slope)
+        w *= weight_mult
 
         if w <= min_weight or w >= max_weight:
             return
