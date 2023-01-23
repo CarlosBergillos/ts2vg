@@ -220,12 +220,19 @@ def test_dual_perspective_ltr_abs_angle(sample_ts):
     assert sorted(out_got) == sorted(out_truth)
 
 
+# TODO: test dual perspective with min_weight and max_weight
+# TODO: test horizontal dual perspective?
+
+
 def test_degrees(sample_ts):
     out_got = ts2vg.NaturalVG(dual_perspective=True).build(sample_ts).degrees
 
     out_truth = [3, 3, 3, 3]
 
     np.testing.assert_array_equal(out_got, out_truth)
+
+
+# TODO: add more degree tests
 
 
 def test_floating_point_linear(linear_ts_small):
