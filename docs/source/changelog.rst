@@ -1,6 +1,16 @@
 Changelog
 =========
 
+**1.1.1** 
+---------
+
+*23-01-2023*
+
+Highlights:
+
++ Add tolerance to Natural Visibility Graph slope comparisons to mitigate floating point errors.
+
+
 **1.1.0** 
 ---------
 

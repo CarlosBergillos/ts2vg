@@ -3,14 +3,16 @@
 cimport cython
 import numpy as np
 cimport numpy as np
-from libc.math cimport INFINITY
+from libc.math cimport fabs, INFINITY
 
 from ts2vg.utils.pairqueue cimport PairQueue
 from ts2vg.graph.base import _DIRECTED_OPTIONS
-from ts2vg.graph._base cimport _argmax, _get_weight_func, weight_func_type
+from ts2vg.graph._base cimport _greater, _argmax, _get_weight_func, weight_func_type
 
 ctypedef unsigned int uint
 
+cdef double ABS_TOL = 1e-14
+cdef double REL_TOL = 1e-14
 cdef uint _DIRECTED_LEFT_TO_RIGHT = _DIRECTED_OPTIONS['left_to_right']
 cdef uint _DIRECTED_TOP_TO_BOTTOM = _DIRECTED_OPTIONS['top_to_bottom']
 
@@ -67,8 +69,9 @@ def _compute_graph(np.float64_t[:] ts, np.float64_t[:] xs, uint directed, uint w
                 x_b = xs[i-d]
                 y_b = ts[i-d]
                 slope = (y_b-y_a) / -(x_b-x_a)  # note: x-axis reversed because sweeping from left to right
+                tol = max(ABS_TOL, REL_TOL * max(fabs(x_a), fabs(x_b), fabs(y_a), fabs(y_b)))
 
-                if slope > max_slope:
+                if _greater(slope, max_slope, tol):
                     if directed == _DIRECTED_TOP_TO_BOTTOM:
                         add_edge(i, i-d, x_a, x_b, y_a, y_b, -slope)
                     else:  # left_to_right
@@ -83,8 +86,9 @@ def _compute_graph(np.float64_t[:] ts, np.float64_t[:] xs, uint directed, uint w
                 x_b = xs[i+d]
                 y_b = ts[i+d]
                 slope = (y_b-y_a) / (x_b-x_a)
+                tol = max(ABS_TOL, REL_TOL * max(fabs(x_a), fabs(x_b), fabs(y_a), fabs(y_b)))
 
-                if slope > max_slope:
+                if _greater(slope, max_slope, tol):
                     # note, single case works for both top_to_bottom and left_to_right orders
                     add_edge(i, i+d, x_a, x_b, y_a, y_b, slope)
 
