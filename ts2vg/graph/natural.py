@@ -40,6 +40,13 @@ class NaturalVG(BaseVG):
         This acts as a generalization of parametric visibility graphs.
         Default ``None``.
 
+    dual_perspective : bool
+        If ``True``, build a dual-perspective visibility graph.
+        A dual-perspective visibility graph is the result of the union of the original visibility graph and the visibility graph
+        of the reflected time series (where all :math:`y_i` become :math:`-y_i`).
+        In weighted graphs the weights will be calculated using non-reflected coordinates in all the edges.
+        Default ``False``.
+
     References
     ----------
         - Lucas Lacasa et al., "*From time series to complex networks: The visibility graph*", 2008.
