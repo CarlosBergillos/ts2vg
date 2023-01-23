@@ -70,7 +70,7 @@ Supported graph types
 - Horizontal Visibility Graphs (``ts2vg.HorizontalVG``)
 - Weighted and Directed Visibility Graphs (via the ``weighted`` and ``directed`` parameters)
 - Parametric Visibility Graphs (via the ``min_weight`` and ``max_weight`` parameters)
-- Dual-Perspective Visibility Graph (via the ``dual_perspective`` parameter)
+- Dual-Perspective Visibility Graphs (via the ``dual_perspective`` parameter)
 
 
 Basic usage
