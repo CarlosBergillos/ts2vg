@@ -79,7 +79,7 @@ Basic usage
 Visibility graph
 ~~~~~~~~~~~~~~~~
 
-To build a visibility graphs:
+To build a visibility graph:
 
 .. code:: python
 
