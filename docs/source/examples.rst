@@ -4,16 +4,16 @@ Examples
 Computing and drawing visibility graphs
 ---------------------------------------
 
-This example builds the visibility graph for a generated Brownian motion time series
+This example builds the visibility graph for a randomly generated motion time series
 and draws the graph with the help of `NetworkX <https://networkx.github.io/>`_.
 
 .. literalinclude:: examples/basic.py
     :language: python
 
 
-.. figure:: images/example_process.png
+.. figure:: examples/basic.png
    :width: 100%
-   :alt: Example plot of a visibility graph
+   :alt: Example plots of a visibility graph
 
 
 Obtaining the adjacency matrix
@@ -45,15 +45,14 @@ Obtaining the degree distribution
 
 This example shows how to get the degree distribution for the visibility graph of a given time series.
 
-To illustrate it, we generate a Brownian motion time series with 100.000 data points
-and then compute and plot its degree distribution.
+Here, we generate a random time series with 100.000 data points and then compute and plot its degree distribution.
 
 
 .. literalinclude:: examples/degree_distribution.py
     :language: python
 
 
-.. figure:: images/example_degree_distribution.svg
+.. figure:: examples/degree_distribution.svg
     :width: 100%
     :alt: Example degree distribution
 
@@ -66,9 +65,10 @@ This example illustrates different options for the ``directed`` parameter when b
 
 .. literalinclude:: examples/directed.py
     :language: python
+    :start-after: # ~~
 
 
-.. figure:: images/example_directed.svg
+.. figure:: examples/directed.svg
    :width: 100%
    :alt: Example directed graphs
 
@@ -76,7 +76,7 @@ This example illustrates different options for the ``directed`` parameter when b
 .. admonition:: Code for :meth:`plot_graph_demo`
    :class: toggle
 
-    .. literalinclude:: misc/plot_graph_demo.py
+    .. literalinclude:: examples/plot_graph_demo.py
         :language: python
 
 
@@ -85,11 +85,12 @@ Building weighted graphs
 
 This example illustrates different options for the ``weighted`` parameter when building visibility graphs.
 
-.. literalinclude:: examples/directed.py
+.. literalinclude:: examples/weighted.py
     :language: python
+    :start-after: # ~~
 
 
-.. figure:: images/example_weighted.svg
+.. figure:: examples/weighted.svg
    :width: 100%
    :alt: Example weighted graphs
 
@@ -97,7 +98,7 @@ This example illustrates different options for the ``weighted`` parameter when b
 .. admonition:: Code for :meth:`plot_graph_demo`
    :class: toggle
 
-    .. literalinclude:: misc/plot_graph_demo.py
+    .. literalinclude:: examples/plot_graph_demo.py
         :language: python
 
 
@@ -109,9 +110,10 @@ Note that horizontal visibility graphs can also be directed and/or weighted.
 
 .. literalinclude:: examples/horizontal.py
     :language: python
+    :start-after: # ~~
 
 
-.. figure:: images/example_horizontal.svg
+.. figure:: examples/horizontal.svg
    :width: 100%
    :alt: Example horizontal visibility graphs
 
@@ -119,5 +121,26 @@ Note that horizontal visibility graphs can also be directed and/or weighted.
 .. admonition:: Code for :meth:`plot_graph_demo`
    :class: toggle
 
-    .. literalinclude:: misc/plot_graph_demo.py
+    .. literalinclude:: examples/plot_graph_demo.py
+        :language: python
+
+
+Partitioning time series via community detection
+------------------------------------------------
+
+Time series can be partitioned by applying community detection algorithms to their visibility graphs.
+
+.. literalinclude:: examples/partitioning.py
+    :language: python
+
+
+.. figure:: examples/partitioning.png
+   :width: 100%
+   :alt: Example partitioning of visibility graphs
+
+
+.. admonition:: Code for :meth:`plot_graph_demo`
+   :class: toggle
+
+    .. literalinclude:: examples/plot_graph_demo.py
         :language: python
