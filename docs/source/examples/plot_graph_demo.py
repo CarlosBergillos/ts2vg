@@ -57,10 +57,10 @@ def plot_graph_demo(
             ax.get_figure().colorbar(color_mappable, ax=ax, orientation="vertical", aspect=30, pad=0.05)
 
     for (n1, n2, *w) in g.edges:
-        if type(g) == NaturalVG:
+        if isinstance(g, NaturalVG):
             x1, y1 = g.xs[n1], g.ts[n1]
             x2, y2 = g.xs[n2], g.ts[n2]
-        elif type(g) == HorizontalVG:
+        elif isinstance(g, HorizontalVG):
             y = min(g.ts[n1], g.ts[n2])
 
             if n1 < n2:

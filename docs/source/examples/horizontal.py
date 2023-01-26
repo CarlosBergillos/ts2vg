@@ -1,3 +1,6 @@
+from plot_graph_demo import plot_graph_demo
+
+# ~~
 from ts2vg import HorizontalVG
 import matplotlib.pyplot as plt
 

@@ -1,3 +1,6 @@
+from plot_graph_demo import plot_graph_demo
+
+# ~~
 from ts2vg import NaturalVG
 import matplotlib.pyplot as plt
 

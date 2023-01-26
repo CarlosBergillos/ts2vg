@@ -2,7 +2,7 @@ from ts2vg import NaturalVG
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 1. Generate Brownian motion series
+# 1. Generate random time series (Brownian motion)
 rng = np.random.default_rng(0)
 ts = rng.standard_normal(size=100_000)
 ts = np.cumsum(ts)
