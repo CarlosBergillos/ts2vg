@@ -38,6 +38,13 @@ class NaturalVG(BaseVG):
         This acts as a generalization of parametric visibility graphs.
         Default ``None``.
 
+    penetrable_limit : int
+        If larger than 0, make a limited penetrable visibility graph (LPVG).
+        ``penetrable_limit`` indicates the maximum number of data points that are allowed to obstruct the visibility
+        between two nodes that will still be connected in the final graph.
+        Limited penetrable visibility graphs can be more robust to noise in the time series.
+        Default ``0`` (regular non-penetrable visibility graph).
+
     References
     ----------
         - Lucas Lacasa et al., "*From time series to complex networks: The visibility graph*", 2008.
