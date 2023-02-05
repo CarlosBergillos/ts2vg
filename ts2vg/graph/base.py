@@ -140,6 +140,14 @@ class BaseVG:
         if only_degrees and self.is_weighted:
             raise ValueError("Building with 'only_degrees' is only supported for unweighted graphs.")
 
+        if len(ts) == 0:
+            # empty time series results in an empty graph
+            self._edges = None if only_degrees else []
+            self._degrees_in = np.zeros(0, dtype=np.uint32)
+            self._degrees_out = np.zeros(0, dtype=np.uint32)
+            self._degrees = np.zeros(0, dtype=np.uint32)
+            return self
+
         self._edges, self._degrees_in, self._degrees_out = self._compute_graph(only_degrees)
         self._degrees = self._degrees_in + self._degrees_out
 
