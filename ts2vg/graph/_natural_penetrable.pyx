@@ -5,7 +5,6 @@ import numpy as np
 cimport numpy as np
 from libc.math cimport fabs, INFINITY
 
-from ts2vg.utils.pairqueue cimport PairQueue
 from ts2vg.graph.base import _DIRECTED_OPTIONS
 from ts2vg.graph._base cimport _greater, _argmax, _argmin, _get_weight_func, weight_func_type
 
