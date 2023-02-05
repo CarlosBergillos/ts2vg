@@ -57,6 +57,8 @@ class NaturalVG(BaseVG):
         edges = g.edges
     """
 
+    general_type_name = "Natural Visibility Graph"
+
     # def __init__(self, *args, **kwargs):
     #     super().__init__(*args, **kwargs)
 

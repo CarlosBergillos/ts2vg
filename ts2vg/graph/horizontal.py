@@ -57,6 +57,8 @@ class HorizontalVG(BaseVG):
 
     """
 
+    general_type_name = "Horizontal Visibility Graph"
+
     # def __init__(self, *args, **kwargs):
     #     super().__init__(*args, **kwargs)
 
