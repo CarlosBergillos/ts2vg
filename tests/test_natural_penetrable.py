@@ -5,7 +5,15 @@ import pytest
 from pytest import approx
 
 import ts2vg
-from fixtures import empty_ts, flat_ts, sample_ts, linear_ts_small, linear_ts_large, linear_ts_large_negative
+from fixtures import (
+    empty_ts,
+    flat_ts,
+    sample_ts,
+    sample_ts_2,
+    linear_ts_small,
+    linear_ts_large,
+    linear_ts_large_negative,
+)
 
 
 def test_negative_parametric(sample_ts):
@@ -37,6 +45,52 @@ def test_penetrable_1(sample_ts):
         (1, 2),
         (1, 3),
         (2, 3),
+    ]
+
+    assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)
+
+
+def test_penetrable_1_2(sample_ts_2):
+    vg = ts2vg.NaturalVG(penetrable_limit=1)
+    out_got = vg.build(sample_ts_2).edges
+
+    out_truth = [
+        (0, 1),
+        (0, 2),
+        (0, 3),
+        (0, 5),
+        (0, 6),
+        (0, 7),
+        (0, 8),
+        (1, 2),
+        (1, 3),
+        (1, 5),
+        (1, 6),
+        (1, 7),
+        (1, 8),
+        (2, 3),
+        (2, 4),
+        (2, 5),
+        (2, 6),
+        (2, 7),
+        (2, 8),
+        (3, 4),
+        (3, 5),
+        (3, 6),
+        (3, 7),
+        (3, 8),
+        (4, 5),
+        (4, 6),
+        (4, 7),
+        (4, 8),
+        (5, 6),
+        (5, 7),
+        (5, 8),
+        (6, 7),
+        (6, 8),
+        (7, 8),
+        (7, 9),
+        (8, 9),
     ]
 
     assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)
