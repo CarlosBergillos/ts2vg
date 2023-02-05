@@ -8,6 +8,11 @@ import ts2vg
 from fixtures import empty_ts, flat_ts, sample_ts, linear_ts_small, linear_ts_large, linear_ts_large_negative
 
 
+def test_negative_parametric(sample_ts):
+    with pytest.raises(ValueError):
+        ts2vg.NaturalVG(penetrable_limit=-1).build(sample_ts)
+
+
 def test_penetrable_0(sample_ts):
     vg = ts2vg.NaturalVG(penetrable_limit=0)
     out_got = vg.build(sample_ts).edges

@@ -91,8 +91,9 @@ class BaseVG:
 
         self.max_weight = max_weight
 
-        """TODO: Docstring."""
-        # assert penetrable_limit >= 0
+        if penetrable_limit < 0:
+            raise ValueError(f"'penetrable_limit' cannot be negative (got {penetrable_limit}).")
+
         self.penetrable_limit = penetrable_limit
 
     def _validate_is_built(self):
