@@ -20,7 +20,7 @@ cdef uint _DIRECTED_TOP_TO_BOTTOM = _DIRECTED_OPTIONS['top_to_bottom']
 @cython.cdivision(True)
 def _compute_graph(np.float64_t[:] ts, np.float64_t[:] xs, uint directed, uint weighted, bint only_degrees, double min_weight, double max_weight, uint penetrable_limit):
     """
-    Computes the horizontal limited penetrable visibility graph of a time series.
+    Computes the limited penetrable horizontal visibility graph of a time series.
     """
 
     # Algorithm implementation comments:
