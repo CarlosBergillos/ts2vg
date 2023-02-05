@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 
 ts = [6.0, 3.0, 1.8, 4.2, 6.0, 3.0, 1.8, 4.8]
 
+vg_default = NaturalVG().build(ts)
+
 penetrable_limit_options = [
     0,
     1,
@@ -18,10 +20,7 @@ fig, axs = plt.subplots(ncols=3, figsize=(12, 3.5))
 for penetrable_limit, ax in zip(penetrable_limit_options, axs):
     ax.set_title(f"penetrable_limit={penetrable_limit}")
 
-    # plot the complete penetrable graph in red
-    g = NaturalVG(penetrable_limit=penetrable_limit).build(ts)
-    plot_graph_demo(g, ax=ax, edge_color="#FF8080")
+    vg = NaturalVG(penetrable_limit=penetrable_limit).build(ts)
+    added_edges = set(vg.edges) - set(vg_default.edges)
 
-    # plot the default non-penetrable graph in gray on top
-    g_default = NaturalVG().build(ts)
-    plot_graph_demo(g_default, ax=ax, edge_color="#808080", plot_bars=False)
+    plot_graph_demo(vg, marked_edges=added_edges, ax=ax)

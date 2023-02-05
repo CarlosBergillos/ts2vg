@@ -6,14 +6,18 @@ def plot_graph_demo(
     vg,
     ax,
     edge_color=(0.25, 0.25, 0.25, 0.7),
-    plot_bars=True,
+    marked_edge_color=(1.0, 0.35, 0.35, 0.7),
+    marked_edges=None,
 ):
-
-    if plot_bars:
-        bars = ax.bar(vg.xs, vg.ts, color="#ccc", edgecolor="#000", width=0.3)
-        ax.set_xticks(vg.xs)
+    bars = ax.bar(vg.xs, vg.ts, color="#ccc", edgecolor="#000", width=0.3)
+    ax.set_xticks(vg.xs)
 
     for (n1, n2) in vg.edges:
+        if marked_edges is not None and (n1, n2) in marked_edges:
+            color = marked_edge_color
+        else:
+            color = edge_color
+
         x1, y1 = vg.xs[n1], vg.ts[n1]
         x2, y2 = vg.xs[n2], vg.ts[n2]
 
@@ -23,11 +27,17 @@ def plot_graph_demo(
             arrowstyle=ArrowStyle("-"),
             shrinkA=0,
             shrinkB=0,
-            color=edge_color,
+            color=color,
             linewidth=2,
         )
 
         ax.add_patch(arrow)
+
+
+# $$
+
+# ~~ plot_horizontal_graph_demo
+from matplotlib.patches import ArrowStyle, FancyArrowPatch
 
 
 # $$
