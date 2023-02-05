@@ -39,6 +39,22 @@ cdef inline uint _argmax(np.float64_t[:] a, uint left, uint right):
     return idx
 
 
+@cython.boundscheck(False)
+@cython.wraparound(False)
+cdef inline uint _argmin(np.float64_t[:] a, uint left, uint right):
+    """Get the argmin of 'a', between indexes 'left' and 'right'."""
+    cdef uint i
+    cdef uint idx = left
+    cdef double val = a[left]
+
+    for i in range(left+1, right):
+        if a[i] < val:
+            val = a[i]
+            idx = i
+    return idx
+
+
+
 cdef inline double _weight_0(double x_a, double x_b, double y_a, double y_b, double slope):
     return 0
 

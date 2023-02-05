@@ -1,6 +1,7 @@
 from typing import Optional
 
-from ts2vg.graph._natural import _compute_graph
+from ts2vg.graph._natural import _compute_graph as _compute_graph_dc
+from ts2vg.graph._natural_penetrable import _compute_graph as _compute_graph_pn
 from ts2vg.graph.base import BaseVG
 
 
@@ -60,15 +61,27 @@ class NaturalVG(BaseVG):
     #     super().__init__(*args, **kwargs)
 
     def _compute_graph(self, only_degrees: bool):
-        return _compute_graph(
-            self.ts,
-            self.xs,
-            self._directed,
-            self._weighted,
-            only_degrees,
-            self.min_weight if self.min_weight is not None else float("-inf"),
-            self.max_weight if self.max_weight is not None else float("inf"),
-        )
+        if self.penetrable_limit == 0:
+            return _compute_graph_dc(
+                self.ts,
+                self.xs,
+                self._directed,
+                self._weighted,
+                only_degrees,
+                self.min_weight if self.min_weight is not None else float("-inf"),
+                self.max_weight if self.max_weight is not None else float("inf"),
+            )
+        else:
+            return _compute_graph_pn(
+                self.ts,
+                self.xs,
+                self._directed,
+                self._weighted,
+                only_degrees,
+                self.min_weight if self.min_weight is not None else float("-inf"),
+                self.max_weight if self.max_weight is not None else float("inf"),
+                self.penetrable_limit,
+            )
 
     def summary(self):
         self._validate_is_built()

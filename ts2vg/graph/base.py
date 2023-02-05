@@ -45,6 +45,7 @@ class BaseVG:
         weighted: Optional[str] = None,
         min_weight: Optional[float] = None,
         max_weight: Optional[float] = None,
+        penetrable_limit: int = 0,
     ):
         self.ts = None
         """1D array of the time series. ``None`` if the graph has not been built yet."""
@@ -85,6 +86,10 @@ class BaseVG:
             raise ValueError("'max_weight' can only be used in weighted graphs.")
 
         self.max_weight = max_weight
+
+        """TODO: Docstring."""
+        # assert penetrable_limit >= 0
+        self.penetrable_limit = penetrable_limit
 
     def _validate_is_built(self):
         if self._edges is None:

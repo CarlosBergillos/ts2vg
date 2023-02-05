@@ -27,6 +27,11 @@ def main():
                   [f'ts2vg/graph/_horizontal.pyx'],
                   include_dirs=include_dirs,
                   define_macros=define_macros),
+
+        Extension('ts2vg.graph._natural_penetrable',
+                  [f'ts2vg/graph/_natural_penetrable.pyx'],
+                  include_dirs=include_dirs,
+                  define_macros=define_macros),
     ]
     # fmt: on
 
