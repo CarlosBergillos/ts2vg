@@ -39,7 +39,7 @@ class HorizontalVG(BaseVG):
         Default ``None``.
 
     penetrable_limit : int
-        If larger than 0, make a horizontal limited penetrable visibility graph (LPVG).
+        If larger than 0, make a limited penetrable horizontal visibility graph (LPHVG).
         ``penetrable_limit`` indicates the maximum number of data points that are allowed to obstruct the visibility
         between two nodes that will still be connected in the final graph.
         Limited penetrable visibility graphs can be more robust to noise in the time series.
