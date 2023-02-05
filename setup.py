@@ -6,8 +6,9 @@ from Cython.Build import cythonize
 
 def main():
     include_dirs = [get_np_include()]
-    define_macros = [('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')]
+    define_macros = [("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION")]
 
+    # fmt: off
     extensions = [
         Extension('ts2vg.utils.pairqueue',
                   [f'ts2vg/utils/pairqueue.pyx']),
@@ -27,10 +28,12 @@ def main():
                   include_dirs=include_dirs,
                   define_macros=define_macros),
     ]
-    
+    # fmt: on
+
     extensions = cythonize(extensions)
 
-    setup(ext_modules = extensions)
+    setup(ext_modules=extensions)
+
 
 if __name__ == "__main__":
     main()
