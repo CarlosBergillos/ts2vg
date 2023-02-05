@@ -13,6 +13,11 @@ def sample_ts():
 
 
 @pytest.fixture
+def sample_ts_2():
+    return [0.25, 0.15, 1.50, -0.10, -0.30, 0.0, 0.20, 1.20, 1.85, -0.35]
+
+
+@pytest.fixture
 def flat_ts():
     return [1.0, 1.0, 1.0, 1.0]
 
