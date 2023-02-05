@@ -48,15 +48,6 @@ def _compute_graph(np.float64_t[:] ts, np.float64_t[:] xs, uint directed, uint w
 
     cdef weight_func_type weight_func = _get_weight_func(weighted)
 
-    def new_threshold_slope(new_slope):
-        # drop the old smallest value in `max_slopes` and replace it with the new slope.
-        max_slopes[threshold_slope_idx] = new_slope
-
-        # new threshold slope is the new smallest value in `max_slopes`.
-        i_new_min = _argmin(max_slopes, 0, penetrable_limit+1)
-
-        return i_new_min, max_slopes[i_new_min]
-
     def add_edge(uint i1, uint i2, double x1, double x2, double y1, double y2, double slope):
         w = weight_func(x1, x2, y1, y2, slope)
 
@@ -91,6 +82,11 @@ def _compute_graph(np.float64_t[:] ts, np.float64_t[:] xs, uint directed, uint w
                 else:  # left_to_right
                     add_edge(i_a, i_b, x_a, x_b, y_a, y_b, slope)
 
-                threshold_slope_idx, threshold_slope = new_threshold_slope(slope)
+                # drop the old smallest value in `max_slopes` and replace it with the new slope.
+                max_slopes[threshold_slope_idx] = slope
+
+                # new threshold slope is the new smallest value in `max_slopes`.
+                threshold_slope_idx = _argmin(max_slopes, 0, penetrable_limit+1)
+                threshold_slope = max_slopes[threshold_slope_idx]
 
     return edges, np.asarray(degrees_in, dtype=np.uint32), np.asarray(degrees_out, dtype=np.uint32)
