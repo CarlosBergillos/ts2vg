@@ -69,18 +69,3 @@ class NaturalVG(BaseVG):
             self.min_weight if self.min_weight is not None else float("-inf"),
             self.max_weight if self.max_weight is not None else float("inf"),
         )
-
-    def summary(self):
-        self._validate_is_built()
-
-        txt = f"Natural visibility graph"
-        if self.is_directed and self.is_weighted:
-            txt += " (directed, weighted)"
-        elif self.is_directed:
-            txt += " (directed)"
-        elif self.is_weighted:
-            txt += " (weighted)"
-
-        txt += f" with {self.n_vertices} vertices and {self.n_edges} edges."
-
-        return txt
