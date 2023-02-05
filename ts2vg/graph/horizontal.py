@@ -1,6 +1,7 @@
 from typing import Optional
 
-from ts2vg.graph._horizontal import _compute_graph
+from ts2vg.graph._horizontal import _compute_graph as _compute_graph_dc
+from ts2vg.graph._horizontal_penetrable import _compute_graph as _compute_graph_pn
 from ts2vg.graph.base import BaseVG
 
 
@@ -37,6 +38,13 @@ class HorizontalVG(BaseVG):
         This acts as a generalization of parametric visibility graphs.
         Default ``None``.
 
+    penetrable_limit : int
+        If larger than 0, make a horizontal limited penetrable visibility graph (LPVG).
+        ``penetrable_limit`` indicates the maximum number of data points that are allowed to obstruct the visibility
+        between two nodes that will still be connected in the final graph.
+        Limited penetrable visibility graphs can be more robust to noise in the time series.
+        Default ``0`` (regular non-penetrable visibility graph).
+
     References
     ----------
         - Lucas Lacasa et al., "*Horizontal visibility graphs: exact results for random time series*", 2009.
@@ -63,15 +71,26 @@ class HorizontalVG(BaseVG):
     #     super().__init__(*args, **kwargs)
 
     def _compute_graph(self, only_degrees: bool):
-        if self.penetrable_limit > 0:
-            raise NotImplementedError
+        if self.penetrable_limit == 0:
+            return _compute_graph_dc(
+                self.ts,
+                self.xs,
+                self._directed,
+                self._weighted,
+                only_degrees,
+                self.min_weight if self.min_weight is not None else float("-inf"),
+                self.max_weight if self.max_weight is not None else float("inf"),
+            )
+        else:
+            return _compute_graph_pn(
+                self.ts,
+                self.xs,
+                self._directed,
+                self._weighted,
+                only_degrees,
+                self.min_weight if self.min_weight is not None else float("-inf"),
+                self.max_weight if self.max_weight is not None else float("inf"),
+                self.penetrable_limit,
+            )
 
-        return _compute_graph(
-            self.ts,
-            self.xs,
-            self._directed,
-            self._weighted,
-            only_degrees,
-            self.min_weight if self.min_weight is not None else float("-inf"),
-            self.max_weight if self.max_weight is not None else float("inf"),
-        )
+        return
