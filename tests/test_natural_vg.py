@@ -397,7 +397,7 @@ def test_degrees_in(sample_ts):
     np.testing.assert_array_equal(out_got, out_truth)
 
 
-def test_degrees_out_ltr(sample_ts):
+def test_degrees_out(sample_ts):
     out_got = ts2vg.NaturalVG().build(sample_ts).degrees_out
 
     out_truth = [1, 2, 1, 0]
