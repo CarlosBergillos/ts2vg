@@ -6,6 +6,7 @@ directed_filepath = Path("directed.svg")
 weighted_filepath = Path("weighted.svg")
 horizontal_filepath = Path("horizontal.svg")
 partitioning_filepath = Path("partitioning.png")
+penetrable_filepath = Path("penetrable.svg")
 
 if not basic_filepath.exists():
     from basic import ax1, ax2, fig
@@ -52,3 +53,10 @@ if not partitioning_filepath.exists():
     ax2.margins(x=0, y=0)
     fig.tight_layout(w_pad=3)
     fig.savefig(partitioning_filepath, facecolor=(0, 0, 0, 0), bbox_inches="tight")
+
+
+if not penetrable_filepath.exists():
+    from penetrable import fig
+
+    fig.tight_layout(w_pad=2)
+    fig.savefig(penetrable_filepath, facecolor=(0, 0, 0, 0), bbox_inches="tight")
