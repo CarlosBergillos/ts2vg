@@ -1,6 +1,8 @@
 import numpy as np
 from typing import Optional
 
+from ts2vg.graph.summary import simple_summary
+
 _DIRECTED_OPTIONS = {
     None: 0,
     "left_to_right": 1,
@@ -37,6 +39,8 @@ class BaseVG:
         Should not be used directly, use one of the subclasses instead,
         e.g :class:`ts2vg.NaturalVG` or :class:`ts2vg.HorizontalVG`.
     """
+
+    general_type_name = "Visibility Graph"
 
     def __init__(
         self,
@@ -419,16 +423,30 @@ class BaseVG:
 
         return {i: (self.xs[i], self.ts[i]) for i in range(self.n_vertices)}
 
-    def summary(self):
+    def summary(self, prints: bool = True, title: str = "Visibility Graph"):
         """
-        Short text summary describing the graph.
+        Prints (or returns) a simple text summary describing the visibility graph.
+
+        Parameters
+        ----------
+        prints : bool
+            If ``True`` prints the summary, otherwise returns the summary as a string.
+            Default ``True``.
+
+        title : str
+            Title for the table. Default is 'Visibility Graph'.
 
         Returns
         -------
         str
-            A string containing the short summary.
+            A string containing the short summary (only if ``prints=False``).
         """
-        raise NotImplementedError
+        text = simple_summary(self, title=title)
+
+        if prints:
+            print(text)
+        else:
+            return text
 
     # def _compute_graph(self):
     #     raise NotImplementedError()
