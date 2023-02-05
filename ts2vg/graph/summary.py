@@ -28,6 +28,7 @@ def simple_summary(vg: "ts2vg.graph.base.BaseVG", title: str = "Visibility Graph
         "Weighted:": vg.weighted if vg.is_weighted else "unweighted",
         "Parametric Min. Weight:": vg.min_weight if vg.min_weight is not None else "--",
         "Parametric Max. Weight:": vg.max_weight if vg.max_weight is not None else "--",
+        "Penetrable Limit:": vg.penetrable_limit,
     }
 
     built_vg_config = {
