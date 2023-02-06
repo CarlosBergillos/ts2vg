@@ -1,6 +1,8 @@
 import numpy as np
 from typing import Optional
 
+from ts2vg.graph.summary import simple_summary
+
 _DIRECTED_OPTIONS = {
     None: 0,
     "left_to_right": 1,
@@ -19,6 +21,7 @@ _WEIGHTED_OPTIONS = {
     "abs_slope": 8,
     "angle": 9,
     "abs_angle": 10,
+    # "num_obstructions": 11,  # would only apply to LPVGs, but difficult to implement with the algorithm currently used.
 }
 
 
@@ -29,7 +32,7 @@ class NotBuiltError(Exception):
     """
 
 
-class BaseVG:
+class VG:
     """
     Abstract class for a visibility graph (VG).
 
@@ -38,6 +41,8 @@ class BaseVG:
         e.g :class:`ts2vg.NaturalVG` or :class:`ts2vg.HorizontalVG`.
     """
 
+    general_type_name = "Visibility Graph"
+
     def __init__(
         self,
         *,
@@ -45,6 +50,7 @@ class BaseVG:
         weighted: Optional[str] = None,
         min_weight: Optional[float] = None,
         max_weight: Optional[float] = None,
+        penetrable_limit: int = 0,
     ):
         self.ts = None
         """1D array of the time series. ``None`` if the graph has not been built yet."""
@@ -85,6 +91,11 @@ class BaseVG:
             raise ValueError("'max_weight' can only be used in weighted graphs.")
 
         self.max_weight = max_weight
+
+        if penetrable_limit < 0:
+            raise ValueError(f"'penetrable_limit' cannot be negative (got {penetrable_limit}).")
+
+        self.penetrable_limit = penetrable_limit
 
     def _validate_is_built(self):
         if self._edges is None:
@@ -134,6 +145,14 @@ class BaseVG:
 
         if only_degrees and self.is_weighted:
             raise ValueError("Building with 'only_degrees' is only supported for unweighted graphs.")
+
+        if len(ts) == 0:
+            # empty time series results in an empty graph
+            self._edges = None if only_degrees else []
+            self._degrees_in = np.zeros(0, dtype=np.uint32)
+            self._degrees_out = np.zeros(0, dtype=np.uint32)
+            self._degrees = np.zeros(0, dtype=np.uint32)
+            return self
 
         self._edges, self._degrees_in, self._degrees_out = self._compute_graph(only_degrees)
         self._degrees = self._degrees_in + self._degrees_out
@@ -406,16 +425,30 @@ class BaseVG:
 
         return {i: (self.xs[i], self.ts[i]) for i in range(self.n_vertices)}
 
-    def summary(self):
+    def summary(self, prints: bool = True, title: str = "Visibility Graph"):
         """
-        Short text summary describing the graph.
+        Prints (or returns) a simple text summary describing the visibility graph.
+
+        Parameters
+        ----------
+        prints : bool
+            If ``True`` prints the summary, otherwise returns the summary as a string.
+            Default ``True``.
+
+        title : str
+            Title for the table. Default is 'Visibility Graph'.
 
         Returns
         -------
         str
-            A string containing the short summary.
+            A string containing the short summary (only if ``prints=False``).
         """
-        raise NotImplementedError
+        text = simple_summary(self, title=title)
+
+        if prints:
+            print(text)
+        else:
+            return text
 
     # def _compute_graph(self):
     #     raise NotImplementedError()

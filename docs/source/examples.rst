@@ -73,11 +73,13 @@ This example illustrates different options for the ``directed`` parameter when b
    :alt: Example directed graphs
 
 
-.. admonition:: Code for :meth:`plot_graph_demo`
+.. admonition:: Code for :meth:`plot_nvg`
    :class: toggle
 
-    .. literalinclude:: examples/plot_graph_demo.py
+    .. literalinclude:: examples/plot_utils.py
         :language: python
+        :start-after: # ~~ plot_nvg
+        :end-before: # $$
 
 
 Building weighted graphs
@@ -95,11 +97,13 @@ This example illustrates different options for the ``weighted`` parameter when b
    :alt: Example weighted graphs
 
 
-.. admonition:: Code for :meth:`plot_graph_demo`
+.. admonition:: Code for :meth:`plot_weighted_nvg`
    :class: toggle
 
-    .. literalinclude:: examples/plot_graph_demo.py
+    .. literalinclude:: examples/plot_utils.py
         :language: python
+        :start-after: # ~~ plot_weighted_nvg
+        :end-before: # $$
 
 
 Building horizontal visibility graphs
@@ -118,11 +122,50 @@ Note that horizontal visibility graphs can also be directed and/or weighted.
    :alt: Example horizontal visibility graphs
 
 
-.. admonition:: Code for :meth:`plot_graph_demo`
+.. admonition:: Code for :meth:`plot_utils`
    :class: toggle
 
-    .. literalinclude:: examples/plot_graph_demo.py
+    .. literalinclude:: examples/plot_utils.py
         :language: python
+        :start-after: # ~~ plot_hvg
+        :end-before: # $$
+
+
+Building limited penetrable visibility graphs
+---------------------------------------------
+
+Limited penetrable visibility graphs (LPVG) are a variation of visibility graphs
+in which nodes are allowed to have a certain number of obstructions between them
+and still have a connecting edge in the resulting graph.
+Limited penetrable visibility graphs might be more robust to noise in the data.
+
+The maximum number of data points that are allowed to obstruct two nodes is given by the
+``penetrable_limit`` parameter.
+Note that when ``penetrable_limit`` is 0, the behavior is exactly the same as a regular (non-penetrable) visibility graph.
+
+
+.. literalinclude:: examples/penetrable.py
+    :language: python
+    :start-after: # ~~
+
+
+.. figure:: examples/penetrable.svg
+   :width: 100%
+   :alt: Example limited penetrable visibility graphs
+
+
+.. admonition:: Code for :meth:`plot_nvg`, :meth:`plot_hvg`
+   :class: toggle
+
+    .. literalinclude:: examples/plot_utils.py
+        :language: python
+        :start-after: # ~~ plot_nvg
+        :end-before: # $$
+
+    .. literalinclude:: examples/plot_utils.py
+        :language: python
+        :start-after: # ~~ plot_hvg
+        :end-before: # $$
 
 
 Partitioning time series via community detection
@@ -137,10 +180,3 @@ Time series can be partitioned by applying community detection algorithms to the
 .. figure:: examples/partitioning.png
    :width: 100%
    :alt: Example partitioning of visibility graphs
-
-
-.. admonition:: Code for :meth:`plot_graph_demo`
-   :class: toggle
-
-    .. literalinclude:: examples/plot_graph_demo.py
-        :language: python

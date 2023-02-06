@@ -5,7 +5,7 @@ import pytest
 from pytest import approx
 
 import ts2vg
-from fixtures import empty_ts, flat_ts, sample_ts
+from fixtures import empty_ts, flat_ts, sample_ts, sample_ts_2
 
 
 def test_basic(sample_ts):
@@ -15,6 +15,30 @@ def test_basic(sample_ts):
         (0, 1),
         (1, 2),
         (2, 3),
+    ]
+
+    assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)
+
+
+def test_basic_2(sample_ts_2):
+    out_got = ts2vg.HorizontalVG().build(sample_ts_2).edges
+
+    out_truth = [
+        (0, 1),
+        (0, 2),
+        (1, 2),
+        (2, 3),
+        (2, 5),
+        (2, 6),
+        (2, 7),
+        (2, 8),
+        (3, 4),
+        (3, 5),
+        (4, 5),
+        (5, 6),
+        (6, 7),
+        (7, 8),
+        (8, 9),
     ]
 
     assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)

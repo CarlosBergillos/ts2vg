@@ -1,4 +1,4 @@
-from plot_graph_demo import plot_graph_demo
+from plot_utils import plot_nvg
 
 # ~~
 from ts2vg import NaturalVG
@@ -14,6 +14,8 @@ direction_options = [
 
 fig, axs = plt.subplots(ncols=3, figsize=(12, 3.5))
 
-for d, ax in zip(direction_options, axs.flat):
-    g = NaturalVG(directed=d).build(ts)
-    plot_graph_demo(g, ax=ax, title=f"directed={repr(d)}")
+for d, ax in zip(direction_options, axs):
+    ax.set_title(f"directed={repr(d)}")
+
+    nvg = NaturalVG(directed=d).build(ts)
+    plot_nvg(nvg, ax=ax)

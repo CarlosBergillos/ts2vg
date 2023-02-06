@@ -5,7 +5,15 @@ import pytest
 from pytest import approx
 
 import ts2vg
-from fixtures import empty_ts, flat_ts, sample_ts, linear_ts_small, linear_ts_large, linear_ts_large_negative
+from fixtures import (
+    empty_ts,
+    flat_ts,
+    sample_ts,
+    sample_ts_2,
+    linear_ts_small,
+    linear_ts_large,
+    linear_ts_large_negative,
+)
 
 
 def test_basic(sample_ts):
@@ -16,6 +24,38 @@ def test_basic(sample_ts):
         (1, 2),
         (1, 3),
         (2, 3),
+    ]
+
+    assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)
+
+
+def test_basic_2(sample_ts_2):
+    out_got = ts2vg.NaturalVG().build(sample_ts_2).edges
+
+    out_truth = [
+        (0, 1),
+        (0, 2),
+        (1, 2),
+        (2, 3),
+        (2, 4),
+        (2, 5),
+        (2, 6),
+        (2, 7),
+        (2, 8),
+        (3, 4),
+        (3, 5),
+        (3, 6),
+        (3, 7),
+        (3, 8),
+        (4, 5),
+        (4, 7),
+        (4, 8),
+        (5, 6),
+        (5, 7),
+        (5, 8),
+        (6, 7),
+        (7, 8),
+        (8, 9),
     ]
 
     assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)
@@ -397,7 +437,7 @@ def test_degrees_in(sample_ts):
     np.testing.assert_array_equal(out_got, out_truth)
 
 
-def test_degrees_out_ltr(sample_ts):
+def test_degrees_out(sample_ts):
     out_got = ts2vg.NaturalVG().build(sample_ts).degrees_out
 
     out_truth = [1, 2, 1, 0]
