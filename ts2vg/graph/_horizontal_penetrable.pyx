@@ -25,7 +25,8 @@ def _compute_graph(np.float64_t[:] ts, np.float64_t[:] xs, uint directed, uint w
 
     # Algorithm implementation comments:
     # See comments in _natural_penetrable.pyx.
-    # Horizontal case is analogous, replacing slope with height (y).
+    # Horizontal case is analogous, replacing slope with height (y),
+    # and with the additional benefit than sweeps can be stopped earlier.
 
     cdef uint n = ts.size
     cdef list edges = []
@@ -79,5 +80,9 @@ def _compute_graph(np.float64_t[:] ts, np.float64_t[:] xs, uint directed, uint w
                 # new threshold y is the new smallest value in `max_ys`.
                 threshold_y_idx = _argmin(max_ys, 0, penetrable_limit+1)
                 threshold_y = max_ys[threshold_y_idx]
+
+                if threshold_y > y_a:
+                    # earlier condition will never be satisfied anymore in this sweep
+                    break
 
     return edges, np.asarray(degrees_in, dtype=np.uint32), np.asarray(degrees_out, dtype=np.uint32)
