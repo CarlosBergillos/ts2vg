@@ -21,6 +21,7 @@ _WEIGHTED_OPTIONS = {
     "abs_slope": 8,
     "angle": 9,
     "abs_angle": 10,
+    # "num_obstructions": 11,  # would only apply to LPVGs, but difficult to implement with the algorithm currently used.
 }
 
 
