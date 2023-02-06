@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ts2vg: Time series to visibility graphs &#8212; ts2vg 1.1.1 documentation</title>
+    <title>ts2vg: Time series to visibility graphs &#8212; ts2vg 1.2.0 documentation</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -162,6 +162,18 @@
   <a class="reference internal nav-link" href="#supported-graph-types">
    Supported graph types
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#root-graph-types">
+     Root graph types
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#available-variations">
+     Available variations
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#basic-usage">
@@ -270,12 +282,23 @@ and can be easily installed by running:</p>
 </div>
 <div class="section" id="supported-graph-types">
 <h2>Supported graph types<a class="headerlink" href="#supported-graph-types" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="root-graph-types">
+<h3>Root graph types<a class="headerlink" href="#root-graph-types" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Natural Visibility Graphs (<code class="docutils literal notranslate"><span class="pre">ts2vg.NaturalVG</span></code>)</p></li>
-<li><p>Horizontal Visibility Graphs (<code class="docutils literal notranslate"><span class="pre">ts2vg.HorizontalVG</span></code>)</p></li>
-<li><p>Weighted and Directed Visibility Graphs (via the <code class="docutils literal notranslate"><span class="pre">weighted</span></code> and <code class="docutils literal notranslate"><span class="pre">directed</span></code> parameters)</p></li>
-<li><p>Parametric Visibility Graphs (via the <code class="docutils literal notranslate"><span class="pre">min_weight</span></code> and <code class="docutils literal notranslate"><span class="pre">max_weight</span></code> parameters)</p></li>
+<li><p>Natural Visibility Graphs (NVG) (<code class="docutils literal notranslate"><span class="pre">ts2vg.NaturalVG</span></code>)</p></li>
+<li><p>Horizontal Visibility Graphs (HVG) (<code class="docutils literal notranslate"><span class="pre">ts2vg.HorizontalVG</span></code>)</p></li>
 </ul>
+</div>
+<div class="section" id="available-variations">
+<h3>Available variations<a class="headerlink" href="#available-variations" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Weighted Visibility Graphs (via the <code class="docutils literal notranslate"><span class="pre">weighted</span></code> parameter)</p></li>
+<li><p>Directed Visibility Graphs (via the <code class="docutils literal notranslate"><span class="pre">directed</span></code> parameter)</p></li>
+<li><p>Parametric Visibility Graphs (via the <code class="docutils literal notranslate"><span class="pre">min_weight</span></code> and <code class="docutils literal notranslate"><span class="pre">max_weight</span></code> parameters)</p></li>
+<li><p>Limited Penetrable Visibility Graphs (LPVG) (via the <code class="docutils literal notranslate"><span class="pre">penetrable_limit</span></code> parameter)</p></li>
+</ul>
+<p>Note that multiple graph variations can be combined and used simultaneously.</p>
+</div>
 </div>
 <div class="section" id="basic-usage">
 <h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>

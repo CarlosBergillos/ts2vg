@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Examples &#8212; ts2vg 1.1.1 documentation</title>
+    <title>Examples &#8212; ts2vg 1.2.0 documentation</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -185,6 +185,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#building-limited-penetrable-visibility-graphs">
+   Building limited penetrable visibility graphs
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#partitioning-time-series-via-community-detection">
    Partitioning time series via community detection
   </a>
@@ -339,105 +344,47 @@ and draws the graph with the help of <a class="reference external" href="https:/
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
 
-<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">direction_options</span><span class="p">,</span> <span class="n">axs</span><span class="o">.</span><span class="n">flat</span><span class="p">):</span>
-    <span class="n">g</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
-    <span class="n">plot_graph_demo</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;directed=</span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">direction_options</span><span class="p">,</span> <span class="n">axs</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;directed=</span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">nvg</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+    <span class="n">plot_nvg</span><span class="p">(</span><span class="n">nvg</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="figure align-default">
 <a class="reference internal image-reference" href="_images/directed.svg"><img alt="Example directed graphs" src="_images/directed.svg" width="100%" /></a>
 </div>
 <div class="toggle admonition">
-<p class="admonition-title">Code for <code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_graph_demo()</span></code></p>
+<p class="admonition-title">Code for <code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_nvg()</span></code></p>
 <blockquote>
-<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">NaturalVG</span><span class="p">,</span> <span class="n">HorizontalVG</span>
-<span class="kn">from</span> <span class="nn">matplotlib.cm</span> <span class="kn">import</span> <span class="n">ScalarMappable</span>
-<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">Normalize</span>
-<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">ArrowStyle</span><span class="p">,</span> <span class="n">FancyArrowPatch</span>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">ArrowStyle</span><span class="p">,</span> <span class="n">FancyArrowPatch</span>
 
 
-<span class="k">def</span> <span class="nf">plot_graph_demo</span><span class="p">(</span>
-    <span class="n">g</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">weights_cmap</span><span class="o">=</span><span class="s2">&quot;coolwarm_r&quot;</span><span class="p">,</span> <span class="n">weights_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">cbar_ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">arrow_heads</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span>
+<span class="k">def</span> <span class="nf">plot_nvg</span><span class="p">(</span>
+    <span class="n">vg</span><span class="p">,</span>
+    <span class="n">ax</span><span class="p">,</span>
+    <span class="n">edge_color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Draw a simple plot of a time series and its corresponding visibility graph for demonstration purposes.</span>
-<span class="sd">    Only practical for small graphs (smaller than ~20 nodes).</span>
+    <span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">,</span> <span class="n">vg</span><span class="o">.</span><span class="n">ts</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#ccc&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;#000&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">)</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    g : ts2vg.graph.BaseGraph</span>
-<span class="sd">        Graph object.</span>
-
-<span class="sd">    ax : Matplotlib ``Axes``</span>
-<span class="sd">        Axes where to plot.</span>
-
-<span class="sd">    title : str, None</span>
-<span class="sd">        Plot title. Default ``None``.</span>
-
-<span class="sd">    weights_cmap : str, Matplotlib ``Colormap`` object</span>
-<span class="sd">        Colormap for coloring graph edges based on weight.</span>
-<span class="sd">        Ignored for unweighted graphs.</span>
-
-<span class="sd">    weights_range : tuple</span>
-<span class="sd">        Range (min, max) used to normalize the coloring of the edge weights.</span>
-<span class="sd">        Ignored for unweighted graphs.</span>
-
-<span class="sd">    cbar_ax : Matplotlib ``Axes`` object</span>
-<span class="sd">        Axes where to draw the colorbar.</span>
-<span class="sd">        Ignored for unweighted graphs.</span>
-
-<span class="sd">    arrow_heads: &#39;auto&#39;, bool</span>
-<span class="sd">        Whether to draw arrow heads on the edges.</span>
-<span class="sd">        If &#39;auto&#39;, will be based on the graph type.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">color_mappable</span> <span class="o">=</span> <span class="n">ScalarMappable</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="n">Normalize</span><span class="p">(</span><span class="o">*</span><span class="n">weights_range</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">weights_cmap</span><span class="p">)</span>
-
-    <span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#ccc&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;#000&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">arrow_heads</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">or</span> <span class="p">(</span><span class="n">arrow_heads</span> <span class="o">==</span> <span class="s2">&quot;auto&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">g</span><span class="o">.</span><span class="n">is_directed</span><span class="p">):</span>
-        <span class="n">arrowstyle</span> <span class="o">=</span> <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">g</span><span class="o">.</span><span class="n">is_directed</span><span class="p">:</span>
-        <span class="n">arrowstyle</span> <span class="o">=</span> <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;-|&gt;&quot;</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">arrowstyle</span> <span class="o">=</span> <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;&lt;|-|&gt;&quot;</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">is_weighted</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">cbar_ax</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">cbar_ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">color_mappable</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cbar_ax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">color_mappable</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="o">*</span><span class="n">w</span><span class="p">)</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">NaturalVG</span><span class="p">):</span>
-            <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">],</span> <span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span>
-            <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">],</span> <span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">HorizontalVG</span><span class="p">):</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n1</span><span class="p">],</span> <span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n2</span><span class="p">])</span>
-
-            <span class="k">if</span> <span class="n">n1</span> <span class="o">&lt;</span> <span class="n">n2</span><span class="p">:</span>
-                <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span> <span class="o">+</span> <span class="n">bars</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span>
-                <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span> <span class="o">-</span> <span class="n">bars</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bars</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span>
-                <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span> <span class="o">+</span> <span class="n">bars</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Visibility graph type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">g</span><span class="p">)</span><span class="si">}</span><span class="s2"> not recognized for plotting.&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">vg</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">],</span> <span class="n">vg</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span>
+        <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">],</span> <span class="n">vg</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span>
 
         <span class="n">arrow</span> <span class="o">=</span> <span class="n">FancyArrowPatch</span><span class="p">(</span>
             <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">),</span>
             <span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">),</span>
-            <span class="n">arrowstyle</span><span class="o">=</span><span class="n">arrowstyle</span><span class="p">,</span>
+            <span class="n">arrowstyle</span><span class="o">=</span><span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span> <span class="k">if</span> <span class="n">vg</span><span class="o">.</span><span class="n">is_directed</span> <span class="k">else</span> <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">),</span>
             <span class="n">shrinkA</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
             <span class="n">shrinkB</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="n">color_mappable</span><span class="o">.</span><span class="n">to_rgba</span><span class="p">(</span><span class="o">*</span><span class="n">w</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">is_weighted</span> <span class="k">else</span> <span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">edge_color</span><span class="p">,</span>
             <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">arrow</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
 </pre></div>
 </div>
 </div></blockquote>
@@ -464,104 +411,53 @@ and draws the graph with the help of <a class="reference external" href="https:/
 <span class="n">cbar_ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.96</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">])</span>
 
 <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">weight_options</span><span class="p">,</span> <span class="n">axs</span><span class="o">.</span><span class="n">flat</span><span class="p">):</span>
-    <span class="n">g</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">(</span><span class="n">weighted</span><span class="o">=</span><span class="n">w</span><span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
-    <span class="n">plot_graph_demo</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;weighted=&#39;</span><span class="si">{</span><span class="n">w</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">cbar_ax</span><span class="o">=</span><span class="n">cbar_ax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;weighted=&#39;</span><span class="si">{</span><span class="n">w</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+    <span class="n">nvg</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">(</span><span class="n">weighted</span><span class="o">=</span><span class="n">w</span><span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+    <span class="n">plot_weighted_nvg</span><span class="p">(</span><span class="n">nvg</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cbar_ax</span><span class="o">=</span><span class="n">cbar_ax</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="figure align-default">
 <a class="reference internal image-reference" href="_images/weighted.svg"><img alt="Example weighted graphs" src="_images/weighted.svg" width="100%" /></a>
 </div>
 <div class="toggle admonition">
-<p class="admonition-title">Code for <code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_graph_demo()</span></code></p>
+<p class="admonition-title">Code for <code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_weighted_nvg()</span></code></p>
 <blockquote>
-<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">NaturalVG</span><span class="p">,</span> <span class="n">HorizontalVG</span>
-<span class="kn">from</span> <span class="nn">matplotlib.cm</span> <span class="kn">import</span> <span class="n">ScalarMappable</span>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.cm</span> <span class="kn">import</span> <span class="n">ScalarMappable</span>
 <span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">Normalize</span>
 <span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">ArrowStyle</span><span class="p">,</span> <span class="n">FancyArrowPatch</span>
 
 
-<span class="k">def</span> <span class="nf">plot_graph_demo</span><span class="p">(</span>
-    <span class="n">g</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">weights_cmap</span><span class="o">=</span><span class="s2">&quot;coolwarm_r&quot;</span><span class="p">,</span> <span class="n">weights_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">cbar_ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">arrow_heads</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span>
+<span class="k">def</span> <span class="nf">plot_weighted_nvg</span><span class="p">(</span>
+    <span class="n">vg</span><span class="p">,</span>
+    <span class="n">ax</span><span class="p">,</span>
+    <span class="n">cbar_ax</span><span class="p">,</span>
+    <span class="n">weights_cmap</span><span class="o">=</span><span class="s2">&quot;coolwarm_r&quot;</span><span class="p">,</span>
+    <span class="n">weights_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Draw a simple plot of a time series and its corresponding visibility graph for demonstration purposes.</span>
-<span class="sd">    Only practical for small graphs (smaller than ~20 nodes).</span>
+    <span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">,</span> <span class="n">vg</span><span class="o">.</span><span class="n">ts</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#ccc&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;#000&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">)</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    g : ts2vg.graph.BaseGraph</span>
-<span class="sd">        Graph object.</span>
-
-<span class="sd">    ax : Matplotlib ``Axes``</span>
-<span class="sd">        Axes where to plot.</span>
-
-<span class="sd">    title : str, None</span>
-<span class="sd">        Plot title. Default ``None``.</span>
-
-<span class="sd">    weights_cmap : str, Matplotlib ``Colormap`` object</span>
-<span class="sd">        Colormap for coloring graph edges based on weight.</span>
-<span class="sd">        Ignored for unweighted graphs.</span>
-
-<span class="sd">    weights_range : tuple</span>
-<span class="sd">        Range (min, max) used to normalize the coloring of the edge weights.</span>
-<span class="sd">        Ignored for unweighted graphs.</span>
-
-<span class="sd">    cbar_ax : Matplotlib ``Axes`` object</span>
-<span class="sd">        Axes where to draw the colorbar.</span>
-<span class="sd">        Ignored for unweighted graphs.</span>
-
-<span class="sd">    arrow_heads: &#39;auto&#39;, bool</span>
-<span class="sd">        Whether to draw arrow heads on the edges.</span>
-<span class="sd">        If &#39;auto&#39;, will be based on the graph type.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">color_mappable</span> <span class="o">=</span> <span class="n">ScalarMappable</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="n">Normalize</span><span class="p">(</span><span class="o">*</span><span class="n">weights_range</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">weights_cmap</span><span class="p">)</span>
+    <span class="n">cbar_ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">color_mappable</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cbar_ax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
 
-    <span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#ccc&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;#000&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">arrow_heads</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">or</span> <span class="p">(</span><span class="n">arrow_heads</span> <span class="o">==</span> <span class="s2">&quot;auto&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">g</span><span class="o">.</span><span class="n">is_directed</span><span class="p">):</span>
-        <span class="n">arrowstyle</span> <span class="o">=</span> <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">g</span><span class="o">.</span><span class="n">is_directed</span><span class="p">:</span>
-        <span class="n">arrowstyle</span> <span class="o">=</span> <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;-|&gt;&quot;</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">arrowstyle</span> <span class="o">=</span> <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;&lt;|-|&gt;&quot;</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">is_weighted</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">cbar_ax</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">cbar_ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">color_mappable</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cbar_ax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">color_mappable</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="o">*</span><span class="n">w</span><span class="p">)</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">NaturalVG</span><span class="p">):</span>
-            <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">],</span> <span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span>
-            <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">],</span> <span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">HorizontalVG</span><span class="p">):</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n1</span><span class="p">],</span> <span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n2</span><span class="p">])</span>
-
-            <span class="k">if</span> <span class="n">n1</span> <span class="o">&lt;</span> <span class="n">n2</span><span class="p">:</span>
-                <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span> <span class="o">+</span> <span class="n">bars</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span>
-                <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span> <span class="o">-</span> <span class="n">bars</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bars</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span>
-                <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span> <span class="o">+</span> <span class="n">bars</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Visibility graph type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">g</span><span class="p">)</span><span class="si">}</span><span class="s2"> not recognized for plotting.&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span> <span class="ow">in</span> <span class="n">vg</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">],</span> <span class="n">vg</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span>
+        <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">],</span> <span class="n">vg</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span>
 
         <span class="n">arrow</span> <span class="o">=</span> <span class="n">FancyArrowPatch</span><span class="p">(</span>
             <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">),</span>
             <span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">),</span>
-            <span class="n">arrowstyle</span><span class="o">=</span><span class="n">arrowstyle</span><span class="p">,</span>
+            <span class="n">arrowstyle</span><span class="o">=</span><span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">),</span>
             <span class="n">shrinkA</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
             <span class="n">shrinkB</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="n">color_mappable</span><span class="o">.</span><span class="n">to_rgba</span><span class="p">(</span><span class="o">*</span><span class="n">w</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">is_weighted</span> <span class="k">else</span> <span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">color_mappable</span><span class="o">.</span><span class="n">to_rgba</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
             <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">arrow</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
 </pre></div>
 </div>
 </div></blockquote>
@@ -584,105 +480,196 @@ Note that horizontal visibility graphs can also be directed and/or weighted.</p>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
 
-<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">direction_options</span><span class="p">,</span> <span class="n">axs</span><span class="o">.</span><span class="n">flat</span><span class="p">):</span>
-    <span class="n">g</span> <span class="o">=</span> <span class="n">HorizontalVG</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
-    <span class="n">plot_graph_demo</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;directed=</span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">arrow_heads</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">direction_options</span><span class="p">,</span> <span class="n">axs</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;directed=</span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">hvg</span> <span class="o">=</span> <span class="n">HorizontalVG</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+    <span class="n">plot_hvg</span><span class="p">(</span><span class="n">hvg</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="figure align-default">
 <a class="reference internal image-reference" href="_images/horizontal.svg"><img alt="Example horizontal visibility graphs" src="_images/horizontal.svg" width="100%" /></a>
 </div>
 <div class="toggle admonition">
-<p class="admonition-title">Code for <code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_graph_demo()</span></code></p>
+<p class="admonition-title">Code for <code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_utils()</span></code></p>
 <blockquote>
-<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">NaturalVG</span><span class="p">,</span> <span class="n">HorizontalVG</span>
-<span class="kn">from</span> <span class="nn">matplotlib.cm</span> <span class="kn">import</span> <span class="n">ScalarMappable</span>
-<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">Normalize</span>
-<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">ArrowStyle</span><span class="p">,</span> <span class="n">FancyArrowPatch</span>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">ArrowStyle</span><span class="p">,</span> <span class="n">FancyArrowPatch</span>
 
 
-<span class="k">def</span> <span class="nf">plot_graph_demo</span><span class="p">(</span>
-    <span class="n">g</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">weights_cmap</span><span class="o">=</span><span class="s2">&quot;coolwarm_r&quot;</span><span class="p">,</span> <span class="n">weights_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">cbar_ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">arrow_heads</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span>
+<span class="k">def</span> <span class="nf">plot_hvg</span><span class="p">(</span>
+    <span class="n">vg</span><span class="p">,</span>
+    <span class="n">ax</span><span class="p">,</span>
+    <span class="n">edge_color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span>
+    <span class="n">bar_width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+    <span class="n">prevent_overlap</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Draw a simple plot of a time series and its corresponding visibility graph for demonstration purposes.</span>
-<span class="sd">    Only practical for small graphs (smaller than ~20 nodes).</span>
+    <span class="n">occupied_heights</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    g : ts2vg.graph.BaseGraph</span>
-<span class="sd">        Graph object.</span>
+    <span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">,</span> <span class="n">vg</span><span class="o">.</span><span class="n">ts</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#ccc&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;#000&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">bar_width</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">)</span>
 
-<span class="sd">    ax : Matplotlib ``Axes``</span>
-<span class="sd">        Axes where to plot.</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vg</span><span class="o">.</span><span class="n">edges</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">vg</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n1</span><span class="p">],</span> <span class="n">vg</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n2</span><span class="p">])</span>
 
-<span class="sd">    title : str, None</span>
-<span class="sd">        Plot title. Default ``None``.</span>
+        <span class="k">if</span> <span class="n">prevent_overlap</span><span class="p">:</span>
+            <span class="c1"># very naive overlap prevention</span>
+            <span class="k">while</span> <span class="nb">round</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">occupied_heights</span><span class="p">:</span>
+                <span class="n">y</span> <span class="o">-=</span> <span class="mf">0.18</span>
 
-<span class="sd">    weights_cmap : str, Matplotlib ``Colormap`` object</span>
-<span class="sd">        Colormap for coloring graph edges based on weight.</span>
-<span class="sd">        Ignored for unweighted graphs.</span>
+            <span class="n">occupied_heights</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 
-<span class="sd">    weights_range : tuple</span>
-<span class="sd">        Range (min, max) used to normalize the coloring of the edge weights.</span>
-<span class="sd">        Ignored for unweighted graphs.</span>
-
-<span class="sd">    cbar_ax : Matplotlib ``Axes`` object</span>
-<span class="sd">        Axes where to draw the colorbar.</span>
-<span class="sd">        Ignored for unweighted graphs.</span>
-
-<span class="sd">    arrow_heads: &#39;auto&#39;, bool</span>
-<span class="sd">        Whether to draw arrow heads on the edges.</span>
-<span class="sd">        If &#39;auto&#39;, will be based on the graph type.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">color_mappable</span> <span class="o">=</span> <span class="n">ScalarMappable</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="n">Normalize</span><span class="p">(</span><span class="o">*</span><span class="n">weights_range</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">weights_cmap</span><span class="p">)</span>
-
-    <span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#ccc&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;#000&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">arrow_heads</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">or</span> <span class="p">(</span><span class="n">arrow_heads</span> <span class="o">==</span> <span class="s2">&quot;auto&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">g</span><span class="o">.</span><span class="n">is_directed</span><span class="p">):</span>
-        <span class="n">arrowstyle</span> <span class="o">=</span> <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">g</span><span class="o">.</span><span class="n">is_directed</span><span class="p">:</span>
-        <span class="n">arrowstyle</span> <span class="o">=</span> <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;-|&gt;&quot;</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">arrowstyle</span> <span class="o">=</span> <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;&lt;|-|&gt;&quot;</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">is_weighted</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">cbar_ax</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">cbar_ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">color_mappable</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cbar_ax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n1</span> <span class="o">&lt;</span> <span class="n">n2</span><span class="p">:</span>
+            <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">bar_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">y</span>
+            <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">bar_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">y</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">color_mappable</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="o">*</span><span class="n">w</span><span class="p">)</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">NaturalVG</span><span class="p">):</span>
-            <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">],</span> <span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span>
-            <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">],</span> <span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">HorizontalVG</span><span class="p">):</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n1</span><span class="p">],</span> <span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n2</span><span class="p">])</span>
-
-            <span class="k">if</span> <span class="n">n1</span> <span class="o">&lt;</span> <span class="n">n2</span><span class="p">:</span>
-                <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span> <span class="o">+</span> <span class="n">bars</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span>
-                <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span> <span class="o">-</span> <span class="n">bars</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bars</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span>
-                <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span> <span class="o">+</span> <span class="n">bars</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Visibility graph type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">g</span><span class="p">)</span><span class="si">}</span><span class="s2"> not recognized for plotting.&quot;</span><span class="p">)</span>
+            <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">bar_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">y</span>
+            <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">bar_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">y</span>
 
         <span class="n">arrow</span> <span class="o">=</span> <span class="n">FancyArrowPatch</span><span class="p">(</span>
             <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">),</span>
             <span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">),</span>
-            <span class="n">arrowstyle</span><span class="o">=</span><span class="n">arrowstyle</span><span class="p">,</span>
+            <span class="n">arrowstyle</span><span class="o">=</span><span class="p">(</span>
+                <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">vg</span><span class="o">.</span><span class="n">is_directed</span>
+                <span class="k">else</span> <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;&lt;-&gt;&quot;</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+            <span class="p">),</span>
             <span class="n">shrinkA</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
             <span class="n">shrinkB</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="n">color_mappable</span><span class="o">.</span><span class="n">to_rgba</span><span class="p">(</span><span class="o">*</span><span class="n">w</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">is_weighted</span> <span class="k">else</span> <span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">edge_color</span><span class="p">,</span>
             <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">arrow</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="building-limited-penetrable-visibility-graphs">
+<h2>Building limited penetrable visibility graphs<a class="headerlink" href="#building-limited-penetrable-visibility-graphs" title="Permalink to this headline">¶</a></h2>
+<p>Limited penetrable visibility graphs (LPVG) are a variation of visibility graphs
+in which nodes are allowed to have a certain number of obstructions between them
+and still have a connecting edge in the resulting graph.
+Limited penetrable visibility graphs might be more robust to noise in the data.</p>
+<p>The maximum number of data points that are allowed to obstruct two nodes is given by the
+<code class="docutils literal notranslate"><span class="pre">penetrable_limit</span></code> parameter.
+Note that when <code class="docutils literal notranslate"><span class="pre">penetrable_limit</span></code> is 0, the behavior is exactly the same as a regular (non-penetrable) visibility graph.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">NaturalVG</span><span class="p">,</span> <span class="n">HorizontalVG</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+
+<span class="n">ts</span> <span class="o">=</span> <span class="p">[</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">,</span> <span class="mf">4.8</span><span class="p">]</span>
+
+<span class="n">penetrable_limit_options</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="mi">0</span><span class="p">,</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="c1"># plot limited penetrable visibility graphs</span>
+<span class="k">for</span> <span class="n">penetrable_limit</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">penetrable_limit_options</span><span class="p">,</span> <span class="n">axs</span><span class="o">.</span><span class="n">flat</span><span class="p">[:</span><span class="mi">3</span><span class="p">]):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;NVG, penetrable_limit=</span><span class="si">{</span><span class="n">penetrable_limit</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">nvg</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">(</span><span class="n">penetrable_limit</span><span class="o">=</span><span class="n">penetrable_limit</span><span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+    <span class="n">plot_nvg</span><span class="p">(</span><span class="n">nvg</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="c1"># plot limited penetrable horizontal visibility graphs</span>
+<span class="k">for</span> <span class="n">penetrable_limit</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">penetrable_limit_options</span><span class="p">,</span> <span class="n">axs</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">3</span><span class="p">:]):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;HVG, penetrable_limit=</span><span class="si">{</span><span class="n">penetrable_limit</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">hvg</span> <span class="o">=</span> <span class="n">HorizontalVG</span><span class="p">(</span><span class="n">penetrable_limit</span><span class="o">=</span><span class="n">penetrable_limit</span><span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+    <span class="n">plot_hvg</span><span class="p">(</span><span class="n">hvg</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">prevent_overlap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="_images/penetrable.svg"><img alt="Example limited penetrable visibility graphs" src="_images/penetrable.svg" width="100%" /></a>
+</div>
+<div class="toggle admonition">
+<p class="admonition-title">Code for <code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_nvg()</span></code>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_hvg()</span></code></p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">ArrowStyle</span><span class="p">,</span> <span class="n">FancyArrowPatch</span>
+
+
+<span class="k">def</span> <span class="nf">plot_nvg</span><span class="p">(</span>
+    <span class="n">vg</span><span class="p">,</span>
+    <span class="n">ax</span><span class="p">,</span>
+    <span class="n">edge_color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span>
+<span class="p">):</span>
+    <span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">,</span> <span class="n">vg</span><span class="o">.</span><span class="n">ts</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#ccc&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;#000&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">vg</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">],</span> <span class="n">vg</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span>
+        <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">],</span> <span class="n">vg</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span>
+
+        <span class="n">arrow</span> <span class="o">=</span> <span class="n">FancyArrowPatch</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">),</span>
+            <span class="n">arrowstyle</span><span class="o">=</span><span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span> <span class="k">if</span> <span class="n">vg</span><span class="o">.</span><span class="n">is_directed</span> <span class="k">else</span> <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">),</span>
+            <span class="n">shrinkA</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">shrinkB</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">edge_color</span><span class="p">,</span>
+            <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">arrow</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">ArrowStyle</span><span class="p">,</span> <span class="n">FancyArrowPatch</span>
+
+
+<span class="k">def</span> <span class="nf">plot_hvg</span><span class="p">(</span>
+    <span class="n">vg</span><span class="p">,</span>
+    <span class="n">ax</span><span class="p">,</span>
+    <span class="n">edge_color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span>
+    <span class="n">bar_width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+    <span class="n">prevent_overlap</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="n">occupied_heights</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">,</span> <span class="n">vg</span><span class="o">.</span><span class="n">ts</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#ccc&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;#000&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">bar_width</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vg</span><span class="o">.</span><span class="n">edges</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">vg</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n1</span><span class="p">],</span> <span class="n">vg</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n2</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">prevent_overlap</span><span class="p">:</span>
+            <span class="c1"># very naive overlap prevention</span>
+            <span class="k">while</span> <span class="nb">round</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">occupied_heights</span><span class="p">:</span>
+                <span class="n">y</span> <span class="o">-=</span> <span class="mf">0.18</span>
+
+            <span class="n">occupied_heights</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">n1</span> <span class="o">&lt;</span> <span class="n">n2</span><span class="p">:</span>
+            <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">bar_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">y</span>
+            <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">bar_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">y</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">bar_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">y</span>
+            <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">bar_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">y</span>
+
+        <span class="n">arrow</span> <span class="o">=</span> <span class="n">FancyArrowPatch</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">),</span>
+            <span class="n">arrowstyle</span><span class="o">=</span><span class="p">(</span>
+                <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">vg</span><span class="o">.</span><span class="n">is_directed</span>
+                <span class="k">else</span> <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;&lt;-&gt;&quot;</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="n">shrinkA</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">shrinkB</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">edge_color</span><span class="p">,</span>
+            <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">arrow</span><span class="p">)</span>
+
+
 </pre></div>
 </div>
 </div></blockquote>
@@ -742,101 +729,6 @@ Note that horizontal visibility graphs can also be directed and/or weighted.</p>
 </div>
 <div class="figure align-default">
 <a class="reference internal image-reference" href="_images/partitioning.png"><img alt="Example partitioning of visibility graphs" src="_images/partitioning.png" style="width: 100%;" /></a>
-</div>
-<div class="toggle admonition">
-<p class="admonition-title">Code for <code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_graph_demo()</span></code></p>
-<blockquote>
-<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">NaturalVG</span><span class="p">,</span> <span class="n">HorizontalVG</span>
-<span class="kn">from</span> <span class="nn">matplotlib.cm</span> <span class="kn">import</span> <span class="n">ScalarMappable</span>
-<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">Normalize</span>
-<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">ArrowStyle</span><span class="p">,</span> <span class="n">FancyArrowPatch</span>
-
-
-<span class="k">def</span> <span class="nf">plot_graph_demo</span><span class="p">(</span>
-    <span class="n">g</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">weights_cmap</span><span class="o">=</span><span class="s2">&quot;coolwarm_r&quot;</span><span class="p">,</span> <span class="n">weights_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">cbar_ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">arrow_heads</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span>
-<span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Draw a simple plot of a time series and its corresponding visibility graph for demonstration purposes.</span>
-<span class="sd">    Only practical for small graphs (smaller than ~20 nodes).</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    g : ts2vg.graph.BaseGraph</span>
-<span class="sd">        Graph object.</span>
-
-<span class="sd">    ax : Matplotlib ``Axes``</span>
-<span class="sd">        Axes where to plot.</span>
-
-<span class="sd">    title : str, None</span>
-<span class="sd">        Plot title. Default ``None``.</span>
-
-<span class="sd">    weights_cmap : str, Matplotlib ``Colormap`` object</span>
-<span class="sd">        Colormap for coloring graph edges based on weight.</span>
-<span class="sd">        Ignored for unweighted graphs.</span>
-
-<span class="sd">    weights_range : tuple</span>
-<span class="sd">        Range (min, max) used to normalize the coloring of the edge weights.</span>
-<span class="sd">        Ignored for unweighted graphs.</span>
-
-<span class="sd">    cbar_ax : Matplotlib ``Axes`` object</span>
-<span class="sd">        Axes where to draw the colorbar.</span>
-<span class="sd">        Ignored for unweighted graphs.</span>
-
-<span class="sd">    arrow_heads: &#39;auto&#39;, bool</span>
-<span class="sd">        Whether to draw arrow heads on the edges.</span>
-<span class="sd">        If &#39;auto&#39;, will be based on the graph type.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">color_mappable</span> <span class="o">=</span> <span class="n">ScalarMappable</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="n">Normalize</span><span class="p">(</span><span class="o">*</span><span class="n">weights_range</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">weights_cmap</span><span class="p">)</span>
-
-    <span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#ccc&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;#000&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">arrow_heads</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">or</span> <span class="p">(</span><span class="n">arrow_heads</span> <span class="o">==</span> <span class="s2">&quot;auto&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">g</span><span class="o">.</span><span class="n">is_directed</span><span class="p">):</span>
-        <span class="n">arrowstyle</span> <span class="o">=</span> <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">g</span><span class="o">.</span><span class="n">is_directed</span><span class="p">:</span>
-        <span class="n">arrowstyle</span> <span class="o">=</span> <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;-|&gt;&quot;</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">arrowstyle</span> <span class="o">=</span> <span class="n">ArrowStyle</span><span class="p">(</span><span class="s2">&quot;&lt;|-|&gt;&quot;</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">is_weighted</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">cbar_ax</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">cbar_ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">color_mappable</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cbar_ax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">color_mappable</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="o">*</span><span class="n">w</span><span class="p">)</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">NaturalVG</span><span class="p">):</span>
-            <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">],</span> <span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span>
-            <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">],</span> <span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">HorizontalVG</span><span class="p">):</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n1</span><span class="p">],</span> <span class="n">g</span><span class="o">.</span><span class="n">ts</span><span class="p">[</span><span class="n">n2</span><span class="p">])</span>
-
-            <span class="k">if</span> <span class="n">n1</span> <span class="o">&lt;</span> <span class="n">n2</span><span class="p">:</span>
-                <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span> <span class="o">+</span> <span class="n">bars</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span>
-                <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span> <span class="o">-</span> <span class="n">bars</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span> <span class="o">-</span> <span class="n">bars</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span>
-                <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span> <span class="o">+</span> <span class="n">bars</span><span class="p">[</span><span class="n">n2</span><span class="p">]</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Visibility graph type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">g</span><span class="p">)</span><span class="si">}</span><span class="s2"> not recognized for plotting.&quot;</span><span class="p">)</span>
-
-        <span class="n">arrow</span> <span class="o">=</span> <span class="n">FancyArrowPatch</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">),</span>
-            <span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">),</span>
-            <span class="n">arrowstyle</span><span class="o">=</span><span class="n">arrowstyle</span><span class="p">,</span>
-            <span class="n">shrinkA</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-            <span class="n">shrinkB</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="n">color_mappable</span><span class="o">.</span><span class="n">to_rgba</span><span class="p">(</span><span class="o">*</span><span class="n">w</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">is_weighted</span> <span class="k">else</span> <span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span>
-            <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">arrow</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
-</pre></div>
-</div>
-</div></blockquote>
 </div>
 </div>
 </div>
