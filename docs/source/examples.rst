@@ -170,10 +170,15 @@ Note that when ``penetrable_limit`` is 0, the behavior is exactly the same as a 
    :alt: Example horizontal visibility graphs
 
 
-.. admonition:: Code for :meth:`plot_graph_demo`
+.. admonition:: Code for :meth:`plot_graph_demo`, :meth:`plot_horizontal_graph_demo`
    :class: toggle
 
     .. literalinclude:: examples/plot_utils.py
         :language: python
         :start-after: # ~~ plot_graph_demo
+        :end-before: # $$
+
+    .. literalinclude:: examples/plot_utils.py
+        :language: python
+        :start-after: # ~~ plot_horizontal_graph_demo
         :end-before: # $$
