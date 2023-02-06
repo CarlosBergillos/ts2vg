@@ -1,4 +1,4 @@
-from plot_utils import plot_graph_demo, plot_horizontal_graph_demo
+from plot_utils import plot_nvg, plot_hvg
 
 # ~~
 from ts2vg import NaturalVG, HorizontalVG
@@ -20,11 +20,11 @@ for penetrable_limit, ax in zip(penetrable_limit_options, axs.flat[:3]):
     ax.set_title(f"NVG, penetrable_limit={penetrable_limit}")
 
     nvg = NaturalVG(penetrable_limit=penetrable_limit).build(ts)
-    plot_graph_demo(nvg, ax=ax)
+    plot_nvg(nvg, ax=ax)
 
 # plot limited penetrable horizontal visibility graphs
 for penetrable_limit, ax in zip(penetrable_limit_options, axs.flat[3:]):
     ax.set_title(f"HVG, penetrable_limit={penetrable_limit}")
 
     hvg = HorizontalVG(penetrable_limit=penetrable_limit).build(ts)
-    plot_horizontal_graph_demo(hvg, ax=ax)
+    plot_hvg(hvg, ax=ax, prevent_overlap=True)
