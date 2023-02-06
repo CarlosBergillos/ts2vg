@@ -32,7 +32,7 @@ class NotBuiltError(Exception):
     """
 
 
-class BaseVG:
+class VG:
     """
     Abstract class for a visibility graph (VG).
 

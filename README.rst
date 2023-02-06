@@ -181,9 +181,9 @@ for further analysis.
 
 The following methods are provided:
 
-.. -  :meth:`~ts2vg.graph.base.BaseVG.as_igraph`
-.. -  :meth:`~ts2vg.graph.base.BaseVG.as_networkx`
-.. -  :meth:`~ts2vg.graph.base.BaseVG.as_snap`
+.. -  :meth:`~ts2vg.graph.base.VG.as_igraph`
+.. -  :meth:`~ts2vg.graph.base.VG.as_networkx`
+.. -  :meth:`~ts2vg.graph.base.VG.as_snap`
 
 -  ``as_igraph()``
 -  ``as_networkx()``

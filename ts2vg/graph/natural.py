@@ -2,10 +2,10 @@ from typing import Optional
 
 from ts2vg.graph._natural import _compute_graph as _compute_graph_dc
 from ts2vg.graph._natural_penetrable import _compute_graph as _compute_graph_pn
-from ts2vg.graph.base import BaseVG
+from ts2vg.graph.base import VG
 
 
-class NaturalVG(BaseVG):
+class NaturalVG(VG):
     r"""
     Natural Visibility Graph.
 

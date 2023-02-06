@@ -21,7 +21,7 @@ def _simple_key_value_line(key, value, line_width):
     return line
 
 
-def simple_summary(vg: "ts2vg.graph.base.BaseVG", title: str = "Visibility Graph", line_width: int = 48):
+def simple_summary(vg: "ts2vg.graph.base.VG", title: str = "Visibility Graph", line_width: int = 48):
     vg_config = {
         "General Type:": vg.general_type_name,
         "Directed:": vg.directed if vg.is_directed else "undirected",

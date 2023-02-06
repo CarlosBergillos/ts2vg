@@ -2,10 +2,10 @@ from typing import Optional
 
 from ts2vg.graph._horizontal import _compute_graph as _compute_graph_dc
 from ts2vg.graph._horizontal_penetrable import _compute_graph as _compute_graph_pn
-from ts2vg.graph.base import BaseVG
+from ts2vg.graph.base import VG
 
 
-class HorizontalVG(BaseVG):
+class HorizontalVG(VG):
     r"""
     Horizontal Visibility Graph.
 
