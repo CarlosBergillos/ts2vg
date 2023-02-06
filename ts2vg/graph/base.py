@@ -21,6 +21,7 @@ _WEIGHTED_OPTIONS = {
     "abs_slope": 8,
     "angle": 9,
     "abs_angle": 10,
+    # "num_obstructions": 11,  # would only apply to LPVGs, but difficult to implement with the algorithm currently used.
 }
 
 
@@ -31,7 +32,7 @@ class NotBuiltError(Exception):
     """
 
 
-class BaseVG:
+class VG:
     """
     Abstract class for a visibility graph (VG).
 
@@ -49,6 +50,7 @@ class BaseVG:
         weighted: Optional[str] = None,
         min_weight: Optional[float] = None,
         max_weight: Optional[float] = None,
+        penetrable_limit: int = 0,
     ):
         self.ts = None
         """1D array of the time series. ``None`` if the graph has not been built yet."""
@@ -89,6 +91,11 @@ class BaseVG:
             raise ValueError("'max_weight' can only be used in weighted graphs.")
 
         self.max_weight = max_weight
+
+        if penetrable_limit < 0:
+            raise ValueError(f"'penetrable_limit' cannot be negative (got {penetrable_limit}).")
+
+        self.penetrable_limit = penetrable_limit
 
     def _validate_is_built(self):
         if self._edges is None:
@@ -138,6 +145,14 @@ class BaseVG:
 
         if only_degrees and self.is_weighted:
             raise ValueError("Building with 'only_degrees' is only supported for unweighted graphs.")
+
+        if len(ts) == 0:
+            # empty time series results in an empty graph
+            self._edges = None if only_degrees else []
+            self._degrees_in = np.zeros(0, dtype=np.uint32)
+            self._degrees_out = np.zeros(0, dtype=np.uint32)
+            self._degrees = np.zeros(0, dtype=np.uint32)
+            return self
 
         self._edges, self._degrees_in, self._degrees_out = self._compute_graph(only_degrees)
         self._degrees = self._degrees_in + self._degrees_out
