@@ -1,6 +1,17 @@
 Changelog
 =========
 
+**1.2.0** 
+---------
+
+*06-02-2023*
+
+Highlights:
+
++ Added Limited Penetrable Visibility Graphs (via the ``penetrable_limit`` parameter).
++ Renamed base class ``BaseVG`` to ``VG``.
+
+
 **1.1.1** 
 ---------
 
@@ -8,7 +19,7 @@ Changelog
 
 Highlights:
 
-+ Add tolerance to Natural Visibility Graph slope comparisons to mitigate floating point errors.
++ Added tolerance to Natural Visibility Graph slope comparisons to mitigate floating point errors.
 
 
 **1.1.0** 
