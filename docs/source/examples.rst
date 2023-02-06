@@ -125,28 +125,6 @@ Note that horizontal visibility graphs can also be directed and/or weighted.
         :language: python
 
 
-Partitioning time series via community detection
-------------------------------------------------
-
-Time series can be partitioned by applying community detection algorithms to their visibility graphs.
-
-.. literalinclude:: examples/partitioning.py
-    :language: python
-
-
-.. figure:: examples/partitioning.png
-   :width: 100%
-   :alt: Example partitioning of visibility graphs
-
-
-.. admonition:: Code for :meth:`plot_graph_demo`
-   :class: toggle
-
-    .. literalinclude:: examples/plot_graph_demo.py
-        :language: python
-
-
-
 Building limited penetrable visibility graphs
 ---------------------------------------------
 
@@ -182,3 +160,24 @@ Note that when ``penetrable_limit`` is 0, the behavior is exactly the same as a 
         :language: python
         :start-after: # ~~ plot_horizontal_graph_demo
         :end-before: # $$
+
+
+Partitioning time series via community detection
+------------------------------------------------
+
+Time series can be partitioned by applying community detection algorithms to their visibility graphs.
+
+.. literalinclude:: examples/partitioning.py
+    :language: python
+
+
+.. figure:: examples/partitioning.png
+   :width: 100%
+   :alt: Example partitioning of visibility graphs
+
+
+.. admonition:: Code for :meth:`plot_graph_demo`
+   :class: toggle
+
+    .. literalinclude:: examples/plot_graph_demo.py
+        :language: python
