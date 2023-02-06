@@ -66,13 +66,22 @@ For other advanced uses, to build |ts2vg| from source Cython is required.
 Supported graph types
 ---------------------
 
-- Natural Visibility Graphs (``ts2vg.NaturalVG``)
-- Horizontal Visibility Graphs (``ts2vg.HorizontalVG``)
-- Weighted and Directed Visibility Graphs (via the ``weighted`` and ``directed`` parameters)
-- Parametric Visibility Graphs (via the ``min_weight`` and ``max_weight`` parameters)
-- Limited Penetrable Visibility Graphs (via the ``penetrable_limit`` parameter)
+Root graph types
+~~~~~~~~~~~~~~~~
 
+- Natural Visibility Graphs (NVG) (``ts2vg.NaturalVG``)
+- Horizontal Visibility Graphs (HVG) ``ts2vg.HorizontalVG``)
+
+Available variations
+~~~~~~~~~~~~~~~~~~~~
+
+- Weighted Visibility Graphs (via the ``weighted`` parameter)
+- Directed Visibility Graphs (via the ``directed`` parameter)
+- Parametric Visibility Graphs (via the ``min_weight`` and ``max_weight`` parameters)
+- Limited Penetrable Visibility Graphs (LPVG) (via the ``penetrable_limit`` parameter)
 .. - Dual Perspective Visibility Graph [*planned, not implemented yet*]
+
+Note that multiple graph variations can be combined and used simultaneously.
 
 
 Basic usage
