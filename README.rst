@@ -70,7 +70,7 @@ Root graph types
 ~~~~~~~~~~~~~~~~
 
 - Natural Visibility Graphs (NVG) (``ts2vg.NaturalVG``)
-- Horizontal Visibility Graphs (HVG) ``ts2vg.HorizontalVG``)
+- Horizontal Visibility Graphs (HVG) (``ts2vg.HorizontalVG``)
 
 Available variations
 ~~~~~~~~~~~~~~~~~~~~
