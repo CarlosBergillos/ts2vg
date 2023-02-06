@@ -41,7 +41,7 @@ class VG:
         e.g :class:`ts2vg.NaturalVG` or :class:`ts2vg.HorizontalVG`.
     """
 
-    general_type_name = "Visibility Graph"
+    _general_type_name = "Visibility Graph"
 
     def __init__(
         self,
