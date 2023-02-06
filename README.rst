@@ -69,16 +69,17 @@ Supported graph types
 Root graph types
 ~~~~~~~~~~~~~~~~
 
-- Natural Visibility Graphs (NVG) (``ts2vg.NaturalVG``)
-- Horizontal Visibility Graphs (HVG) ``ts2vg.HorizontalVG``)
+- **Natural Visibility Graphs** (NVG) (``ts2vg.NaturalVG``)
+- **Horizontal Visibility Graphs** (HVG) ``ts2vg.HorizontalVG``)
 
 Available variations
 ~~~~~~~~~~~~~~~~~~~~
 
-- Weighted Visibility Graphs (via the ``weighted`` parameter)
-- Directed Visibility Graphs (via the ``directed`` parameter)
-- Parametric Visibility Graphs (via the ``min_weight`` and ``max_weight`` parameters)
-- Limited Penetrable Visibility Graphs (LPVG) (via the ``penetrable_limit`` parameter)
+- **Weighted Visibility Graphs** (via the ``weighted`` parameter)
+- **Directed Visibility Graphs** (via the ``directed`` parameter)
+- **Parametric Visibility Graphs** (via the ``min_weight`` and ``max_weight`` parameters)
+- **Limited Penetrable Visibility Graphs** (LPVG) (via the ``penetrable_limit`` parameter)
+
 .. - Dual Perspective Visibility Graph [*planned, not implemented yet*]
 
 Note that multiple graph variations can be combined and used simultaneously.
