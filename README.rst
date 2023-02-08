@@ -85,6 +85,12 @@ Available variations
 Note that multiple graph variations can be combined and used simultaneously.
 
 
+Documentation
+-------------
+
+Usage and reference documentation for |ts2vg| can be found at `carlosbergillos.github.io/ts2vg`_.
+
+
 Basic usage
 -----------
 
@@ -132,7 +138,7 @@ Degree distribution
 
 If we are only interested in the degree distribution of the visibility graph
 we can pass ``only_degrees=True`` to the ``build`` method.
-This will be more efficient in time and memory than computing the whole graph.
+This will be more efficient in time and memory than storing the whole graph.
 
 .. code:: python
 
@@ -235,3 +241,4 @@ License
 .. _SNAP: https://snap.stanford.edu/snappy/
 .. _on GitHub: https://github.com/CarlosBergillos/ts2vg
 .. _MIT License: https://github.com/CarlosBergillos/ts2vg/blob/main/LICENSE
+.. _carlosbergillos.github.io/ts2vg: https://carlosbergillos.github.io/ts2vg/
