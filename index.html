@@ -32,6 +32,7 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script data-domain="cbergillos.com/ts2vg" defer="defer" src="https://plausible.io/js/script.js"></script>
     <link rel="shortcut icon" href="_static/favicon-32x32.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -176,6 +177,11 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#documentation">
+   Documentation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#basic-usage">
    Basic usage
   </a>
@@ -300,6 +306,10 @@ and can be easily installed by running:</p>
 <p>Note that multiple graph variations can be combined and used simultaneously.</p>
 </div>
 </div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>Usage and reference documentation for <span class="ts2vg" style="font-weight: bolder">ts2vg</span> can be found at <a class="reference external" href="https://carlosbergillos.github.io/ts2vg/">carlosbergillos.github.io/ts2vg</a>.</p>
+</div>
 <div class="section" id="basic-usage">
 <h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="visibility-graph">
@@ -337,7 +347,7 @@ Alternatively, a second 1D iterable (<code class="docutils literal notranslate">
 <h3>Degree distribution<a class="headerlink" href="#degree-distribution" title="Permalink to this headline">¶</a></h3>
 <p>If we are only interested in the degree distribution of the visibility graph
 we can pass <code class="docutils literal notranslate"><span class="pre">only_degrees=True</span></code> to the <code class="docutils literal notranslate"><span class="pre">build</span></code> method.
-This will be more efficient in time and memory than computing the whole graph.</p>
+This will be more efficient in time and memory than storing the whole graph.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">()</span>
 <span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">only_degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
