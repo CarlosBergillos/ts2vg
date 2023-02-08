@@ -57,6 +57,16 @@ html_css_files = [
     "custom.css",
 ]
 
+if (
+    "GITHUB_ACTIONS" in os.environ
+    and os.environ.get("GITHUB_REPOSITORY", "") == "CarlosBergillos/ts2vg"
+    and os.environ.get("GITHUB_REF") == "refs/heads/main"
+):
+    # add analytics script if in production deploy
+    html_js_files = [
+        ("https://plausible.io/js/script.js", {"data-domain": "cbergillos.com/ts2vg", "defer": "defer"}),
+    ]
+
 html_copy_source = False
 html_show_sourcelink = False
 
