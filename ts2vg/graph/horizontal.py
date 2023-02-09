@@ -70,6 +70,9 @@ class HorizontalVG(VG):
     #     super().__init__(*args, **kwargs)
 
     def _compute_graph(self, only_degrees: bool):
+        if self._weighted == 11:
+            raise NotImplementedError
+
         if self.penetrable_limit == 0:
             return _compute_graph_dc(
                 self.ts,

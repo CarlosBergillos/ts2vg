@@ -18,6 +18,7 @@ cdef uint _WEIGHTED_SLOPE = _WEIGHTED_OPTIONS['slope']
 cdef uint _WEIGHTED_ABS_SLOPE = _WEIGHTED_OPTIONS['abs_slope']
 cdef uint _WEIGHTED_ANGLE = _WEIGHTED_OPTIONS['angle']
 cdef uint _WEIGHTED_ABS_ANGLE = _WEIGHTED_OPTIONS['abs_angle']
+cdef uint _WEIGHTED_NUM_PENETRATIONS = _WEIGHTED_OPTIONS['num_penetrations']
 
 
 cdef inline bint _greater(double a, double b, double tolerance):
@@ -148,6 +149,11 @@ cdef weight_func_type _get_weight_func(uint weighted):
 
     elif weighted == _WEIGHTED_ABS_ANGLE:
         return _weight_abs_angle
+    
+    elif weighted == _WEIGHTED_NUM_PENETRATIONS:
+        # In non-penetrable VGs, num. penetrations is always 0.
+        # In penetrable VGs, num. penetrations is calculated in the algorithm function.
+        return _weight_0
 
     else:
         return _weight_nan
