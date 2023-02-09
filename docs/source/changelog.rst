@@ -1,6 +1,16 @@
 Changelog
 =========
 
+**1.2.1** 
+---------
+
+*06-02-2023*
+
+Highlights:
+
++ Added new weight option ``"num_penetrations"`` for Limited Penetrable Visibility Graphs.
+
+
 **1.2.0** 
 ---------
 
