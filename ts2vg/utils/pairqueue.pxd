@@ -1,3 +1,5 @@
+#cython: language_level=3
+
 from libc.stdlib cimport malloc, free
 
 cdef struct QueueEntry:
