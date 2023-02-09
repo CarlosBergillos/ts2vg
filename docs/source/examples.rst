@@ -86,6 +86,7 @@ Building weighted graphs
 ------------------------
 
 This example illustrates different options for the ``weighted`` parameter when building visibility graphs.
+See :ref:`Weighted graphs` for a complete list of available values for `weight`.
 
 .. literalinclude:: examples/weighted.py
     :language: python

@@ -282,6 +282,35 @@ def test_penetrable_1_ltr_abs_angle(sample_ts):
     assert sorted(out_got) == sorted(out_truth)
 
 
+def test_penetrable_0_ltr_num_penetrations(sample_ts):
+    vg = ts2vg.HorizontalVG(directed="left_to_right", weighted="num_penetrations", penetrable_limit=0)
+    out_got = vg.build(sample_ts).edges
+
+    out_truth = [
+        (0, 1, 0.0),
+        (1, 2, 0.0),
+        (2, 3, 0.0),
+    ]
+
+    assert sorted(out_got) == sorted(out_truth)
+
+
+def test_penetrable_2_ltr_num_penetrations(sample_ts):
+    vg = ts2vg.HorizontalVG(directed="left_to_right", weighted="num_penetrations", penetrable_limit=2)
+    out_got = vg.build(sample_ts).edges
+
+    out_truth = [
+        (0, 1, 0.0),
+        (0, 2, 1.0),
+        (0, 3, 2.0),
+        (1, 2, 0.0),
+        (1, 3, 1.0),
+        (2, 3, 0.0),
+    ]
+
+    assert sorted(out_got) == sorted(out_truth)
+
+
 def test_penetrable_1_ttb(sample_ts):
     vg = ts2vg.HorizontalVG(directed="top_to_bottom", penetrable_limit=1)
     out_got = vg.build(sample_ts).edges
@@ -442,6 +471,35 @@ def test_penetrable_1_ttb_abs_angle(sample_ts):
         (1, 2, approx(atan(2.0))),
         (1, 3, approx(atan(1.5))),
         (2, 3, approx(atan(1.0))),
+    ]
+
+    assert sorted(out_got) == sorted(out_truth)
+
+
+def test_penetrable_0_ttb_num_penetrations(sample_ts):
+    vg = ts2vg.HorizontalVG(directed="top_to_bottom", weighted="num_penetrations", penetrable_limit=0)
+    out_got = vg.build(sample_ts).edges
+
+    out_truth = [
+        (1, 0, 0.0),
+        (1, 2, 0.0),
+        (2, 3, 0.0),
+    ]
+
+    assert sorted(out_got) == sorted(out_truth)
+
+
+def test_penetrable_2_ttb_num_penetrations(sample_ts):
+    vg = ts2vg.HorizontalVG(directed="top_to_bottom", weighted="num_penetrations", penetrable_limit=2)
+    out_got = vg.build(sample_ts).edges
+
+    out_truth = [
+        (1, 0, 0.0),
+        (0, 2, 1.0),
+        (0, 3, 2.0),
+        (1, 2, 0.0),
+        (1, 3, 1.0),
+        (2, 3, 0.0),
     ]
 
     assert sorted(out_got) == sorted(out_truth)
@@ -699,6 +757,19 @@ def test_penetrable_100_floating_point_linear_large(linear_ts_large):
     assert out_got == out_truth
 
 
+def test_penetrable_100_floating_point_linear_large_num_penetrations(linear_ts_large):
+    n = len(linear_ts_large)
+    m = 100
+
+    vg = ts2vg.HorizontalVG(penetrable_limit=m, weighted="num_penetrations")
+    out_got = vg.build(linear_ts_large).weights.sum()
+
+    # sum of num_penetrations =  0 * (n - 1) + 1 * (n - 2) + ... + m * (n - (m + 1))
+    out_truth = sum((i * (n - (i + 1))) for i in range(m + 1))
+
+    assert out_got == out_truth
+
+
 def test_penetrable_100_floating_point_linear_large_negative(linear_ts_large_negative):
     n = len(linear_ts_large_negative)
     m = 100
@@ -707,5 +778,17 @@ def test_penetrable_100_floating_point_linear_large_negative(linear_ts_large_neg
     out_got = vg.build(linear_ts_large_negative).n_edges
 
     out_truth = (m + 1) * n - ((m + 1) * (m + 2) / 2)
+
+    assert out_got == out_truth
+
+
+def test_penetrable_100_floating_point_linear_large_negative_num_penetrations(linear_ts_large_negative):
+    n = len(linear_ts_large_negative)
+    m = 100
+
+    vg = ts2vg.HorizontalVG(penetrable_limit=m, weighted="num_penetrations")
+    out_got = vg.build(linear_ts_large_negative).weights.sum()
+
+    out_truth = sum((i * (n - (i + 1))) for i in range(m + 1))
 
     assert out_got == out_truth

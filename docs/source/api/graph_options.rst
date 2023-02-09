@@ -97,6 +97,11 @@ Otherwise, for a weighted graph, ``weighted`` can take one of the following valu
     .. math::
         \arctan \left( \left| \frac{y_j - y_i}{x_j - x_i} \right| \right)
 
+``num_penetrations`` :
+    In limited penetrable visibility graphs this is the number of obstructing intermediate data points that the edge is penetrating.
+    In non-penetrable (the default) visibility graphs this is always 0 by definition.
+
+
 .. note::
     Asymmetrical weight functions (like ``v_distance``, ``h_distance``, ``slope``,  ``angle``) depend on the edge direction,
     the direction specified in the ``directed`` parameter is used.
