@@ -86,10 +86,7 @@ Usage and reference documentation for |ts2vg| can be found at `carlosbergillos.g
 Basic usage
 -----------
 
-Visibility graph
-~~~~~~~~~~~~~~~~
-
-To build a visibility graph:
+To build a visibility graph from a time series do:
 
 .. code:: python
 
@@ -102,14 +99,12 @@ To build a visibility graph:
 
    edges = vg.edges
 
+
 The time series passed (``ts``) can be any one-dimensional iterable, such as a list or a ``numpy`` 1D array.
 
 By default, the input observations are assumed to be equally spaced in time.
 Alternatively, a second 1D iterable (``xs``) can be provided for unevenly spaced time series.
 
-
-Horizontal visibility graph
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Horizontal visibility graphs can be obtained in a very similar way:
 
@@ -125,9 +120,6 @@ Horizontal visibility graphs can be obtained in a very similar way:
    edges = vg.edges
 
 
-Degree distribution
-~~~~~~~~~~~~~~~~~~~
-
 If we are only interested in the degree distribution of the visibility graph
 we can pass ``only_degrees=True`` to the ``build`` method.
 This will be more efficient in time and memory than storing the whole graph.
@@ -140,11 +132,8 @@ This will be more efficient in time and memory than storing the whole graph.
    ks, ps = vg.degree_distribution
 
 
-Directed and weighted visibility graphs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 Directed graphs can be obtained by using the ``directed`` parameter
-and weighted graphs can be obtained by using the ``weighted`` parameter.
+and weighted graphs can be obtained by using the ``weighted`` parameter:
 
 .. code:: python
 
@@ -161,11 +150,9 @@ and weighted graphs can be obtained by using the ``weighted`` parameter.
    vg4.build(ts)
 
 
-|
-
 .. **For more information and options see:** :ref:`Examples` and :ref:`API Reference`.
 
-**For more information and options see:** `Examples`_ and `API Reference`_.
+For more information and options see: `Examples`_ and `API Reference`_.
 
 
 Interoperability with other libraries
