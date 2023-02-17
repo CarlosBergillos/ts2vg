@@ -69,8 +69,8 @@ Supported graph types
 Root graph types
 ~~~~~~~~~~~~~~~~
 
-- Natural Visibility Graphs (NVG) (``ts2vg.NaturalVG``)
-- Horizontal Visibility Graphs (HVG) (``ts2vg.HorizontalVG``)
+- Natural Visibility Graphs (NVG) [#natural]_ (``ts2vg.NaturalVG``)
+- Horizontal Visibility Graphs (HVG) [#horizontal]_ (``ts2vg.HorizontalVG``)
 
 Available variations
 ~~~~~~~~~~~~~~~~~~~~
@@ -242,3 +242,10 @@ License
 .. _on GitHub: https://github.com/CarlosBergillos/ts2vg
 .. _MIT License: https://github.com/CarlosBergillos/ts2vg/blob/main/LICENSE
 .. _carlosbergillos.github.io/ts2vg: https://carlosbergillos.github.io/ts2vg/
+
+
+References
+----------
+
+.. [#natural] Lucas Lacasa et al., "*From time series to complex networks: The visibility graph*", 2008.
+.. [#horizontal] Lucas Lacasa et al., "*Horizontal visibility graphs: exact results for random time series*", 2009.
