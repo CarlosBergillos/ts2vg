@@ -32,22 +32,14 @@
 |
 
 The Python |ts2vg| package provides high-performance algorithm
-implementations to build visibility graphs from time series data.
+implementations to build visibility graphs from time series data,
+as first introduced by Lucas Lacasa et al. in 2008 [#Lacasa2008]_.
 
 The visibility graphs and some of their properties (e.g. degree
 distributions) are computed quickly and efficiently even for time
 series with millions of observations.
-
-The visibility graphs are provided according to the
-mathematical definitions presented in:
-
--  Lucas Lacasa et al., "*From time series to complex networks: The visibility graph*", 2008.
--  Lucas Lacasa et al., "*Horizontal visibility graphs: exact results for random time series*", 2009.
-
-An efficient divide-and-conquer algorithm is used to compute the graphs,
-as described in:
-
--  Xin Lan et al., "*Fast transformation from time series to visibility graphs*", 2015.
+An efficient divide-and-conquer algorithm is used to compute the graphs
+whenever possible [#Lan2015]_.
 
    
 Installation
@@ -69,16 +61,16 @@ Supported graph types
 Root graph types
 ~~~~~~~~~~~~~~~~
 
-- Natural Visibility Graphs (NVG) (``ts2vg.NaturalVG``)
-- Horizontal Visibility Graphs (HVG) (``ts2vg.HorizontalVG``)
+- Natural Visibility Graphs (NVG) [#Lacasa2008]_ (``ts2vg.NaturalVG``)
+- Horizontal Visibility Graphs (HVG) [#Lacasa2009]_ (``ts2vg.HorizontalVG``)
 
 Available variations
 ~~~~~~~~~~~~~~~~~~~~
 
 - Weighted Visibility Graphs (via the ``weighted`` parameter)
 - Directed Visibility Graphs (via the ``directed`` parameter)
-- Parametric Visibility Graphs (via the ``min_weight`` and ``max_weight`` parameters)
-- Limited Penetrable Visibility Graphs (LPVG) (via the ``penetrable_limit`` parameter)
+- Parametric Visibility Graphs [#Bezsudnov2014]_ (via the ``min_weight`` and ``max_weight`` parameters)
+- Limited Penetrable Visibility Graphs (LPVG) [#Zhou2012]_ [#Xuan2021]_ (via the ``penetrable_limit`` parameter)
 
 .. - Dual Perspective Visibility Graph [*planned, not implemented yet*]
 
@@ -94,10 +86,7 @@ Usage and reference documentation for |ts2vg| can be found at `carlosbergillos.g
 Basic usage
 -----------
 
-Visibility graph
-~~~~~~~~~~~~~~~~
-
-To build a visibility graph:
+To build a visibility graph from a time series do:
 
 .. code:: python
 
@@ -105,19 +94,17 @@ To build a visibility graph:
 
    ts = [1.0, 0.5, 0.3, 0.7, 1.0, 0.5, 0.3, 0.8]
 
-   g = NaturalVG()
-   g.build(ts)
+   vg = NaturalVG()
+   vg.build(ts)
 
-   edges = g.edges
+   edges = vg.edges
+
 
 The time series passed (``ts``) can be any one-dimensional iterable, such as a list or a ``numpy`` 1D array.
 
 By default, the input observations are assumed to be equally spaced in time.
 Alternatively, a second 1D iterable (``xs``) can be provided for unevenly spaced time series.
 
-
-Horizontal visibility graph
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Horizontal visibility graphs can be obtained in a very similar way:
 
@@ -127,14 +114,11 @@ Horizontal visibility graphs can be obtained in a very similar way:
 
    ts = [1.0, 0.5, 0.3, 0.7, 1.0, 0.5, 0.3, 0.8]
 
-   g = HorizontalVG()
-   g.build(ts)
+   vg = HorizontalVG()
+   vg.build(ts)
 
-   edges = g.edges
+   edges = vg.edges
 
-
-Degree distribution
-~~~~~~~~~~~~~~~~~~~
 
 If we are only interested in the degree distribution of the visibility graph
 we can pass ``only_degrees=True`` to the ``build`` method.
@@ -142,40 +126,33 @@ This will be more efficient in time and memory than storing the whole graph.
 
 .. code:: python
 
-   g = NaturalVG()
-   g.build(ts, only_degrees=True)
+   vg = NaturalVG()
+   vg.build(ts, only_degrees=True)
 
-   ks, ps = g.degree_distribution
+   ks, ps = vg.degree_distribution
 
 
-Directed visibility graph
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Directed graphs can be obtained by using the ``directed`` parameter.
-See the reference documentation for the different available options.
+Directed graphs can be obtained by using the ``directed`` parameter
+and weighted graphs can be obtained by using the ``weighted`` parameter:
 
 .. code:: python
 
-   g = NaturalVG(directed='left_to_right')
-   g.build(ts)
+   vg1 = NaturalVG(directed="left_to_right")
+   vg1.build(ts)
 
+   vg2 = NaturalVG(weighted="distance")
+   vg2.build(ts)
 
-Weighted visibility graph
-~~~~~~~~~~~~~~~~~~~~~~~~~
+   vg3 = NaturalVG(directed="left_to_right", weighted="distance")
+   vg3.build(ts)
 
-Weighted graphs can be obtained by using the ``weighted`` parameter.
-See the reference documentation for the different available options.
+   vg4 = HorizontalVG(directed="left_to_right", weighted="h_distance")
+   vg4.build(ts)
 
-.. code:: python
-
-   g = NaturalVG(weighted='distance')
-   g.build(ts)
-
-|
 
 .. **For more information and options see:** :ref:`Examples` and :ref:`API Reference`.
 
-**For more information and options see:** `Examples`_ and `API Reference`_.
+For more information and options see: `Examples`_ and `API Reference`_.
 
 
 Interoperability with other libraries
@@ -199,10 +176,10 @@ For example:
 
 .. code:: python
 
-   g = NaturalVG()
-   g.build(ts)
+   vg = NaturalVG()
+   vg.build(ts)
    
-   nx_g = g.as_networkx()
+   g = vg.as_networkx()
 
 
 Command line interface
@@ -242,3 +219,14 @@ License
 .. _on GitHub: https://github.com/CarlosBergillos/ts2vg
 .. _MIT License: https://github.com/CarlosBergillos/ts2vg/blob/main/LICENSE
 .. _carlosbergillos.github.io/ts2vg: https://carlosbergillos.github.io/ts2vg/
+
+
+References
+----------
+
+.. [#Lacasa2008] Lucas Lacasa et al., "*From time series to complex networks: The visibility graph*", 2008.
+.. [#Lacasa2009] Lucas Lacasa et al., "*Horizontal visibility graphs: exact results for random time series*", 2009.
+.. [#Lan2015] Xin Lan et al., "*Fast transformation from time series to visibility graphs*", 2015.
+.. [#Zhou2012] T.T Zhou et al., "*Limited penetrable visibility graph for establishing complex network from time series*", 2012.
+.. [#Bezsudnov2014] I.V. Bezsudnov et al., "*From the time series to the complex networks: The parametric natural visibility graph*", 2014
+.. [#Xuan2021] Qi Xuan et al., "*CLPVG: Circular limited penetrable visibility graph as a new network model for time series*", 2021
