@@ -185,33 +185,6 @@
   <a class="reference internal nav-link" href="#basic-usage">
    Basic usage
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#visibility-graph">
-     Visibility graph
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#horizontal-visibility-graph">
-     Horizontal visibility graph
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#degree-distribution">
-     Degree distribution
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#directed-visibility-graph">
-     Directed visibility graph
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#weighted-visibility-graph">
-     Weighted visibility graph
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#interoperability-with-other-libraries">
@@ -231,6 +204,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#license">
    License
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
   </a>
  </li>
 </ul>
@@ -262,21 +240,13 @@
 <div class="line"><br /></div>
 </div>
 <p>The Python <span class="ts2vg" style="font-weight: bolder">ts2vg</span> package provides high-performance algorithm
-implementations to build visibility graphs from time series data.</p>
+implementations to build visibility graphs from time series data,
+as first introduced by Lucas Lacasa et al. in 2008 <a class="footnote-reference brackets" href="#lacasa2008" id="id1">1</a>.</p>
 <p>The visibility graphs and some of their properties (e.g. degree
 distributions) are computed quickly and efficiently even for time
-series with millions of observations.</p>
-<p>The visibility graphs are provided according to the
-mathematical definitions presented in:</p>
-<ul class="simple">
-<li><p>Lucas Lacasa et al., “<em>From time series to complex networks: The visibility graph</em>”, 2008.</p></li>
-<li><p>Lucas Lacasa et al., “<em>Horizontal visibility graphs: exact results for random time series</em>”, 2009.</p></li>
-</ul>
-<p>An efficient divide-and-conquer algorithm is used to compute the graphs,
-as described in:</p>
-<ul class="simple">
-<li><p>Xin Lan et al., “<em>Fast transformation from time series to visibility graphs</em>”, 2015.</p></li>
-</ul>
+series with millions of observations.
+An efficient divide-and-conquer algorithm is used to compute the graphs
+whenever possible <a class="footnote-reference brackets" href="#lan2015" id="id2">3</a>.</p>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>The latest released <span class="ts2vg" style="font-weight: bolder">ts2vg</span> version is available at the <a class="reference external" href="https://pypi.org/project/ts2vg">Python Package Index (PyPI)</a>
@@ -291,8 +261,8 @@ and can be easily installed by running:</p>
 <div class="section" id="root-graph-types">
 <h3>Root graph types<a class="headerlink" href="#root-graph-types" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Natural Visibility Graphs (NVG) (<code class="docutils literal notranslate"><span class="pre">ts2vg.NaturalVG</span></code>)</p></li>
-<li><p>Horizontal Visibility Graphs (HVG) (<code class="docutils literal notranslate"><span class="pre">ts2vg.HorizontalVG</span></code>)</p></li>
+<li><p>Natural Visibility Graphs (NVG) <a class="footnote-reference brackets" href="#lacasa2008" id="id3">1</a> (<code class="docutils literal notranslate"><span class="pre">ts2vg.NaturalVG</span></code>)</p></li>
+<li><p>Horizontal Visibility Graphs (HVG) <a class="footnote-reference brackets" href="#lacasa2009" id="id4">2</a> (<code class="docutils literal notranslate"><span class="pre">ts2vg.HorizontalVG</span></code>)</p></li>
 </ul>
 </div>
 <div class="section" id="available-variations">
@@ -300,8 +270,8 @@ and can be easily installed by running:</p>
 <ul class="simple">
 <li><p>Weighted Visibility Graphs (via the <code class="docutils literal notranslate"><span class="pre">weighted</span></code> parameter)</p></li>
 <li><p>Directed Visibility Graphs (via the <code class="docutils literal notranslate"><span class="pre">directed</span></code> parameter)</p></li>
-<li><p>Parametric Visibility Graphs (via the <code class="docutils literal notranslate"><span class="pre">min_weight</span></code> and <code class="docutils literal notranslate"><span class="pre">max_weight</span></code> parameters)</p></li>
-<li><p>Limited Penetrable Visibility Graphs (LPVG) (via the <code class="docutils literal notranslate"><span class="pre">penetrable_limit</span></code> parameter)</p></li>
+<li><p>Parametric Visibility Graphs <a class="footnote-reference brackets" href="#bezsudnov2014" id="id5">5</a> (via the <code class="docutils literal notranslate"><span class="pre">min_weight</span></code> and <code class="docutils literal notranslate"><span class="pre">max_weight</span></code> parameters)</p></li>
+<li><p>Limited Penetrable Visibility Graphs (LPVG) <a class="footnote-reference brackets" href="#zhou2012" id="id6">4</a> <a class="footnote-reference brackets" href="#xuan2021" id="id7">6</a> (via the <code class="docutils literal notranslate"><span class="pre">penetrable_limit</span></code> parameter)</p></li>
 </ul>
 <p>Note that multiple graph variations can be combined and used simultaneously.</p>
 </div>
@@ -312,71 +282,56 @@ and can be easily installed by running:</p>
 </div>
 <div class="section" id="basic-usage">
 <h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="visibility-graph">
-<h3>Visibility graph<a class="headerlink" href="#visibility-graph" title="Permalink to this headline">¶</a></h3>
-<p>To build a visibility graph:</p>
+<p>To build a visibility graph from a time series do:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">NaturalVG</span>
 
 <span class="n">ts</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]</span>
 
-<span class="n">g</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">()</span>
-<span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+<span class="n">vg</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">()</span>
+<span class="n">vg</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
 
-<span class="n">edges</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">edges</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">edges</span>
 </pre></div>
 </div>
 <p>The time series passed (<code class="docutils literal notranslate"><span class="pre">ts</span></code>) can be any one-dimensional iterable, such as a list or a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> 1D array.</p>
 <p>By default, the input observations are assumed to be equally spaced in time.
 Alternatively, a second 1D iterable (<code class="docutils literal notranslate"><span class="pre">xs</span></code>) can be provided for unevenly spaced time series.</p>
-</div>
-<div class="section" id="horizontal-visibility-graph">
-<h3>Horizontal visibility graph<a class="headerlink" href="#horizontal-visibility-graph" title="Permalink to this headline">¶</a></h3>
 <p>Horizontal visibility graphs can be obtained in a very similar way:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">HorizontalVG</span>
 
 <span class="n">ts</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]</span>
 
-<span class="n">g</span> <span class="o">=</span> <span class="n">HorizontalVG</span><span class="p">()</span>
-<span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+<span class="n">vg</span> <span class="o">=</span> <span class="n">HorizontalVG</span><span class="p">()</span>
+<span class="n">vg</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
 
-<span class="n">edges</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">edges</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">edges</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="degree-distribution">
-<h3>Degree distribution<a class="headerlink" href="#degree-distribution" title="Permalink to this headline">¶</a></h3>
 <p>If we are only interested in the degree distribution of the visibility graph
 we can pass <code class="docutils literal notranslate"><span class="pre">only_degrees=True</span></code> to the <code class="docutils literal notranslate"><span class="pre">build</span></code> method.
 This will be more efficient in time and memory than storing the whole graph.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">()</span>
-<span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">only_degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vg</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">()</span>
+<span class="n">vg</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">only_degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">ks</span><span class="p">,</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">degree_distribution</span>
+<span class="n">ks</span><span class="p">,</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">degree_distribution</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="directed-visibility-graph">
-<h3>Directed visibility graph<a class="headerlink" href="#directed-visibility-graph" title="Permalink to this headline">¶</a></h3>
-<p>Directed graphs can be obtained by using the <code class="docutils literal notranslate"><span class="pre">directed</span></code> parameter.
-See the reference documentation for the different available options.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="s1">&#39;left_to_right&#39;</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+<p>Directed graphs can be obtained by using the <code class="docutils literal notranslate"><span class="pre">directed</span></code> parameter
+and weighted graphs can be obtained by using the <code class="docutils literal notranslate"><span class="pre">weighted</span></code> parameter:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vg1</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="s2">&quot;left_to_right&quot;</span><span class="p">)</span>
+<span class="n">vg1</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+
+<span class="n">vg2</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">(</span><span class="n">weighted</span><span class="o">=</span><span class="s2">&quot;distance&quot;</span><span class="p">)</span>
+<span class="n">vg2</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+
+<span class="n">vg3</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="s2">&quot;left_to_right&quot;</span><span class="p">,</span> <span class="n">weighted</span><span class="o">=</span><span class="s2">&quot;distance&quot;</span><span class="p">)</span>
+<span class="n">vg3</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+
+<span class="n">vg4</span> <span class="o">=</span> <span class="n">HorizontalVG</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="s2">&quot;left_to_right&quot;</span><span class="p">,</span> <span class="n">weighted</span><span class="o">=</span><span class="s2">&quot;h_distance&quot;</span><span class="p">)</span>
+<span class="n">vg4</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="weighted-visibility-graph">
-<h3>Weighted visibility graph<a class="headerlink" href="#weighted-visibility-graph" title="Permalink to this headline">¶</a></h3>
-<p>Weighted graphs can be obtained by using the <code class="docutils literal notranslate"><span class="pre">weighted</span></code> parameter.
-See the reference documentation for the different available options.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">(</span><span class="n">weighted</span><span class="o">=</span><span class="s1">&#39;distance&#39;</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<p><strong>For more information and options see:</strong> <a class="reference external" href="examples.html">Examples</a> and <a class="reference external" href="api/index.html">API Reference</a>.</p>
-</div>
+<p>For more information and options see: <a class="reference external" href="examples.html">Examples</a> and <a class="reference external" href="api/index.html">API Reference</a>.</p>
 </div>
 <div class="section" id="interoperability-with-other-libraries">
 <h2>Interoperability with other libraries<a class="headerlink" href="#interoperability-with-other-libraries" title="Permalink to this headline">¶</a></h2>
@@ -390,10 +345,10 @@ for further analysis.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">as_snap()</span></code></p></li>
 </ul>
 <p>For example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">()</span>
-<span class="n">g</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vg</span> <span class="o">=</span> <span class="n">NaturalVG</span><span class="p">()</span>
+<span class="n">vg</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
 
-<span class="n">nx_g</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">as_networkx</span><span class="p">()</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">as_networkx</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -416,6 +371,29 @@ Pull requests and issue reports are welcome.</p>
 <div class="section" id="license">
 <h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
 <p><span class="ts2vg" style="font-weight: bolder">ts2vg</span> is licensed under the terms of the <a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/LICENSE">MIT License</a>.</p>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="lacasa2008"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id3">2</a>)</span></dt>
+<dd><p>Lucas Lacasa et al., “<em>From time series to complex networks: The visibility graph</em>”, 2008.</p>
+</dd>
+<dt class="label" id="lacasa2009"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
+<dd><p>Lucas Lacasa et al., “<em>Horizontal visibility graphs: exact results for random time series</em>”, 2009.</p>
+</dd>
+<dt class="label" id="lan2015"><span class="brackets"><a class="fn-backref" href="#id2">3</a></span></dt>
+<dd><p>Xin Lan et al., “<em>Fast transformation from time series to visibility graphs</em>”, 2015.</p>
+</dd>
+<dt class="label" id="zhou2012"><span class="brackets"><a class="fn-backref" href="#id6">4</a></span></dt>
+<dd><p>T.T Zhou et al., “<em>Limited penetrable visibility graph for establishing complex network from time series</em>”, 2012.</p>
+</dd>
+<dt class="label" id="bezsudnov2014"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>I.V. Bezsudnov et al., “<em>From the time series to the complex networks: The parametric natural visibility graph</em>”, 2014</p>
+</dd>
+<dt class="label" id="xuan2021"><span class="brackets"><a class="fn-backref" href="#id7">6</a></span></dt>
+<dd><p>Qi Xuan et al., “<em>CLPVG: Circular limited penetrable visibility graph as a new network model for time series</em>”, 2021</p>
+</dd>
+</dl>
 <div class="toctree-wrapper compound">
 </div>
 </div>
