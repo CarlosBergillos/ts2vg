@@ -244,7 +244,8 @@ License
 .. _carlosbergillos.github.io/ts2vg: https://carlosbergillos.github.io/ts2vg/
 
 
-.. rubric:: References
+References
+----------
 
 .. [#natural] Lucas Lacasa et al., "*From time series to complex networks: The visibility graph*", 2008.
 .. [#horizontal] Lucas Lacasa et al., "*Horizontal visibility graphs: exact results for random time series*", 2009.
