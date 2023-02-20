@@ -1,7 +1,6 @@
 from typing import Optional
 
-# from ts2vg.graph._natural import _compute_graph as _compute_graph_dc
-# from ts2vg.graph._natural_penetrable import _compute_graph as _compute_graph_pn
+from ts2vg.graph._circular import _compute_graph as _compute_graph_pn
 from ts2vg.graph.base import VG
 
 
@@ -77,4 +76,13 @@ class CircularVG(VG):
         super().__init__(*args, **kwargs)
 
     def _compute_graph(self, only_degrees: bool):
-        raise NotImplementedError()
+        return _compute_graph_pn(
+            self.ts,
+            self.xs,
+            self.alpha,
+            self._directed,
+            self._weighted,
+            only_degrees,
+            self.min_weight if self.min_weight is not None else float("-inf"),
+            self.max_weight if self.max_weight is not None else float("inf"),
+        )
