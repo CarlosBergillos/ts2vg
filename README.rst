@@ -63,6 +63,8 @@ Root graph types
 
 - Natural Visibility Graphs (NVG) [#Lacasa2008]_ (``ts2vg.NaturalVG``)
 - Horizontal Visibility Graphs (HVG) [#Lacasa2009]_ (``ts2vg.HorizontalVG``)
+- Circular Visibility Graphs [#Xuan2021]_ (``ts2vg.CircularVG``)
+
 
 Available variations
 ~~~~~~~~~~~~~~~~~~~~
