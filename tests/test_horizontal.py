@@ -4,8 +4,9 @@ import numpy as np
 import pytest
 from pytest import approx
 
+from fixtures import *
 import ts2vg
-from fixtures import empty_ts, flat_ts, sample_ts, sample_ts_2
+from naive_implementations import horizontal_visibility_graph as naive_hvg
 
 
 def test_basic(sample_ts):
@@ -40,6 +41,28 @@ def test_basic_2(sample_ts_2):
         (7, 8),
         (8, 9),
     ]
+
+    assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)
+
+
+def test_white_noise(white_noise_ts):
+    ts = white_noise_ts
+    xs = list(range(len(ts)))
+
+    out_got = ts2vg.HorizontalVG().build(ts, xs).edges
+
+    out_truth = naive_hvg(ts, xs)
+
+    assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)
+
+
+def test_brownian_motion_ts(brownian_motion_ts):
+    ts = brownian_motion_ts
+    xs = list(range(len(ts)))
+
+    out_got = ts2vg.HorizontalVG().build(ts, xs).edges
+
+    out_truth = naive_hvg(ts, xs)
 
     assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)
 

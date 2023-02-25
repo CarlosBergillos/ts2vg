@@ -4,16 +4,9 @@ import numpy as np
 import pytest
 from pytest import approx
 
+from fixtures import *
 import ts2vg
-from fixtures import (
-    empty_ts,
-    flat_ts,
-    sample_ts,
-    sample_ts_2,
-    linear_ts_small,
-    linear_ts_large,
-    linear_ts_large_negative,
-)
+from naive_implementations import natural_visibility_graph as naive_nvg
 
 
 def test_basic(sample_ts):
@@ -57,6 +50,28 @@ def test_basic_2(sample_ts_2):
         (7, 8),
         (8, 9),
     ]
+
+    assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)
+
+
+def test_white_noise(white_noise_ts):
+    ts = white_noise_ts
+    xs = list(range(len(ts)))
+
+    out_got = ts2vg.NaturalVG().build(ts, xs).edges
+
+    out_truth = naive_nvg(ts, xs)
+
+    assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)
+
+
+def test_brownian_motion_ts(brownian_motion_ts):
+    ts = brownian_motion_ts
+    xs = list(range(len(ts)))
+
+    out_got = ts2vg.NaturalVG().build(ts, xs).edges
+
+    out_truth = naive_nvg(ts, xs)
 
     assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)
 
