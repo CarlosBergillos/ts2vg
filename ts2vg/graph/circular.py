@@ -1,6 +1,6 @@
 from typing import Optional
 
-from ts2vg.graph._circular import _compute_graph as _compute_graph_pn
+from ts2vg.graph._circular_penetrable import _compute_graph as _compute_graph_pn
 from ts2vg.graph.base import VG
 
 
