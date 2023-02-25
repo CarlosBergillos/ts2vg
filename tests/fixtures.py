@@ -23,6 +23,23 @@ def flat_ts():
 
 
 @pytest.fixture
+def white_noise_ts():
+    rng = np.random.default_rng(0)
+    ts = rng.standard_normal(size=1000)
+
+    return ts
+
+
+@pytest.fixture
+def brownian_motion_ts():
+    rng = np.random.default_rng(0)
+    ts = rng.standard_normal(size=1000)
+    ts = np.cumsum(ts)
+
+    return ts
+
+
+@pytest.fixture
 def linear_ts_small():
     return [
         9999 + 0.0,
