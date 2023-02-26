@@ -4,16 +4,9 @@ import numpy as np
 import pytest
 from pytest import approx
 
+from fixtures import *
 import ts2vg
-from fixtures import (
-    empty_ts,
-    flat_ts,
-    sample_ts,
-    sample_ts_2,
-    linear_ts_small,
-    linear_ts_large,
-    linear_ts_large_negative,
-)
+from naive_implementations import natural_visibility_graph as naive_nvg
 
 
 def test_negative_parametric(sample_ts):
@@ -124,6 +117,58 @@ def test_penetrable_3(sample_ts):
         (1, 3),
         (2, 3),
     ]
+
+    assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)
+
+
+def test_penetrable_1_white_noise(white_noise_ts):
+    ts = white_noise_ts
+    xs = list(range(len(ts)))
+
+    vg = ts2vg.NaturalVG(penetrable_limit=1)
+
+    out_got = vg.build(ts, xs).edges
+
+    out_truth = naive_nvg(ts, xs, penetrable_limit=1)
+
+    assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)
+
+
+def test_penetrable_3_white_noise(white_noise_ts):
+    ts = white_noise_ts
+    xs = list(range(len(ts)))
+
+    vg = ts2vg.NaturalVG(penetrable_limit=3)
+
+    out_got = vg.build(ts, xs).edges
+
+    out_truth = naive_nvg(ts, xs, penetrable_limit=3)
+
+    assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)
+
+
+def test_penetrable_1_brownian_motion(brownian_motion_ts):
+    ts = brownian_motion_ts
+    xs = list(range(len(ts)))
+
+    vg = ts2vg.NaturalVG(penetrable_limit=1)
+
+    out_got = vg.build(ts, xs).edges
+
+    out_truth = naive_nvg(ts, xs, penetrable_limit=1)
+
+    assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)
+
+
+def test_penetrable_3_brownian_motion(brownian_motion_ts):
+    ts = brownian_motion_ts
+    xs = list(range(len(ts)))
+
+    vg = ts2vg.NaturalVG(penetrable_limit=3)
+
+    out_got = vg.build(ts, xs).edges
+
+    out_truth = naive_nvg(ts, xs, penetrable_limit=3)
 
     assert sorted(sorted(e) for e in out_got) == sorted(sorted(e) for e in out_truth)
 
