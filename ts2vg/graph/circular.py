@@ -85,4 +85,5 @@ class CircularVG(VG):
             only_degrees,
             self.min_weight if self.min_weight is not None else float("-inf"),
             self.max_weight if self.max_weight is not None else float("inf"),
+            self.penetrable_limit,
         )
