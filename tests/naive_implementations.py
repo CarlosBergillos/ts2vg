@@ -144,3 +144,55 @@ def circular_visibility_graph_2(ts, xs, alpha):
                 edges.append((i_a, i_b))
 
     return edges
+
+
+
+def circular_visibility_graph_3(ts, xs, alpha):
+    from math import pi, atan, sin, cos
+
+    n = len(ts)
+    edges = []
+
+    rotation_angle = pi - atan(1 / alpha)
+
+    print(rotation_angle * 180 / pi)
+
+    for i_a in range(n - 1):
+        x_a = xs[i_a]
+        y_a = ts[i_a]
+
+        lines = []
+
+        for i_b in range(i_a + 1, n):
+            x_b = xs[i_b]
+            y_b = ts[i_b]
+
+            for (line_slope, line_intercept) in lines:
+                y_b_line = line_slope * x_b + line_intercept
+                
+                if y_b_line > y_b:
+                    break
+
+            else:
+                edges.append((i_a, i_b))
+            
+            # rotate point (x_a, y_a) around (x_b, y_b) by rotation_angle radians
+            x_p = cos(rotation_angle) * (x_a - x_b) - sin(rotation_angle) * (y_a - y_b) + x_b
+            y_p = sin(rotation_angle) * (x_a - x_b) + cos(rotation_angle) * (y_a - y_b) + y_b
+
+            if x_p <= x_b:
+                # line rotated past x_b and is pointing backwards, will not obstruct any upcoming point.
+                continue
+            
+            # y = m x + n
+            # y_b = m x_b + n
+            # n = y_b - m x_b
+                
+            line_slope = (y_p - y_b) / (x_p - x_b)
+            line_intercept = y_b - line_slope * x_b
+
+            lines.append((line_slope, line_intercept))
+
+            # TODO: remove any previous lines that become redundant.
+
+    return edges
