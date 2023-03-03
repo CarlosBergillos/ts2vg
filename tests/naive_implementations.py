@@ -171,6 +171,7 @@ def circular_visibility_graph_3(ts, xs, alpha):
                 y_b_line = line_slope * x_b + line_intercept
                 
                 if y_b_line > y_b:
+                    # y_b is obstructed
                     break
 
             else:
@@ -191,8 +192,9 @@ def circular_visibility_graph_3(ts, xs, alpha):
             line_slope = (y_p - y_b) / (x_p - x_b)
             line_intercept = y_b - line_slope * x_b
 
-            lines.append((line_slope, line_intercept))
+            # remove previous lines that become redundant.
+            lines = [(l_slope, l_intercept) for (l_slope, l_intercept) in lines if l_slope > line_slope]  # comparison requires TOL
 
-            # TODO: remove any previous lines that become redundant.
+            lines.append((line_slope, line_intercept))
 
     return edges
