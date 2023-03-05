@@ -79,10 +79,12 @@ def main():
         print(f"ERROR: Input file '{input_path}' not found.")
         return
 
+    build_only_degrees = output_mode in ["ds", "dd", "dc"]
+
     ts = np.loadtxt(input_path_, dtype="float64")
 
     g = _GRAPH_TYPES[gtype](directed=directed, weighted=weighted)
-    g.build(ts)
+    g.build(ts, only_degrees=build_only_degrees)
 
     if output_mode == "el":
         es = g.edges
