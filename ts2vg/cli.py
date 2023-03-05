@@ -28,22 +28,36 @@ class SmartFormatter(argparse.HelpFormatter):
 
 def main():
     parser = argparse.ArgumentParser(
-        formatter_class=SmartFormatter, description="Compute the visibility graph from an input time series."
+        formatter_class=SmartFormatter,
+        description="Compute the visibility graph from an input time series.",
     )
     parser.add_argument(
-        "input", help="Path to the file containing the input time series. Must be a text file with one value per line."
+        "input",
+        help="Path to the file containing the input time series. Must be a text file with one value per line.",
     )
     parser.add_argument(
         "-o",
         "--output",
         help="Path to the file where the output corresponding to the visibility graph will be saved. If not provided, output will go to stdout.",
     )
-    parser.add_argument("-t", "--type", choices=_GRAPH_TYPES.keys(), default="natural", help="Type of graph.")
     parser.add_argument(
-        "-d", "--directed", choices=[c for c in _DIRECTED_OPTIONS.keys() if c is not None], default=None
+        "-t",
+        "--type",
+        choices=_GRAPH_TYPES.keys(),
+        default="natural",
+        help="Type of graph.",
     )
     parser.add_argument(
-        "-w", "--weighted", choices=[c for c in _WEIGHTED_OPTIONS.keys() if c is not None], default=None
+        "-d",
+        "--directed",
+        choices=[c for c in _DIRECTED_OPTIONS.keys() if c is not None],
+        default=None,
+    )
+    parser.add_argument(
+        "-w",
+        "--weighted",
+        choices=[c for c in _WEIGHTED_OPTIONS.keys() if c is not None],
+        default=None,
     )
     parser.add_argument(
         "-m",
@@ -91,7 +105,7 @@ def main():
         for (a, b, *w) in es:
             print(a, b, *w, file=output_f)
     elif output_mode == "ds":
-        ds = g.degree_sequence
+        ds = g.degrees
         for d in ds:
             print(d, file=output_f)
     elif output_mode == "dd":
@@ -107,3 +121,7 @@ def main():
         output_f.close()
         print(g.summary())
         print(f"Saved {_OUTPUT_MODES[output_mode]} to file: {output_path}")
+
+
+if __name__ == "__main__":
+    main()
