@@ -25,47 +25,83 @@ class SmartFormatter(argparse.HelpFormatter):
             return text[2:].splitlines()
         return argparse.HelpFormatter._split_lines(self, text, width)
 
+    def _format_action_invocation(self, action):
+        if not action.option_strings:
+            default = self._get_default_metavar_for_positional(action)
+            (metavar,) = self._metavar_formatter(action, default)(1)
+            return metavar
+
+        else:
+            parts = []
+
+            if action.nargs == 0:
+                parts.extend(action.option_strings)
+
+            else:
+                default = self._get_default_metavar_for_optional(action)
+                for option_string in action.option_strings:
+                    parts.append(option_string)
+                parts.append(default)
+
+            return " ".join(parts)
+
 
 def main():
     parser = argparse.ArgumentParser(
         formatter_class=SmartFormatter,
         description="Compute the visibility graph from an input time series.",
     )
+
     parser.add_argument(
         "input",
         help="Path to the file containing the input time series. Must be a text file with one value per line.",
     )
+
     parser.add_argument(
         "-o",
         "--output",
         help="Path to the file where the output corresponding to the visibility graph will be saved. If not provided, output will go to stdout.",
     )
+
+    graph_type_options = _GRAPH_TYPES.keys()
     parser.add_argument(
         "-t",
         "--type",
-        choices=_GRAPH_TYPES.keys(),
+        choices=graph_type_options,
         default="natural",
-        help="Type of graph.",
+        help="General type of graph. {" + ",".join(graph_type_options) + "}",
     )
+
+    directed_choices = [c for c in _DIRECTED_OPTIONS.keys() if c is not None]
     parser.add_argument(
         "-d",
         "--directed",
-        choices=[c for c in _DIRECTED_OPTIONS.keys() if c is not None],
+        choices=directed_choices,
         default=None,
+        help="If provided, build a directed graph with one of the following values: {"
+        + ",".join(directed_choices)
+        + "}.",
     )
+
+    weighted_choices = [c for c in _WEIGHTED_OPTIONS.keys() if c is not None]
     parser.add_argument(
         "-w",
         "--weighted",
-        choices=[c for c in _WEIGHTED_OPTIONS.keys() if c is not None],
+        choices=weighted_choices,
         default=None,
+        help="If provided, build a weighted graph with one of the following values: {"
+        + ",".join(weighted_choices)
+        + "}.",
     )
+
     parser.add_argument(
         "-p",
         "--penetrable_limit",
         type=int,
         default=0,
-        help="If larger than 0, make a limited penetrable visibility graph (LPVG) with this number of maximum allowed penetrations per edge.",
+        help="If larger than 0, build a limited penetrable visibility graph (LPVG) with this number of maximum allowed penetrations per edge.",
     )
+
     parser.add_argument(
         "-m",
         "--outputmode",
