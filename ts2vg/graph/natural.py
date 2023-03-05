@@ -9,7 +9,7 @@ class NaturalVG(VG):
     r"""
     Natural Visibility Graph.
 
-    Transform a time series to a Natural Visibility Graph.
+    Used to transform a time series to a Natural Visibility Graph.
 
     Parameters
     ----------

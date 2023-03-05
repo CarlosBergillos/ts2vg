@@ -9,7 +9,7 @@ class HorizontalVG(VG):
     r"""
     Horizontal Visibility Graph.
 
-    Transform a time series to a Horizontal Visibility Graph.
+    Used to transform a time series to a Horizontal Visibility Graph.
 
     Parameters
     ----------
