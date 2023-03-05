@@ -177,24 +177,24 @@ def circular_visibility_graph_3(ts, xs, alpha):
             else:
                 edges.append((i_a, i_b))
             
-            # rotate point (x_a, y_a) around (x_b, y_b) by rotation_angle radians
-            x_p = cos(rotation_angle) * (x_a - x_b) - sin(rotation_angle) * (y_a - y_b) + x_b
-            y_p = sin(rotation_angle) * (x_a - x_b) + cos(rotation_angle) * (y_a - y_b) + y_b
+                # rotate point (x_a, y_a) around (x_b, y_b) by rotation_angle radians
+                x_p = cos(rotation_angle) * (x_a - x_b) - sin(rotation_angle) * (y_a - y_b) + x_b
+                y_p = sin(rotation_angle) * (x_a - x_b) + cos(rotation_angle) * (y_a - y_b) + y_b
 
-            if x_p <= x_b:
-                # line rotated past x_b and is pointing backwards, will not obstruct any upcoming point.
-                continue
-            
-            # y = m x + n
-            # y_b = m x_b + n
-            # n = y_b - m x_b
+                if x_p <= x_b:
+                    # line rotated past x_b and is pointing backwards, will not obstruct any upcoming point.
+                    continue
                 
-            line_slope = (y_p - y_b) / (x_p - x_b)
-            line_intercept = y_b - line_slope * x_b
+                # y = m x + n
+                # y_b = m x_b + n
+                # n = y_b - m x_b
+                    
+                line_slope = (y_p - y_b) / (x_p - x_b)
+                line_intercept = y_b - line_slope * x_b
 
-            # remove previous lines that become redundant.
-            lines = [(l_slope, l_intercept) for (l_slope, l_intercept) in lines if l_slope > line_slope]  # comparison requires TOL
+                # remove previous lines that become redundant.
+                lines = [(l_slope, l_intercept) for (l_slope, l_intercept) in lines if l_slope > line_slope]  # comparison requires TOL
 
-            lines.append((line_slope, line_intercept))
+                lines.append((line_slope, line_intercept))
 
     return edges
