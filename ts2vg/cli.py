@@ -60,6 +60,13 @@ def main():
         default=None,
     )
     parser.add_argument(
+        "-p",
+        "--penetrable_limit",
+        type=int,
+        default=0,
+        help="If larger than 0, make a limited penetrable visibility graph (LPVG) with this number of maximum allowed penetrations per edge.",
+    )
+    parser.add_argument(
         "-m",
         "--outputmode",
         choices=_OUTPUT_MODES.keys(),
@@ -77,6 +84,7 @@ def main():
     gtype = args.type
     directed = args.directed
     weighted = args.weighted
+    penetrable_limit = args.penetrable_limit
     output_mode = args.outputmode
 
     output_f = None
@@ -97,7 +105,7 @@ def main():
 
     ts = np.loadtxt(input_path_, dtype="float64")
 
-    g = _GRAPH_TYPES[gtype](directed=directed, weighted=weighted)
+    g = _GRAPH_TYPES[gtype](directed=directed, weighted=weighted, penetrable_limit=penetrable_limit)
     g.build(ts, only_degrees=build_only_degrees)
 
     if output_mode == "el":
