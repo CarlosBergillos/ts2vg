@@ -8,7 +8,7 @@ class CircularVG(VG):
     r"""
     Circular Visibility Graph.
 
-    Transform a time series to a Circular Visibility Graph.
+    Used to transform a time series to a Circular Visibility Graph.
 
     Parameters
     ----------
