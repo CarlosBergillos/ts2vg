@@ -22,7 +22,7 @@ class NaturalVG(VG):
     weighted : str, None
         If ``None`` make an unweighted graph, otherwise, a weighted graph by using one of the following values:
         ``'distance'``, ``'sq_distance'``, ``'v_distance'``, ``'abs_v_distance'``, ``'h_distance'``, ``'abs_h_distance'``,
-        ``'slope'``, ``'abs_slope'``, ``'angle'``, ``'abs_angle'``.
+        ``'slope'``, ``'abs_slope'``, ``'angle'``, ``'abs_angle'``, ``'num_penetrations'``.
         See :ref:`Weighted graphs` for more information.
         Default ``None``.
 
