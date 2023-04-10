@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ts2vg.HorizontalVG &#8212; ts2vg 1.2.1 documentation</title>
+    <title>ts2vg.HorizontalVG &#8212; ts2vg 1.2.2 documentation</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -196,17 +196,17 @@
 <dt id="ts2vg.HorizontalVG">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ts2vg.</span></code><code class="sig-name descname"><span class="pre">HorizontalVG</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penetrable_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/horizontal.py#L8-L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG" title="Permalink to this definition">¶</a></dt>
 <dd><p>Horizontal Visibility Graph.</p>
-<p>Transform a time series to a Horizontal Visibility Graph.</p>
+<p>Used to transform a time series to a Horizontal Visibility Graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>directed</strong> (<em>str</em><em>, </em><em>None</em>) – If <code class="docutils literal notranslate"><span class="pre">None</span></code> make an undirected graph, otherwise, a directed graph by using one of the following values:
-<code class="docutils literal notranslate"><span class="pre">left_to_right</span></code>, <code class="docutils literal notranslate"><span class="pre">top_to_bottom</span></code>.
+<code class="docutils literal notranslate"><span class="pre">'left_to_right'</span></code>, <code class="docutils literal notranslate"><span class="pre">'top_to_bottom'</span></code>.
 See <a class="reference internal" href="graph_options.html#directed-graphs"><span class="std std-ref">Directed graphs</span></a> for more information.
 Default <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 <li><p><strong>weighted</strong> (<em>str</em><em>, </em><em>None</em>) – If <code class="docutils literal notranslate"><span class="pre">None</span></code> make an unweighted graph, otherwise, a weighted graph by using one of the following values:
-<code class="docutils literal notranslate"><span class="pre">distance</span></code>, <code class="docutils literal notranslate"><span class="pre">sq_distance</span></code>, <code class="docutils literal notranslate"><span class="pre">v_distance</span></code>, <code class="docutils literal notranslate"><span class="pre">abs_v_distance</span></code>, <code class="docutils literal notranslate"><span class="pre">h_distance</span></code>, <code class="docutils literal notranslate"><span class="pre">abs_h_distance</span></code>,
-<code class="docutils literal notranslate"><span class="pre">slope</span></code>, <code class="docutils literal notranslate"><span class="pre">abs_slope</span></code>, <code class="docutils literal notranslate"><span class="pre">angle</span></code>, <code class="docutils literal notranslate"><span class="pre">abs_angle</span></code>.
+<code class="docutils literal notranslate"><span class="pre">'distance'</span></code>, <code class="docutils literal notranslate"><span class="pre">'sq_distance'</span></code>, <code class="docutils literal notranslate"><span class="pre">'v_distance'</span></code>, <code class="docutils literal notranslate"><span class="pre">'abs_v_distance'</span></code>, <code class="docutils literal notranslate"><span class="pre">'h_distance'</span></code>, <code class="docutils literal notranslate"><span class="pre">'abs_h_distance'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'slope'</span></code>, <code class="docutils literal notranslate"><span class="pre">'abs_slope'</span></code>, <code class="docutils literal notranslate"><span class="pre">'angle'</span></code>, <code class="docutils literal notranslate"><span class="pre">'abs_angle'</span></code>, <code class="docutils literal notranslate"><span class="pre">'num_penetrations'</span></code>.
 See <a class="reference internal" href="graph_options.html#weighted-graphs"><span class="std std-ref">Weighted graphs</span></a> for more information.
 Default <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 <li><p><strong>min_weight</strong> (<em>float</em><em>, </em><em>None</em>) – If provided, only edges with a weight higher than <code class="docutils literal notranslate"><span class="pre">min_weight</span></code> (non inclusive) will be included in the final graph.
