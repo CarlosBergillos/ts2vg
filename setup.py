@@ -10,9 +10,6 @@ def main():
 
     # fmt: off
     extensions = [
-        Extension('ts2vg.utils.pairqueue',
-                  [f'ts2vg/utils/pairqueue.pyx']),
-
         Extension('ts2vg.graph._base',
                   [f'ts2vg/graph/_base.pyx'],
                   include_dirs=include_dirs,

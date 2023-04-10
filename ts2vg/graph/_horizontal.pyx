@@ -1,15 +1,18 @@
 #cython: language_level=3
+#distutils: language=c++
 
 cimport cython
 import numpy as np
 cimport numpy as np
 from libc.math cimport INFINITY, NAN
+from libcpp.queue cimport queue as cqueue
+from libcpp.pair cimport pair as cpair
 
-from ts2vg.utils.pairqueue cimport PairQueue
 from ts2vg.graph.base import _DIRECTED_OPTIONS
 from ts2vg.graph._base cimport _argmax, _get_weight_func, weight_func_type
 
 ctypedef unsigned int uint
+ctypedef cpair[uint, uint] uint_pair
 
 cdef uint _DIRECTED_LEFT_TO_RIGHT = _DIRECTED_OPTIONS['left_to_right']
 cdef uint _DIRECTED_TOP_TO_BOTTOM = _DIRECTED_OPTIONS['top_to_bottom']
@@ -34,8 +37,8 @@ def _compute_graph(np.float64_t[:] ts, np.float64_t[:] xs, uint directed, uint w
 
     cdef weight_func_type weight_func = _get_weight_func(weighted)
 
-    cdef PairQueue queue = PairQueue()
-    queue.push((0, n))
+    cdef cqueue[uint_pair] queue
+    queue.push(uint_pair(0, n))
 
     def add_edge(uint i1, uint i2, double x1, double x2, double y1, double y2):
         w = weight_func(x1, x2, y1, y2, NAN)
@@ -53,8 +56,10 @@ def _compute_graph(np.float64_t[:] ts, np.float64_t[:] xs, uint directed, uint w
                 edges.append((i1, i2))
 
 
-    while not queue.is_empty():
-        (left, right) = queue.pop()
+    while not queue.empty():
+        pair = queue.front()
+        left, right = pair.first, pair.second
+        queue.pop()
 
         if left+1 < right:
             i = _argmax(ts, left, right)
@@ -87,7 +92,7 @@ def _compute_graph(np.float64_t[:] ts, np.float64_t[:] xs, uint directed, uint w
 
                     max_y = y_b
 
-            queue.push((left, i))
-            queue.push((i+1, right))
+            queue.push(uint_pair(left, i))
+            queue.push(uint_pair(i+1, right))
 
     return edges, np.asarray(degrees_in, dtype=np.uint32), np.asarray(degrees_out, dtype=np.uint32)

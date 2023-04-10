@@ -40,7 +40,7 @@ def _compute_graph(np.float64_t[:] ts, np.float64_t[:] xs, uint directed, uint w
     cdef np.uint32_t[:] degrees_in = np.zeros(n, dtype=np.uint32)
     cdef np.uint32_t[:] degrees_out = np.zeros(n, dtype=np.uint32)
 
-    cdef uint left, right, i_a, i_b
+    cdef uint i_a, i_b
     cdef double x_a, x_b, y_a, y_b
     cdef double slope, w
     cdef np.float64_t[:] max_slopes = np.full(penetrable_limit+1, -INFINITY, dtype=np.float64)

@@ -6,7 +6,7 @@ They aim to be as simple and clear as possible, and to be used as a reference du
 """
 
 
-def natural_visibility_graph(ts, xs):
+def natural_visibility_graph(ts, xs, penetrable_limit=0):
     n = len(ts)
     edges = []
 
@@ -17,20 +17,25 @@ def natural_visibility_graph(ts, xs):
         for i_b in range(i_a + 1, n):
             x_b = xs[i_b]
             y_b = ts[i_b]
+
+            penetrations = 0
 
             for i_c in range(i_a + 1, i_b):
                 x_c = xs[i_c]
                 y_c = ts[i_c]
 
                 if y_c >= y_b + (y_a - y_b) * (x_b - x_c) / (x_b - x_a):
-                    break
+                    penetrations += 1
+
+                    if penetrations > penetrable_limit:
+                        break
             else:
                 edges.append((i_a, i_b))
 
     return edges
 
 
-def horizontal_visibility_graph(ts, xs):
+def horizontal_visibility_graph(ts, xs, penetrable_limit=0):
     n = len(ts)
     edges = []
 
@@ -42,12 +47,17 @@ def horizontal_visibility_graph(ts, xs):
             x_b = xs[i_b]
             y_b = ts[i_b]
 
+            penetrations = 0
+
             for i_c in range(i_a + 1, i_b):
                 x_c = xs[i_c]
                 y_c = ts[i_c]
 
                 if y_c >= min(y_a, y_b):
-                    break
+                    penetrations += 1
+
+                    if penetrations > penetrable_limit:
+                        break
             else:
                 edges.append((i_a, i_b))
 

@@ -403,7 +403,7 @@ class VG:
         from snap import TUNGraph, TNGraph
 
         if self.is_weighted:
-            raise ValueError("SNAP weighted graphs not currently supported.")
+            raise NotImplementedError("SNAP weighted graphs not currently supported.")
 
         if self.is_directed:
             g = TNGraph.New(self.n_vertices, self.n_edges)
