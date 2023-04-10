@@ -1,6 +1,17 @@
 Changelog
 =========
 
+**1.2.2** 
+---------
+
+*10-04-2023*
+
+Highlights:
+
++ Fixed and refactored CLI application.
++ Switched to C++ for Cython files and now using native C++ queue class.
+
+
 **1.2.1** 
 ---------
 
