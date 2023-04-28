@@ -10,28 +10,28 @@ def main():
 
     # fmt: off
     extensions = [
-        Extension('ts2vg.graph._base',
-                  [f'ts2vg/graph/_base.pyx'],
+        Extension("ts2vg.graph._base",
+                  [f"ts2vg/graph/_base.pyx"],
                   include_dirs=include_dirs,
                   define_macros=define_macros),
 
-        Extension('ts2vg.graph._natural',
-                  [f'ts2vg/graph/_natural.pyx'],
+        Extension("ts2vg.graph._natural",
+                  [f"ts2vg/graph/_natural.pyx"],
                   include_dirs=include_dirs,
                   define_macros=define_macros),
 
-        Extension('ts2vg.graph._horizontal',
-                  [f'ts2vg/graph/_horizontal.pyx'],
+        Extension("ts2vg.graph._horizontal",
+                  [f"ts2vg/graph/_horizontal.pyx"],
                   include_dirs=include_dirs,
                   define_macros=define_macros),
 
-        Extension('ts2vg.graph._natural_penetrable',
-                  [f'ts2vg/graph/_natural_penetrable.pyx'],
+        Extension("ts2vg.graph._natural_penetrable",
+                  [f"ts2vg/graph/_natural_penetrable.pyx"],
                   include_dirs=include_dirs,
                   define_macros=define_macros),
 
-        Extension('ts2vg.graph._horizontal_penetrable',
-                  [f'ts2vg/graph/_horizontal_penetrable.pyx'],
+        Extension("ts2vg.graph._horizontal_penetrable",
+                  [f"ts2vg/graph/_horizontal_penetrable.pyx"],
                   include_dirs=include_dirs,
                   define_macros=define_macros),
     ]
