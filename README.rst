@@ -58,7 +58,7 @@ For other advanced uses, to build |ts2vg| from source Cython is required.
 Supported graph types
 ---------------------
 
-Root graph types
+Main graph types
 ~~~~~~~~~~~~~~~~
 
 - Natural Visibility Graphs (NVG) [#Lacasa2008]_ (``ts2vg.NaturalVG``)
@@ -67,6 +67,8 @@ Root graph types
 Available variations
 ~~~~~~~~~~~~~~~~~~~~
 
+Additionally, the following variations of the previous main graph types are available:
+
 - Weighted Visibility Graphs (via the ``weighted`` parameter)
 - Directed Visibility Graphs (via the ``directed`` parameter)
 - Parametric Visibility Graphs [#Bezsudnov2014]_ (via the ``min_weight`` and ``max_weight`` parameters)
@@ -74,7 +76,7 @@ Available variations
 
 .. - Dual Perspective Visibility Graph [*planned, not implemented yet*]
 
-Note that multiple graph variations can be combined and used simultaneously.
+Note that multiple graph variations can be combined and used at the same time.
 
 
 Documentation
