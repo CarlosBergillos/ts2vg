@@ -197,7 +197,7 @@ class VG:
     @property
     def edges(self):
         """
-        List of edges of the graph.
+        List of edges (links) of the graph.
 
         If the graph is unweighted, a list of tuple pairs `(source_node, target_node)`.
         If the graph is weighted, an iterable of tuple triplets `(source_node, target_node, weight)`.
