@@ -383,7 +383,13 @@ class VG:
 
         from igraph import Graph
 
-        g = Graph.TupleList(self.edges, edge_attrs="weight" if self.is_weighted else None, directed=self.is_directed)
+        g = Graph(
+            n=self.n_vertices,
+            edges=self.edges_unweighted,
+            vertex_attrs={"name": range(self.n_vertices)},
+            edge_attrs={"weight": self.weights} if self.is_weighted else {},
+            directed=self.is_directed,
+        )
 
         return g
 
