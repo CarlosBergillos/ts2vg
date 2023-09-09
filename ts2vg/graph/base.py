@@ -402,6 +402,8 @@ class VG:
         else:
             g = Graph()
 
+        g.add_nodes_from(range(self.n_vertices))
+
         if self.is_weighted:
             g.add_weighted_edges_from(self.edges)
         else:
