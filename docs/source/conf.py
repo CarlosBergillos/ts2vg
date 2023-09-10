@@ -35,6 +35,8 @@ extensions = [
     "sphinx.ext.linkcode",
     "sphinx.ext.autosummary",
     "sphinx.ext.autosectionlabel",
+    "sphinx_favicon",
+    "sphinx_togglebutton",
 ]
 
 autoclass_content = "class"
@@ -70,21 +72,9 @@ if (
 html_copy_source = False
 html_show_sourcelink = False
 
-html_favicon = "_static/favicon-32x32.png"
+html_title = f"{project} v{version}"
 
 html_theme_options = {
-    "favicons": [
-        {
-            "rel": "icon",
-            "sizes": "16x16",
-            "href": "favicon-16x16.png",
-        },
-        {
-            "rel": "icon",
-            "sizes": "32x32",
-            "href": "favicon-32x32.png",
-        },
-    ],
     "icon_links": [
         {
             "name": "GitHub",
@@ -100,6 +90,11 @@ html_theme_options = {
     "show_prev_next": False,
     "navigation_with_keys": False,
 }
+
+favicons = [
+    "favicon-16x16.png",
+    "favicon-32x32.png",
+]
 
 # svg math output
 # mathjax_path = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
