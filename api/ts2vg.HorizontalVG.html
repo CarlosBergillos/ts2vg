@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ts2vg.HorizontalVG &#8212; ts2vg 1.2.2 documentation</title>
+    <title>ts2vg.HorizontalVG &#8212; ts2vg 1.2.3 documentation</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -263,21 +263,24 @@ Default <code class="docutils literal notranslate"><span class="pre">0</span></c
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.edges" title="ts2vg.HorizontalVG.edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges</span></code></a></p></td>
-<td><p>List of edges of the graph.</p></td>
+<td><p>List of edges (links) of the graph.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.is_directed" title="ts2vg.HorizontalVG.is_directed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_directed</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.edges_unweighted" title="ts2vg.HorizontalVG.edges_unweighted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges_unweighted</span></code></a></p></td>
+<td><p>List of edges of the graph without including the weights.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.is_directed" title="ts2vg.HorizontalVG.is_directed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_directed</span></code></a></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the graph is directed, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.is_weighted" title="ts2vg.HorizontalVG.is_weighted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_weighted</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.is_weighted" title="ts2vg.HorizontalVG.is_weighted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_weighted</span></code></a></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the graph is weighted, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.n_edges" title="ts2vg.HorizontalVG.n_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_edges</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.n_edges" title="ts2vg.HorizontalVG.n_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_edges</span></code></a></p></td>
 <td><p>Number of edges (links) in the graph.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.n_vertices" title="ts2vg.HorizontalVG.n_vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_vertices</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.n_vertices" title="ts2vg.HorizontalVG.n_vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_vertices</span></code></a></p></td>
 <td><p>Number of vertices (nodes) in the graph.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.weights" title="ts2vg.HorizontalVG.weights"><code class="xref py py-obj docutils literal notranslate"><span class="pre">weights</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.weights" title="ts2vg.HorizontalVG.weights"><code class="xref py py-obj docutils literal notranslate"><span class="pre">weights</span></code></a></p></td>
 <td><p>Weights of the edges of the graph.</p></td>
 </tr>
 </tbody>
@@ -318,7 +321,7 @@ Default <code class="docutils literal notranslate"><span class="pre">0</span></c
 <p class="rubric">Attribute details</p>
 <dl class="py attribute">
 <dt id="ts2vg.HorizontalVG.degree_counts">
-<code class="sig-name descname"><span class="pre">degree_counts</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L259-L272"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degree_counts" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">degree_counts</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L276-L289"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degree_counts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Degree counts of the graph.</p>
 <p>Two lists <cite>ks</cite>, <cite>cs</cite> are returned.
 <cite>cs[i]</cite> is the number of nodes in the graph that have degree <cite>ks[i]</cite>.</p>
@@ -327,7 +330,7 @@ Default <code class="docutils literal notranslate"><span class="pre">0</span></c
 
 <dl class="py attribute">
 <dt id="ts2vg.HorizontalVG.degree_distribution">
-<code class="sig-name descname"><span class="pre">degree_distribution</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L274-L287"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degree_distribution" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">degree_distribution</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L291-L304"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degree_distribution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Degree distribution of the graph.</p>
 <p>Two lists <cite>ks</cite>, <cite>ps</cite> are returned.
 <cite>ps[i]</cite> is the empirical probability that a node in the graph has degree <cite>ks[i]</cite>.</p>
@@ -336,28 +339,37 @@ Default <code class="docutils literal notranslate"><span class="pre">0</span></c
 
 <dl class="py attribute">
 <dt id="ts2vg.HorizontalVG.degrees">
-<code class="sig-name descname"><span class="pre">degrees</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L235-L249"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degrees" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">degrees</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L252-L266"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degrees" title="Permalink to this definition">¶</a></dt>
 <dd><p>Degree sequence of the graph.</p>
 <p>Return a list of degree values for each node in the graph, in the same order as the input time series.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="ts2vg.HorizontalVG.degrees_in">
-<code class="sig-name descname"><span class="pre">degrees_in</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L251-L253"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degrees_in" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">degrees_in</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L268-L270"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degrees_in" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="ts2vg.HorizontalVG.degrees_out">
-<code class="sig-name descname"><span class="pre">degrees_out</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L255-L257"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degrees_out" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">degrees_out</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L272-L274"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degrees_out" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="ts2vg.HorizontalVG.edges">
 <code class="sig-name descname"><span class="pre">edges</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L197-L209"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.edges" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of edges of the graph.</p>
-<p>Return the graph edges as an iterable of pairs of integers
-where each integer corresponds to a node id (assigned sequentially in the same order as the input time series).</p>
-<p>If the graph is weighted, a third value is included for each edge corresponding to its weight.</p>
+<dd><p>List of edges (links) of the graph.</p>
+<p>If the graph is unweighted, a list of tuple pairs <cite>(source_node, target_node)</cite>.
+If the graph is weighted, an iterable of tuple triplets <cite>(source_node, target_node, weight)</cite>.</p>
+<p>Nodes are identified using an integer from 0 to <em>n</em>-1 assigned sequentially in the same order as the input time series.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ts2vg.HorizontalVG.edges_unweighted">
+<code class="sig-name descname"><span class="pre">edges_unweighted</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L211-L226"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.edges_unweighted" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of edges of the graph without including the weights.</p>
+<p>A list of tuple pairs <cite>(source_node, target_node)</cite>.
+For unweighted graphs this is the same as <a class="reference internal" href="#ts2vg.HorizontalVG.edges" title="ts2vg.HorizontalVG.edges"><code class="xref py py-attr docutils literal notranslate"><span class="pre">edges</span></code></a>.</p>
+<p>Nodes are identified using an integer from 0 to <em>n</em>-1 assigned sequentially in the same order as the input time series.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -386,7 +398,7 @@ where each integer corresponds to a node id (assigned sequentially in the same o
 
 <dl class="py attribute">
 <dt id="ts2vg.HorizontalVG.weights">
-<code class="sig-name descname"><span class="pre">weights</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L220-L233"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.weights" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">weights</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L237-L250"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.weights" title="Permalink to this definition">¶</a></dt>
 <dd><p>Weights of the edges of the graph.</p>
 <p>Return a 1D array containing the weights of the edges of the graph (listed in the same order as in <a class="reference internal" href="#ts2vg.HorizontalVG.edges" title="ts2vg.HorizontalVG.edges"><code class="xref py py-attr docutils literal notranslate"><span class="pre">edges</span></code></a>).
 <code class="docutils literal notranslate"><span class="pre">None</span></code> if the graph is unweighted.</p>
@@ -395,7 +407,7 @@ where each integer corresponds to a node id (assigned sequentially in the same o
 <p class="rubric">Method details</p>
 <dl class="py method">
 <dt id="ts2vg.HorizontalVG.adjacency_matrix">
-<code class="sig-name descname"><span class="pre">adjacency_matrix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">triangle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'both'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_weight_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">nan</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L289-L357"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.adjacency_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">adjacency_matrix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">triangle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'both'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_weight_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">nan</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L306-L374"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.adjacency_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adjacency matrix of the graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -425,21 +437,21 @@ Only applicable for weighted graphs and when using <code class="docutils literal
 
 <dl class="py method">
 <dt id="ts2vg.HorizontalVG.as_igraph">
-<code class="sig-name descname"><span class="pre">as_igraph</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L359-L371"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_igraph" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">as_igraph</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L376-L394"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_igraph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an <a class="reference external" href="https://igraph.org/python/">igraph</a> graph object corresponding to this graph.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">igraph</span></code> package is required.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ts2vg.HorizontalVG.as_networkx">
-<code class="sig-name descname"><span class="pre">as_networkx</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L373-L393"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_networkx" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">as_networkx</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L396-L418"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_networkx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a <a class="reference external" href="https://networkx.github.io/">NetworkX</a> graph object corresponding to this graph.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">networkx</span></code> package is required.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ts2vg.HorizontalVG.as_snap">
-<code class="sig-name descname"><span class="pre">as_snap</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L395-L419"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_snap" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">as_snap</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L420-L444"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_snap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a <a class="reference external" href="https://snap.stanford.edu/snappy/">SNAP</a> graph object corresponding to this graph.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">snap</span></code> package is required.</p>
 </dd></dl>
@@ -468,13 +480,13 @@ Default <code class="docutils literal notranslate"><span class="pre">False</span
 
 <dl class="py method">
 <dt id="ts2vg.HorizontalVG.node_positions">
-<code class="sig-name descname"><span class="pre">node_positions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L421-L426"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.node_positions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">node_positions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L446-L451"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.node_positions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary with nodes as keys and positions <em>(x, y)</em> as values.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ts2vg.HorizontalVG.summary">
-<code class="sig-name descname"><span class="pre">summary</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Visibility</span> <span class="pre">Graph'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L428-L451"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.summary" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">summary</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Visibility</span> <span class="pre">Graph'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L453-L476"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.summary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints (or returns) a simple text summary describing the visibility graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

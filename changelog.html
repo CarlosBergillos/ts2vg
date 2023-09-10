@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Changelog &#8212; ts2vg 1.2.2 documentation</title>
+    <title>Changelog &#8212; ts2vg 1.2.3 documentation</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -157,47 +157,54 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
    <strong>
-    1.2.2
+    1.2.3
    </strong>
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
    <strong>
-    1.2.1
+    1.2.2
    </strong>
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id3">
    <strong>
-    1.2.0
+    1.2.1
    </strong>
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
    <strong>
-    1.1.1
+    1.2.0
    </strong>
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id5">
    <strong>
-    1.1.0
+    1.1.1
    </strong>
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id6">
    <strong>
-    1.0.0
+    1.1.0
    </strong>
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id7">
+   <strong>
+    1.0.0
+   </strong>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
    <strong>
     0.1
    </strong>
@@ -227,7 +234,17 @@
   <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2><strong>1.2.2</strong><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2><strong>1.2.3</strong><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><em>10-09-2023</em></p>
+<p>Highlights:</p>
+<ul class="simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">edges_unweighted</span></code> property to graph classes.</p></li>
+<li><p>Fix internal order of nodes in generated <em>NetworkX</em> and <em>igraph</em> graphs.
+Before this, nodes were added to the <em>NetworkX</em> and <em>igraph</em> graphs in an unspecified order and this could result in, for example, unsorted and potentially misleading adjacency matrices when using the methods from these libraries.</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><strong>1.2.2</strong><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p><em>10-04-2023</em></p>
 <p>Highlights:</p>
 <ul class="simple">
@@ -235,16 +252,16 @@
 <li><p>Switched to C++ for Cython files and now using native C++ queue class.</p></li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h2><strong>1.2.1</strong><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2><strong>1.2.1</strong><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p><em>10-02-2023</em></p>
 <p>Highlights:</p>
 <ul class="simple">
 <li><p>Added new weight option <code class="docutils literal notranslate"><span class="pre">&quot;num_penetrations&quot;</span></code> for Limited Penetrable Visibility Graphs.</p></li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h2><strong>1.2.0</strong><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2><strong>1.2.0</strong><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p><em>06-02-2023</em></p>
 <p>Highlights:</p>
 <ul class="simple">
@@ -252,16 +269,16 @@
 <li><p>Renamed base class <code class="docutils literal notranslate"><span class="pre">BaseVG</span></code> to <code class="docutils literal notranslate"><span class="pre">VG</span></code>.</p></li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h2><strong>1.1.1</strong><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2><strong>1.1.1</strong><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p><em>23-01-2023</em></p>
 <p>Highlights:</p>
 <ul class="simple">
 <li><p>Added tolerance to Natural Visibility Graph slope comparisons to mitigate floating point errors.</p></li>
 </ul>
 </div>
-<div class="section" id="id5">
-<h2><strong>1.1.0</strong><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2><strong>1.1.0</strong><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p><em>21-01-2023</em></p>
 <p>Highlights:</p>
 <ul class="simple">
@@ -269,8 +286,8 @@
 <li><p>General clean-up and refactor of some parts of the code.</p></li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h2><strong>1.0.0</strong><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2><strong>1.0.0</strong><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p><em>20-08-2021</em></p>
 <p>Major project overhaul.
 Some of the highlights are:</p>
@@ -283,8 +300,8 @@ Some of the highlights are:</p>
 <li><p>New project documentation using <em>Sphinx</em></p></li>
 </ul>
 </div>
-<div class="section" id="id7">
-<h2><strong>0.1</strong><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h2><strong>0.1</strong><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p><em>20-06-2020</em></p>
 <p>Initial release.</p>
 </div>
