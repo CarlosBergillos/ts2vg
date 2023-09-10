@@ -1,6 +1,18 @@
 Changelog
 =========
 
+**1.2.3** 
+---------
+
+*10-09-2023*
+
+Highlights:
+
++ Add ``edges_unweighted`` property to graph classes.
++ Fix internal order of nodes in generated *NetworkX* and *igraph* graphs.
+  Before this, nodes were added to the *NetworkX* and *igraph* graphs in an unspecified order and this could result in, for example, unsorted and potentially misleading adjacency matrices when using the methods from these libraries.
+
+
 **1.2.2** 
 ---------
 
