@@ -211,7 +211,7 @@ class VG:
     @property
     def edges_unweighted(self):
         """
-        List of edges of the graph without including the weights.
+        List of edges (links) of the graph without including the weights.
 
         A list of tuple pairs `(source_node, target_node)`.
         For unweighted graphs this is the same as :attr:`edges`.
