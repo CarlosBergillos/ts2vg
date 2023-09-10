@@ -197,16 +197,33 @@ class VG:
     @property
     def edges(self):
         """
-        List of edges of the graph.
+        List of edges (links) of the graph.
 
-        Return the graph edges as an iterable of pairs of integers
-        where each integer corresponds to a node id (assigned sequentially in the same order as the input time series).
+        If the graph is unweighted, a list of tuple pairs `(source_node, target_node)`.
+        If the graph is weighted, an iterable of tuple triplets `(source_node, target_node, weight)`.
 
-        If the graph is weighted, a third value is included for each edge corresponding to its weight.
+        Nodes are identified using an integer from 0 to *n*-1 assigned sequentially in the same order as the input time series.
         """
         self._validate_is_built()
 
         return self._edges
+
+    @property
+    def edges_unweighted(self):
+        """
+        List of edges of the graph without including the weights.
+
+        A list of tuple pairs `(source_node, target_node)`.
+        For unweighted graphs this is the same as :attr:`edges`.
+
+        Nodes are identified using an integer from 0 to *n*-1 assigned sequentially in the same order as the input time series.
+        """
+        self._validate_is_built()
+
+        if not self.is_weighted:
+            return self.edges
+
+        return [(source_node, target_node) for (source_node, target_node, _) in self.edges]
 
     @property
     def _edges_array(self):
@@ -366,7 +383,13 @@ class VG:
 
         from igraph import Graph
 
-        g = Graph.TupleList(self.edges, edge_attrs="weight" if self.is_weighted else None, directed=self.is_directed)
+        g = Graph(
+            n=self.n_vertices,
+            edges=self.edges_unweighted,
+            vertex_attrs={"name": range(self.n_vertices)},
+            edge_attrs={"weight": self.weights} if self.is_weighted else {},
+            directed=self.is_directed,
+        )
 
         return g
 
@@ -384,6 +407,8 @@ class VG:
             g = DiGraph()
         else:
             g = Graph()
+
+        g.add_nodes_from(range(self.n_vertices))
 
         if self.is_weighted:
             g.add_weighted_edges_from(self.edges)
