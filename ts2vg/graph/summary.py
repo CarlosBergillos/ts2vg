@@ -1,4 +1,10 @@
-def _simple_title_line(title, line_width):
+from typing import Any, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ts2vg.graph import VG
+
+
+def _simple_title_line(title: str, line_width: int) -> str:
     line = " " * ((line_width - len(title)) // 2)
     line += title
     line += " " * ((line_width - len(title)) // 2)
@@ -8,7 +14,7 @@ def _simple_title_line(title, line_width):
     return line
 
 
-def _simple_key_value_line(key, value, line_width):
+def _simple_key_value_line(key: Any, value: str, line_width: int) -> str:
     key = str(key)
 
     value = str(value)
@@ -21,7 +27,7 @@ def _simple_key_value_line(key, value, line_width):
     return line
 
 
-def simple_summary(vg: "ts2vg.graph.base.VG", title: str = "Visibility Graph", line_width: int = 48):
+def simple_summary(vg: "VG", title: str = "Visibility Graph", line_width: int = 48) -> str:
     vg_config = {
         "General Type:": vg._general_type_name,
         "Directed:": vg.directed if vg.is_directed else "undirected",
