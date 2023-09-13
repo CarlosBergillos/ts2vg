@@ -1,7 +1,7 @@
-from typing import Any, TYPE_CHECKING
+from typing import Any, Dict, TYPE_CHECKING, cast
 
 if TYPE_CHECKING:
-    from ts2vg.graph import VG
+    from ts2vg.graph.base import VG
 
 
 def _simple_title_line(title: str, line_width: int) -> str:
@@ -28,7 +28,9 @@ def _simple_key_value_line(key: Any, value: str, line_width: int) -> str:
 
 
 def simple_summary(vg: "VG", title: str = "Visibility Graph", line_width: int = 48) -> str:
-    vg_config = {
+    vg._validate_is_built()
+
+    vg_config: Dict[str, Any] = {
         "General Type:": vg._general_type_name,
         "Directed:": vg.directed if vg.is_directed else "undirected",
         "Weighted:": vg.weighted if vg.is_weighted else "unweighted",
@@ -37,8 +39,8 @@ def simple_summary(vg: "VG", title: str = "Visibility Graph", line_width: int = 
         "Penetrable Limit:": vg.penetrable_limit,
     }
 
-    built_vg_config = {
-        "Time Series Length:": len(vg.ts),
+    built_vg_config: Dict[str, Any] = {
+        "Time Series Length:": vg.n_vertices,
         "No. Vertices:": vg.n_vertices,
         "No. Edges:": vg.n_edges,
     }
