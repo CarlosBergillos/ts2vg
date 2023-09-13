@@ -34,7 +34,7 @@ jobs:
           python -m pip install ".[dev]"
 
       - name: Run type checks
-        run: !
+        run: |
           mypy --disallow-untyped-defs ts2vg/
 
       - name: Run tests
