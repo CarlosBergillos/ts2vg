@@ -348,7 +348,7 @@ class VG:
             Default ``False``.
 
         no_weight_value : float
-            The default value used in the matrix for the cases where the nodes are not connected.
+            The value used in the matrix for the cases where the nodes are not connected.
             Only applicable for weighted graphs and when using ``use_weights=True``.
 
             Default ``np.nan``.
