@@ -808,7 +808,7 @@ def test_penetrable_100_floating_point_linear_large_num_penetrations(linear_ts_l
     m = 100
 
     vg = ts2vg.HorizontalVG(penetrable_limit=m, weighted="num_penetrations")
-    out_got = vg.build(linear_ts_large).weights.sum()
+    out_got = sum(vg.build(linear_ts_large).weights)
 
     # sum of num_penetrations =  0 * (n - 1) + 1 * (n - 2) + ... + m * (n - (m + 1))
     out_truth = sum((i * (n - (i + 1))) for i in range(m + 1))
@@ -833,7 +833,7 @@ def test_penetrable_100_floating_point_linear_large_negative_num_penetrations(li
     m = 100
 
     vg = ts2vg.HorizontalVG(penetrable_limit=m, weighted="num_penetrations")
-    out_got = vg.build(linear_ts_large_negative).weights.sum()
+    out_got = sum(vg.build(linear_ts_large_negative).weights)
 
     out_truth = sum((i * (n - (i + 1))) for i in range(m + 1))
 
