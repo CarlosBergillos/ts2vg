@@ -257,7 +257,7 @@ class VG:
         """
         Degree sequence of the graph.
 
-        A list of degree values for each node in the graph, in the same order as the input time series.
+        An array of degree values for each node in the graph, in the same order as the input time series.
         """
         if self._degrees is not None:
             pass
@@ -282,19 +282,18 @@ class VG:
         return self._degrees_out
 
     @property
-    def degree_counts(self):
+    def degree_counts(self) -> tuple[NDArray, NDArray[intp]]:
         """
         Degree counts of the graph.
 
-        Two lists `ks`, `cs` are returned.
+        Two arrays `ks`, `cs` are returned.
         `cs[i]` is the number of nodes in the graph that have degree `ks[i]`.
 
         The count of any other degree value not listed in `ks` is 0.
         """
         self._validate_is_built()
 
-        ks, counts = np.unique(self.degrees, return_counts=True)
-        cs = counts
+        ks, cs = np.unique(self.degrees, return_counts=True)
 
         return ks, cs
 
@@ -303,15 +302,15 @@ class VG:
         """
         Degree distribution of the graph.
 
-        Two lists `ks`, `ps` are returned.
+        Two arrays `ks`, `ps` are returned.
         `ps[i]` is the empirical probability that a node in the graph has degree `ks[i]`.
 
         The probability for any other degree value not listed in `ks` is 0.
         """
         self._validate_is_built()
 
-        ks, counts = self.degree_counts
-        ps = counts / self.n_vertices
+        ks, cs = self.degree_counts
+        ps = cs / self.n_vertices
 
         return ks, ps
 
