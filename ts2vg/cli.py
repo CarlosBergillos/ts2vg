@@ -1,4 +1,5 @@
 import argparse
+from typing import Dict, List
 from pathlib import Path
 
 import numpy as np
@@ -6,33 +7,33 @@ import numpy as np
 from ts2vg import NaturalVG, HorizontalVG
 from ts2vg.graph.base import _DIRECTED_OPTIONS, _WEIGHTED_OPTIONS
 
-_OUTPUT_MODES = {
+_OUTPUT_MODES: Dict[str, str] = {
     "el": "edge list",
     "ds": "degree sequence",
     "dd": "degree distribution",
     "dc": "degree counts",
 }
 
-_GRAPH_TYPES = {
+_GRAPH_TYPES: Dict[str, VG] = {
     "natural": NaturalVG,
     "horizontal": HorizontalVG,
 }
 
 
 class SmartFormatter(argparse.HelpFormatter):
-    def _split_lines(self, text, width):
+    def _split_lines(self, text: str, width: int) -> List[str]:
         if text.startswith("R|"):
             return text[2:].splitlines()
         return argparse.HelpFormatter._split_lines(self, text, width)
 
-    def _format_action_invocation(self, action):
+    def _format_action_invocation(self, action: argparse.Action) -> str:
         if not action.option_strings:
             default = self._get_default_metavar_for_positional(action)
             (metavar,) = self._metavar_formatter(action, default)(1)
             return metavar
 
         else:
-            parts = []
+            parts: List[str] = []
 
             if action.nargs == 0:
                 parts.extend(action.option_strings)
@@ -46,7 +47,7 @@ class SmartFormatter(argparse.HelpFormatter):
             return " ".join(parts)
 
 
-def main():
+def main() -> int:
     parser = argparse.ArgumentParser(
         formatter_class=SmartFormatter,
         description="Compute the visibility graph from an input time series.",
@@ -128,14 +129,14 @@ def main():
         output_path_ = Path(output_path)
         if not output_path_.parent.exists():
             print(f"ERROR: Output folder for '{output_path}' not found.")
-            return
+            return 1
 
         output_f = open(output_path, "w")
 
     input_path_ = Path(input_path)
     if not input_path_.is_file():
         print(f"ERROR: Input file '{input_path}' not found.")
-        return
+        return 1
 
     build_only_degrees = output_mode in ["ds", "dd", "dc"]
 
@@ -166,6 +167,8 @@ def main():
         print(g.summary())
         print(f"Saved {_OUTPUT_MODES[output_mode]} to file: {output_path}")
 
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
