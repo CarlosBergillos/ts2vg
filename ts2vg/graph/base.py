@@ -238,17 +238,6 @@ class VG:
         return [(source_node, target_node) for (source_node, target_node, _) in self.edges]
 
     @property
-    def _edges_array(self) -> NDArray[np.int64]:
-        arr = np.asarray(self._edges, dtype="int64")  # could be 'uint64' but then it breaks np.bincount
-
-        if self.is_weighted:
-            edges, weights = arr[:, :2], arr[:, 2]
-        else:
-            edges, weights = arr, None
-
-        return edges, weights
-
-    @property
     def weights(self) -> Optional[List[float]]:
         """
         Weights of the edges of the graph.
@@ -273,8 +262,8 @@ class VG:
         if self._degrees is not None:
             pass
         elif self._edges is not None:
-            edges, _ = self._edges_array
-            self._degrees = np.bincount(edges.flat)
+            edges_array = np.asarray(self.edges_unweighted, dtype=np.uint32)
+            self._degrees = np.bincount(edges_array.flat)
         else:
             raise NotBuiltError("Cannot access graph edges, use 'build' first.")
 
@@ -282,7 +271,7 @@ class VG:
 
     @property
     def degrees_in(self):
-        self._validate_is_built()  # NOTE: degrees work even if edges is None!! with only_degrees=True
+        self._validate_is_built()
 
         return self._degrees_in
 
@@ -370,10 +359,11 @@ class VG:
         if use_weights and not self.is_weighted:
             raise ValueError(f"'use_weights=True' only valid for weighted graphs.")
 
-        e, w = self._edges_array
+        e = np.asarray(self.edges_unweighted, dtype=np.uint32)
+        w = self.weights
 
         if self.is_weighted and use_weights:
-            m = np.full((self.n_vertices, self.n_vertices), fill_value=no_weight_value, dtype="float64")
+            m = np.full((self.n_vertices, self.n_vertices), fill_value=no_weight_value, dtype=np.float64)
             if self.is_directed:
                 m[e[:, 0], e[:, 1]] = w
             else:
