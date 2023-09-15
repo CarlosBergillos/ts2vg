@@ -401,6 +401,34 @@ def test_adjacency_matrix_both(sample_ts):
     np.testing.assert_array_equal(out_got, out_truth)
 
 
+def test_adjacency_matrix_use_weights(sample_ts):
+    vg = ts2vg.NaturalVG(weighted="distance").build(sample_ts)
+    out_got = vg.adjacency_matrix(triangle="both", use_weights=True)
+
+    out_truth = [
+        [np.nan,    sqrt(2.0),  np.nan,     np.nan      ],
+        [sqrt(2.0), np.nan,     sqrt(5.0),  sqrt(13.0)  ],
+        [np.nan,    sqrt(5.0),  np.nan,     sqrt(2.0)   ],
+        [np.nan,    sqrt(13.0), sqrt(2.0),  np.nan      ],
+    ]
+
+    np.testing.assert_array_equal(out_got, out_truth)
+
+
+def test_adjacency_matrix_use_weights_no_weight_value(sample_ts):
+    vg = ts2vg.NaturalVG(weighted="distance").build(sample_ts)
+    out_got = vg.adjacency_matrix(triangle="both", use_weights=True, no_weight_value=-1)
+
+    out_truth = [
+        [-1,        sqrt(2.0),  -1,         -1          ],
+        [sqrt(2.0), -1,         sqrt(5.0),  sqrt(13.0)  ],
+        [-1,        sqrt(5.0),  -1,         sqrt(2.0)   ],
+        [-1,        sqrt(13.0), sqrt(2.0),  -1          ],
+    ]
+
+    np.testing.assert_array_equal(out_got, out_truth)
+
+
 def test_adjacency_matrix_directed_upper(sample_ts):
     vg = ts2vg.NaturalVG(directed="left_to_right").build(sample_ts)
 
@@ -429,8 +457,8 @@ def test_adjacency_matrix_directed_both(sample_ts):
     np.testing.assert_array_equal(out_got, out_truth)
 
 
-def test_adjacency_matrix_directed_lower(sample_ts):
-    vg = ts2vg.NaturalVG(directed="left_to_right")
+def test_adjacency_matrix():
+    vg = ts2vg.NaturalVG()
 
     with pytest.raises(ts2vg.graph.base.NotBuiltError):
         vg.adjacency_matrix()
