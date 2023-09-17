@@ -1,8 +1,11 @@
-from typing import Optional
+import numpy as np
+from numpy.typing import NDArray
+
+from typing import Tuple
 
 from ts2vg.graph._natural import _compute_graph as _compute_graph_dc
 from ts2vg.graph._natural_penetrable import _compute_graph as _compute_graph_pn
-from ts2vg.graph.base import VG
+from ts2vg.graph.base import VG, EdgeList
 
 
 class NaturalVG(VG):
@@ -68,7 +71,7 @@ class NaturalVG(VG):
     # def __init__(self, *args, **kwargs):
     #     super().__init__(*args, **kwargs)
 
-    def _compute_graph(self, only_degrees: bool):
+    def _compute_graph(self, only_degrees: bool) -> Tuple[EdgeList, NDArray[np.uint32], NDArray[np.uint32]]:
         if self.penetrable_limit == 0:
             return _compute_graph_dc(
                 self.ts,

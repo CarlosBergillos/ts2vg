@@ -1,11 +1,11 @@
 import argparse
-from typing import Dict, List
+from typing import Dict, List, Type
 from pathlib import Path
 
 import numpy as np
 
 from ts2vg import NaturalVG, HorizontalVG
-from ts2vg.graph.base import _DIRECTED_OPTIONS, _WEIGHTED_OPTIONS
+from ts2vg.graph.base import _DIRECTED_OPTIONS, _WEIGHTED_OPTIONS, VG
 
 _OUTPUT_MODES: Dict[str, str] = {
     "el": "edge list",
@@ -14,7 +14,7 @@ _OUTPUT_MODES: Dict[str, str] = {
     "dc": "degree counts",
 }
 
-_GRAPH_TYPES: Dict[str, VG] = {
+_GRAPH_TYPES: Dict[str, Type[VG]] = {
     "natural": NaturalVG,
     "horizontal": HorizontalVG,
 }
