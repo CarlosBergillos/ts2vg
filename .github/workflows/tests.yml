@@ -31,7 +31,7 @@ jobs:
 
       - name: Run type checks
         run: |
-          mypy --disallow-untyped-defs ts2vg/
+          mypy
 
   build-and-test:
     runs-on: ubuntu-latest

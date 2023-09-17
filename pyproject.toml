@@ -51,3 +51,19 @@ build-backend = "setuptools.build_meta"
 #     "pytest",
 # ]
 
+
+[tool.mypy]
+packages = ["ts2vg"]
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = [
+    "igraph",
+    "networkx",
+    "snap",
+    "ts2vg.graph._natural",
+    "ts2vg.graph._natural_penetrable",
+    "ts2vg.graph._horizontal",
+    "ts2vg.graph._horizontal_penetrable",
+]
+ignore_missing_imports = true
