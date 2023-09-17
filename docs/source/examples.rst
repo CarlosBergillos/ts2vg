@@ -74,7 +74,7 @@ This example illustrates different options for the ``directed`` parameter when b
 
 
 .. admonition:: Code for :meth:`plot_nvg`
-   :class: toggle
+   :class: dropdown
 
     .. literalinclude:: examples/plot_utils.py
         :language: python
@@ -99,7 +99,7 @@ See :ref:`Weighted graphs` for a complete list of available values for ``weighte
 
 
 .. admonition:: Code for :meth:`plot_weighted_nvg`
-   :class: toggle
+   :class: dropdown
 
     .. literalinclude:: examples/plot_utils.py
         :language: python
@@ -124,7 +124,7 @@ Note that horizontal visibility graphs can also be directed and/or weighted.
 
 
 .. admonition:: Code for :meth:`plot_utils`
-   :class: toggle
+   :class: dropdown
 
     .. literalinclude:: examples/plot_utils.py
         :language: python
@@ -156,7 +156,7 @@ Note that when ``penetrable_limit`` is 0, the behavior is exactly the same as a 
 
 
 .. admonition:: Code for :meth:`plot_nvg`, :meth:`plot_hvg`
-   :class: toggle
+   :class: dropdown
 
     .. literalinclude:: examples/plot_utils.py
         :language: python
