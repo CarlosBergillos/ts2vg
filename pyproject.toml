@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=40.8.0", "wheel", "numpy", "cython"]
+requires = ["setuptools>=40.8.0", "wheel", "numpy>=2.0", "cython"]
 build-backend = "setuptools.build_meta"
 
 
@@ -30,7 +30,7 @@ build-backend = "setuptools.build_meta"
 #     "Intended Audience :: Science/Research",
 # ]
 # dependencies = [
-#     "numpy",
+#     "numpy>=1.24",
 # ]
 # dynamic = ["version"]
 # 
