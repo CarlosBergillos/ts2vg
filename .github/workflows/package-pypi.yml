@@ -18,15 +18,15 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python 3.12
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.12.0
+        uses: pypa/cibuildwheel@v2.19.2
         with:
           output-dir: dist
         env:
@@ -39,19 +39,19 @@ jobs:
           CIBW_TEST_COMMAND: pytest {project}/tests
 
       - name: Upload wheels to artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: dist
+          name: dist-${{ matrix.os }}
           path: ./dist/*.whl
 
   build-sdist:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python 3.12
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
@@ -65,9 +65,9 @@ jobs:
           python -m build --sdist
 
       - name: Upload source distribution to artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: dist
+          name: dist-source
           path: ./dist/*.tar.gz
 
   publish-wheels:
@@ -76,15 +76,15 @@ jobs:
 
     steps:
       - name: Download wheels from artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: dist
+          pattern: dist-*
           path: ./dist
+          merge-multiple: true
 
       - name: Publish distribution to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
-          packages_dir: dist
-          skip_existing: true
+          packages-dir: dist
