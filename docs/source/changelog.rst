@@ -1,6 +1,18 @@
 Changelog
 =========
 
+**1.2.4** 
+---------
+
+*13-07-2024*
+
+Highlights:
+
++ Added support for NumPy 2.0.
++ Added support for Python 3.12, dropped support for Python 3.6, 3.7 and 3.8.
++ Removed ``setup.cfg`` file in favor of ``pyproject.toml``.
+
+
 **1.2.3** 
 ---------
 

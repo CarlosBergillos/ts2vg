@@ -10,24 +10,6 @@
     font-size: 0.8rem;
 }
 
-/* hidden block / drop down */
-/* https://stackoverflow.com/questions/2454577/sphinx-restructuredtext-show-hide-code-snippets */
-/* https://stackoverflow.com/questions/59679797/show-hide-part-of-text-question-answer-in-sphinx-file */
-
-.toggle {
-    background: none repeat scroll 0 0 #e7f2fa;
-}
-
-.toggle.admonition {
-    padding: 0 .6rem 0!important;
-}
-
-.toggle .admonition-title {
-    display: block;
-    clear: both;
-    cursor: pointer;
-}
-
 /* logo-like */
 
 .ts2vg, .navbar-brand p.title {

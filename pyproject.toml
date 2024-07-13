@@ -1,53 +1,54 @@
 [build-system]
-requires = ["setuptools>=40.8.0", "wheel", "numpy", "cython"]
+requires = ["setuptools>=61.0.0", "wheel", "numpy>=2.0", "cython"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "ts2vg"
+description = "Build visibility graphs from time series data."
+readme = "README.rst"
+requires-python = ">=3.9"
+license.file = "LICENSE"
+keywords = ["graph", "network", "visibility", "time", "series"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Cython",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+]
+dependencies = [
+    "numpy>=1.24",
+]
+dynamic = ["version"]
 
-# Eventually lighten (or get rid of) setup.cfg whenever setuptools supports PEP 621.
-# Follow https://github.com/pypa/setuptools/issues/1688
+[project.urls]
+"Homepage"        = "https://carlosbergillos.github.io/ts2vg"
+"Documentation"   = "https://carlosbergillos.github.io/ts2vg"
+"Source Code"     = "https://github.com/CarlosBergillos/ts2vg"
 
-# [project]
-# name = "ts2vg"
-# description = "Build visibility graphs from time series data."
-# readme = "README.rst"
-# requires-python = ">=3.6"
-# license.file = "LICENSE"
-# keywords = ["graph", "network", "visibility", "time", "series"]
-# classifiers = [
-#     "License :: OSI Approved :: MIT License",
-#     "Programming Language :: Python",
-#     "Programming Language :: Python :: 3",
-#     "Programming Language :: Python :: 3.6",
-#     "Programming Language :: Python :: 3.7",
-#     "Programming Language :: Python :: 3.8",
-#     "Programming Language :: Python :: 3.9",
-#     "Programming Language :: Python :: 3.10",
-#     "Programming Language :: Python :: 3.11",
-#     "Programming Language :: Cython",
-#     "Topic :: Software Development :: Libraries :: Python Modules",
-#     "Operating System :: OS Independent",
-#     "Topic :: Scientific/Engineering :: Mathematics",
-#     "Development Status :: 4 - Beta",
-#     "Intended Audience :: Science/Research",
-# ]
-# dependencies = [
-#     "numpy",
-# ]
-# dynamic = ["version"]
-# 
-# [project.urls]
-# "Documentation"   = "https://carlosbergillos.github.io/ts2vg"
-# "Source Code"     = "https://github.com/CarlosBergillos/ts2vg"
-# 
-# [[project.authors]]
-# name = "Carlos Bergillos"
-# email = "c.bergillos.v@gmail.com"
-# 
-# [project.scripts]
-# ts2vg = "ts2vg.cli:main"
-# 
-# [project.optional-dependencies]
-# tests = [
-#     "pytest",
-# ]
+[[project.authors]]
+name = "Carlos Bergillos"
+email = "c.bergillos.v@gmail.com"
 
+[project.scripts]
+ts2vg = "ts2vg.cli:main"
+
+[project.optional-dependencies]
+tests = [
+    "pytest",
+]
+
+[tool.setuptools.packages.find]
+include = ["ts2vg*"]
+
+[tool.setuptools.dynamic]
+version.attr = "ts2vg._version.__version__"

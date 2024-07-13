@@ -11,44 +11,44 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, windows-2019, macOS-10.15]
+        os: [ubuntu-20.04, windows-2019, macos-12]
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v4
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.8'
+          python-version: '3.12'
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.12.0
+        uses: pypa/cibuildwheel@v2.19.2
         with:
           output-dir: dist
         env:
-          CIBW_BUILD: cp38-*
+          CIBW_BUILD: cp312-*
           CIBW_ARCHS: auto
           CIBW_BUILD_FRONTEND: pip
           CIBW_TEST_REQUIRES: pytest
           CIBW_TEST_COMMAND: pytest {project}/tests
 
       - name: Upload wheels to artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: dist
+          name: dist-${{ matrix.os }}
           path: ./dist/*.whl
 
   build-sdist:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v4
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.8'
+          python-version: '3.12'
 
       - name: Install dependencies
         run: |
@@ -60,9 +60,9 @@ jobs:
           python -m build --sdist
 
       - name: Upload source distribution to artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: dist
+          name: dist-source
           path: ./dist/*.tar.gz
 
   publish-wheels:
@@ -71,15 +71,17 @@ jobs:
 
     steps:
       - name: Download wheels from artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: dist
+          pattern: dist-*
           path: ./dist
+          merge-multiple: true
 
       - name: Publish distribution to Test PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
-          packages_dir: dist
+          repository-url: https://test.pypi.org/legacy/
+          packages-dir: dist
+          skip-existing: true
