@@ -27,7 +27,7 @@ jobs:
         with:
           output-dir: dist
         env:
-          CIBW_BUILD: cp38-*
+          CIBW_BUILD: cp312-*
           CIBW_ARCHS: auto
           CIBW_BUILD_FRONTEND: pip
           CIBW_TEST_REQUIRES: pytest
