@@ -1,39 +1,53 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Examples &#8212; ts2vg 1.2.3 documentation</title>
-    
-  <link href="_static/css/theme.css" rel="stylesheet" />
-  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
+    <title>Examples &#8212; ts2vg v1.2.4</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    
-      
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=a3ae24cb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-    
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
-    
-  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
-
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
+    <script src="_static/documentation_options.js?v=ccec0a52"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples';</script>
     <script data-domain="cbergillos.com/ts2vg" defer="defer" src="https://plausible.io/js/script.js"></script>
-    <link rel="shortcut icon" href="_static/favicon-32x32.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="API Reference" href="api/index.html" />
@@ -50,176 +64,334 @@
 </script>
 
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
-
-  <div id="navbar-start">
-    
-    
-<a class="navbar-brand" href="index.html">
-<p class="title">ts2vg</p>
-</a>
-
-    
-  </div>
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
   
-  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
-    <div id="navbar-center" class="mr-auto">
-      
-      <div class="navbar-center-item">
-        <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 current active nav-item">
- <a class="current reference internal nav-link" href="#">
-  Examples
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="api/index.html">
-  API Reference
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="changelog.html">
-  Changelog
- </a>
-</li>
-
-    
-</ul>
-      </div>
-      
-    </div>
-
-    <div id="navbar-end">
-      
-      <div class="navbar-end-item">
-        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
-        <li class="nav-item">
-          <a class="nav-link" href="https://github.com/CarlosBergillos/ts2vg" rel="noopener" target="_blank" title="GitHub">
-            <span><i class="fab fa-github"></i></span>
-            <label class="sr-only">GitHub</label>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://pypi.org/project/ts2vg" rel="noopener" target="_blank" title="PyPI">
-            <span><i class="fas fa-cube"></i></span>
-            <label class="sr-only">PyPI</label>
-          </a>
-        </li>
-      </ul>
-      </div>
-      
-    </div>
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
   </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">ts2vg v1.2.4</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="changelog.html">
+                        Changelog
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/CarlosBergillos/ts2vg" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/ts2vg" title="PyPI" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fas fa-cube"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
 </div>
+
     </nav>
-    
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
 
-    <div class="container-xl">
-      <div class="row">
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="api/index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="changelog.html">
+                        Changelog
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
           
-            
-            <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <div class="bd-toc-item active">
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/CarlosBergillos/ts2vg" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/ts2vg" title="PyPI" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fas fa-cube"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+</ul></div>
+        
+      </div>
     
   </div>
-</nav>
-            </div>
-            
-          
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
-          
-          <div class="d-none d-xl-block col-xl-2 bd-toc">
-            
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
               
-              <div class="toc-item">
-                
-<div class="tocsection onthispage pt-5 pb-3">
-    <i class="fas fa-list"></i> On this page
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Examples</li>
+  </ul>
+</nav>
 </div>
-
-<nav id="bd-toc-nav">
-    <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#computing-and-drawing-visibility-graphs">
-   Computing and drawing visibility graphs
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#obtaining-the-adjacency-matrix">
-   Obtaining the adjacency matrix
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#obtaining-the-degree-distribution">
-   Obtaining the degree distribution
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#building-directed-graphs">
-   Building directed graphs
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#building-weighted-graphs">
-   Building weighted graphs
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#building-horizontal-visibility-graphs">
-   Building horizontal visibility graphs
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#building-limited-penetrable-visibility-graphs">
-   Building limited penetrable visibility graphs
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#partitioning-time-series-via-community-detection">
-   Partitioning time series via community detection
-  </a>
- </li>
-</ul>
-
-</nav>
-              </div>
+      
+    </div>
+  
+  
+</div>
+</div>
               
-              <div class="toc-item">
+              
+              
                 
-              </div>
-              
-            
-          </div>
-          
-
-          
-          
-            
-          
-          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
-              
-              <div>
-                
-  <div class="section" id="examples">
-<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="computing-and-drawing-visibility-graphs">
-<h2>Computing and drawing visibility graphs<a class="headerlink" href="#computing-and-drawing-visibility-graphs" title="Permalink to this headline">¶</a></h2>
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h1>
+<section id="computing-and-drawing-visibility-graphs">
+<h2>Computing and drawing visibility graphs<a class="headerlink" href="#computing-and-drawing-visibility-graphs" title="Link to this heading">#</a></h2>
 <p>This example builds the visibility graph for a randomly generated motion time series
 and draws the graph with the help of <a class="reference external" href="https://networkx.github.io/">NetworkX</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">NaturalVG</span>
@@ -258,12 +430,12 @@ and draws the graph with the help of <a class="reference external" href="https:/
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Visibility Graph&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-default">
+<figure class="align-default">
 <a class="reference internal image-reference" href="_images/basic.png"><img alt="Example plots of a visibility graph" src="_images/basic.png" style="width: 100%;" /></a>
-</div>
-</div>
-<div class="section" id="obtaining-the-adjacency-matrix">
-<h2>Obtaining the adjacency matrix<a class="headerlink" href="#obtaining-the-adjacency-matrix" title="Permalink to this headline">¶</a></h2>
+</figure>
+</section>
+<section id="obtaining-the-adjacency-matrix">
+<h2>Obtaining the adjacency matrix<a class="headerlink" href="#obtaining-the-adjacency-matrix" title="Link to this heading">#</a></h2>
 <p>This example shows how to obtain the adjacency matrix for the visibility graph of a time series.</p>
 <p>See <a class="reference internal" href="api/ts2vg.NaturalVG.html#ts2vg.NaturalVG.adjacency_matrix" title="ts2vg.NaturalVG.adjacency_matrix"><code class="xref py py-meth docutils literal notranslate"><span class="pre">adjacency_matrix()</span></code></a> for more options.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">NaturalVG</span>
@@ -285,9 +457,9 @@ and draws the graph with the help of <a class="reference external" href="https:/
    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">uint8</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="obtaining-the-degree-distribution">
-<h2>Obtaining the degree distribution<a class="headerlink" href="#obtaining-the-degree-distribution" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="obtaining-the-degree-distribution">
+<h2>Obtaining the degree distribution<a class="headerlink" href="#obtaining-the-degree-distribution" title="Link to this heading">#</a></h2>
 <p>This example shows how to get the degree distribution for the visibility graph of a given time series.</p>
 <p>Here, we generate a random time series with 100.000 data points and then compute and plot its degree distribution.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">NaturalVG</span>
@@ -325,12 +497,12 @@ and draws the graph with the help of <a class="reference external" href="https:/
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;P(k)&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-default">
+<figure class="align-default">
 <a class="reference internal image-reference" href="_images/degree_distribution.svg"><img alt="Example degree distribution" src="_images/degree_distribution.svg" width="100%" /></a>
-</div>
-</div>
-<div class="section" id="building-directed-graphs">
-<h2>Building directed graphs<a class="headerlink" href="#building-directed-graphs" title="Permalink to this headline">¶</a></h2>
+</figure>
+</section>
+<section id="building-directed-graphs">
+<h2>Building directed graphs<a class="headerlink" href="#building-directed-graphs" title="Link to this heading">#</a></h2>
 <p>This example illustrates different options for the <code class="docutils literal notranslate"><span class="pre">directed</span></code> parameter when building visibility graphs.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">NaturalVG</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -352,10 +524,10 @@ and draws the graph with the help of <a class="reference external" href="https:/
     <span class="n">plot_nvg</span><span class="p">(</span><span class="n">nvg</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-default">
+<figure class="align-default">
 <a class="reference internal image-reference" href="_images/directed.svg"><img alt="Example directed graphs" src="_images/directed.svg" width="100%" /></a>
-</div>
-<div class="toggle admonition">
+</figure>
+<div class="dropdown admonition">
 <p class="admonition-title">Code for <code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_nvg()</span></code></p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">ArrowStyle</span><span class="p">,</span> <span class="n">FancyArrowPatch</span>
@@ -390,9 +562,9 @@ and draws the graph with the help of <a class="reference external" href="https:/
 </div>
 </div></blockquote>
 </div>
-</div>
-<div class="section" id="building-weighted-graphs">
-<h2>Building weighted graphs<a class="headerlink" href="#building-weighted-graphs" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="building-weighted-graphs">
+<h2>Building weighted graphs<a class="headerlink" href="#building-weighted-graphs" title="Link to this heading">#</a></h2>
 <p>This example illustrates different options for the <code class="docutils literal notranslate"><span class="pre">weighted</span></code> parameter when building visibility graphs.
 See <a class="reference internal" href="api/graph_options.html#weighted-graphs"><span class="std std-ref">Weighted graphs</span></a> for a complete list of available values for <code class="docutils literal notranslate"><span class="pre">weighted</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">NaturalVG</span>
@@ -419,10 +591,10 @@ See <a class="reference internal" href="api/graph_options.html#weighted-graphs">
     <span class="n">plot_weighted_nvg</span><span class="p">(</span><span class="n">nvg</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cbar_ax</span><span class="o">=</span><span class="n">cbar_ax</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-default">
+<figure class="align-default">
 <a class="reference internal image-reference" href="_images/weighted.svg"><img alt="Example weighted graphs" src="_images/weighted.svg" width="100%" /></a>
-</div>
-<div class="toggle admonition">
+</figure>
+<div class="dropdown admonition">
 <p class="admonition-title">Code for <code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_weighted_nvg()</span></code></p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.cm</span> <span class="kn">import</span> <span class="n">ScalarMappable</span>
@@ -464,9 +636,9 @@ See <a class="reference internal" href="api/graph_options.html#weighted-graphs">
 </div>
 </div></blockquote>
 </div>
-</div>
-<div class="section" id="building-horizontal-visibility-graphs">
-<h2>Building horizontal visibility graphs<a class="headerlink" href="#building-horizontal-visibility-graphs" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="building-horizontal-visibility-graphs">
+<h2>Building horizontal visibility graphs<a class="headerlink" href="#building-horizontal-visibility-graphs" title="Link to this heading">#</a></h2>
 <p>This example illustrates different options for horizontal visibility graphs.
 Note that horizontal visibility graphs can also be directed and/or weighted.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">HorizontalVG</span>
@@ -489,10 +661,10 @@ Note that horizontal visibility graphs can also be directed and/or weighted.</p>
     <span class="n">plot_hvg</span><span class="p">(</span><span class="n">hvg</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-default">
+<figure class="align-default">
 <a class="reference internal image-reference" href="_images/horizontal.svg"><img alt="Example horizontal visibility graphs" src="_images/horizontal.svg" width="100%" /></a>
-</div>
-<div class="toggle admonition">
+</figure>
+<div class="dropdown admonition">
 <p class="admonition-title">Code for <code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_utils()</span></code></p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">ArrowStyle</span><span class="p">,</span> <span class="n">FancyArrowPatch</span>
@@ -548,9 +720,9 @@ Note that horizontal visibility graphs can also be directed and/or weighted.</p>
 </div>
 </div></blockquote>
 </div>
-</div>
-<div class="section" id="building-limited-penetrable-visibility-graphs">
-<h2>Building limited penetrable visibility graphs<a class="headerlink" href="#building-limited-penetrable-visibility-graphs" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="building-limited-penetrable-visibility-graphs">
+<h2>Building limited penetrable visibility graphs<a class="headerlink" href="#building-limited-penetrable-visibility-graphs" title="Link to this heading">#</a></h2>
 <p>Limited penetrable visibility graphs (LPVG) are a variation of visibility graphs
 in which nodes are allowed to have a certain number of obstructions between them
 and still have a connecting edge in the resulting graph.
@@ -587,10 +759,10 @@ Note that when <code class="docutils literal notranslate"><span class="pre">pene
     <span class="n">plot_hvg</span><span class="p">(</span><span class="n">hvg</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">prevent_overlap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-default">
+<figure class="align-default">
 <a class="reference internal image-reference" href="_images/penetrable.svg"><img alt="Example limited penetrable visibility graphs" src="_images/penetrable.svg" width="100%" /></a>
-</div>
-<div class="toggle admonition">
+</figure>
+<div class="dropdown admonition">
 <p class="admonition-title">Code for <code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_nvg()</span></code>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_hvg()</span></code></p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">ArrowStyle</span><span class="p">,</span> <span class="n">FancyArrowPatch</span>
@@ -676,9 +848,9 @@ Note that when <code class="docutils literal notranslate"><span class="pre">pene
 </div>
 </div></blockquote>
 </div>
-</div>
-<div class="section" id="partitioning-time-series-via-community-detection">
-<h2>Partitioning time series via community detection<a class="headerlink" href="#partitioning-time-series-via-community-detection" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="partitioning-time-series-via-community-detection">
+<h2>Partitioning time series via community detection<a class="headerlink" href="#partitioning-time-series-via-community-detection" title="Link to this heading">#</a></h2>
 <p>Time series can be partitioned by applying community detection algorithms to their visibility graphs.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ts2vg</span> <span class="kn">import</span> <span class="n">NaturalVG</span>
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
@@ -729,40 +901,90 @@ Note that when <code class="docutils literal notranslate"><span class="pre">pene
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Visibility Graph&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-default">
+<figure class="align-default">
 <a class="reference internal image-reference" href="_images/partitioning.png"><img alt="Example partitioning of visibility graphs" src="_images/partitioning.png" style="width: 100%;" /></a>
-</div>
-</div>
-</div>
+</figure>
+</section>
+</section>
 
 
-              </div>
+                </article>
               
               
-          </main>
-          
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-      </div>
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-and-drawing-visibility-graphs">Computing and drawing visibility graphs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#obtaining-the-adjacency-matrix">Obtaining the adjacency matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#obtaining-the-degree-distribution">Obtaining the degree distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-directed-graphs">Building directed graphs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-weighted-graphs">Building weighted graphs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-horizontal-visibility-graphs">Building horizontal visibility graphs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-limited-penetrable-visibility-graphs">Building limited penetrable visibility graphs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#partitioning-time-series-via-community-detection">Partitioning time series via community detection</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023, Carlos Bergillos.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.5.
+    <br/>
+  </p>
+</div>
+      
     </div>
   
-  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
 
-  <footer class="footer mt-5 mt-md-0">
-  <div class="container">
-    
-    <div class="footer-item">
-      <p class="copyright">
-    &copy; Copyright 2023, Carlos Bergillos.<br/>
-</p>
-    </div>
-    
-    <div class="footer-item">
-      <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
-</p>
-    </div>
-    
-  </div>
-</footer>
+  </footer>
   </body>
 </html>

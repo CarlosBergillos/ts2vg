@@ -1,39 +1,53 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ts2vg.HorizontalVG &#8212; ts2vg 1.2.3 documentation</title>
-    
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
+    <title>ts2vg.HorizontalVG &#8212; ts2vg v1.2.4</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    
-      
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=a3ae24cb" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-    
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
-
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <script src="../_static/documentation_options.js?v=ccec0a52"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/ts2vg.HorizontalVG';</script>
     <script data-domain="cbergillos.com/ts2vg" defer="defer" src="https://plausible.io/js/script.js"></script>
-    <link rel="shortcut icon" href="../_static/favicon-32x32.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Graph options" href="graph_options.html" />
@@ -50,155 +64,357 @@
 </script>
 
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
-
-  <div id="navbar-start">
-    
-    
-<a class="navbar-brand" href="../index.html">
-<p class="title">ts2vg</p>
-</a>
-
-    
-  </div>
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
   
-  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
-    <div id="navbar-center" class="mr-auto">
-      
-      <div class="navbar-center-item">
-        <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../examples.html">
-  Examples
- </a>
-</li>
-
-<li class="toctree-l1 current active nav-item">
- <a class="reference internal nav-link" href="index.html">
-  API Reference
- </a>
-</li>
-
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../changelog.html">
-  Changelog
- </a>
-</li>
-
-    
-</ul>
-      </div>
-      
-    </div>
-
-    <div id="navbar-end">
-      
-      <div class="navbar-end-item">
-        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
-        <li class="nav-item">
-          <a class="nav-link" href="https://github.com/CarlosBergillos/ts2vg" rel="noopener" target="_blank" title="GitHub">
-            <span><i class="fab fa-github"></i></span>
-            <label class="sr-only">GitHub</label>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://pypi.org/project/ts2vg" rel="noopener" target="_blank" title="PyPI">
-            <span><i class="fas fa-cube"></i></span>
-            <label class="sr-only">PyPI</label>
-          </a>
-        </li>
-      </ul>
-      </div>
-      
-    </div>
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
   </div>
-</div>
-    </nav>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
     
+      <div class="navbar-item">
+  
 
-    <div class="container-xl">
-      <div class="row">
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">ts2vg v1.2.4</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../examples.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../changelog.html">
+                        Changelog
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
           
-            
-            <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <div class="bd-toc-item active">
-    <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="ts2vg.NaturalVG.html">
-   ts2vg.NaturalVG
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   ts2vg.HorizontalVG
-  </a>
- </li>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/CarlosBergillos/ts2vg" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/ts2vg" title="PyPI" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fas fa-cube"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../examples.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="index.html">
+                        API Reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../changelog.html">
+                        Changelog
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/CarlosBergillos/ts2vg" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fab fa-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/ts2vg" title="PyPI" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fas fa-cube"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ts2vg.NaturalVG.html">ts2vg.NaturalVG</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ts2vg.HorizontalVG</a></li>
 </ul>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="graph_options.html">
-   Graph options
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="graph_options.html">Graph options</a></li>
 </ul>
-
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-</nav>
-            </div>
-            
-          
+  
+  <div id="rtd-footer-container"></div>
 
-          
-          <div class="d-none d-xl-block col-xl-2 bd-toc">
-            
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
               
-              <div class="toc-item">
-                
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
 
-<nav id="bd-toc-nav">
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
     
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API Reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">ts2vg.HorizontalVG</li>
+  </ul>
 </nav>
-              </div>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
               
-              <div class="toc-item">
+              
+              
                 
-              </div>
-              
-            
-          </div>
-          
-
-          
-          
-            
-          
-          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
-              
-              <div>
-                
-  <div class="section" id="ts2vg-horizontalvg">
-<h1>ts2vg.HorizontalVG<a class="headerlink" href="#ts2vg-horizontalvg" title="Permalink to this headline">¶</a></h1>
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="ts2vg-horizontalvg">
+<h1>ts2vg.HorizontalVG<a class="headerlink" href="#ts2vg-horizontalvg" title="Link to this heading">#</a></h1>
 <dl class="py class">
-<dt id="ts2vg.HorizontalVG">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ts2vg.</span></code><code class="sig-name descname"><span class="pre">HorizontalVG</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penetrable_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/horizontal.py#L8-L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ts2vg.</span></span><span class="sig-name descname"><span class="pre">HorizontalVG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penetrable_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/horizontal.py#L8-L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG" title="Link to this definition">#</a></dt>
 <dd><p>Horizontal Visibility Graph.</p>
 <p>Used to transform a time series to a Horizontal Visibility Graph.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>directed</strong> (<em>str</em><em>, </em><em>None</em>) – If <code class="docutils literal notranslate"><span class="pre">None</span></code> make an undirected graph, otherwise, a directed graph by using one of the following values:
 <code class="docutils literal notranslate"><span class="pre">'left_to_right'</span></code>, <code class="docutils literal notranslate"><span class="pre">'top_to_bottom'</span></code>.
@@ -241,11 +457,7 @@ Default <code class="docutils literal notranslate"><span class="pre">0</span></c
 </pre></div>
 </div>
 <p class="rubric">Attributes</p>
-<table class="longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.degree_counts" title="ts2vg.HorizontalVG.degree_counts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">degree_counts</span></code></a></p></td>
 <td><p>Degree counts of the graph.</p></td>
@@ -266,7 +478,7 @@ Default <code class="docutils literal notranslate"><span class="pre">0</span></c
 <td><p>List of edges (links) of the graph.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.edges_unweighted" title="ts2vg.HorizontalVG.edges_unweighted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges_unweighted</span></code></a></p></td>
-<td><p>List of edges of the graph without including the weights.</p></td>
+<td><p>List of edges (links) of the graph without including the weights.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.is_directed" title="ts2vg.HorizontalVG.is_directed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_directed</span></code></a></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the graph is directed, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p></td>
@@ -283,16 +495,24 @@ Default <code class="docutils literal notranslate"><span class="pre">0</span></c
 <tr class="row-even"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.weights" title="ts2vg.HorizontalVG.weights"><code class="xref py py-obj docutils literal notranslate"><span class="pre">weights</span></code></a></p></td>
 <td><p>Weights of the edges of the graph.</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.ts" title="ts2vg.HorizontalVG.ts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ts</span></code></a></p></td>
+<td><p>1D array of the time series.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.xs" title="ts2vg.HorizontalVG.xs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xs</span></code></a></p></td>
+<td><p>1D array of the X coordinates of the time series.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.directed" title="ts2vg.HorizontalVG.directed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">directed</span></code></a></p></td>
+<td><p><cite>str</cite> indicating the strategy used for the edge directions (same as passed to the constructor).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.weighted" title="ts2vg.HorizontalVG.weighted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">weighted</span></code></a></p></td>
+<td><p><cite>str</cite> indicating the strategy used for the edge weights (same as passed to the constructor).</p></td>
+</tr>
 </tbody>
 </table>
 <p class="rubric">Methods</p>
-<table class="longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.adjacency_matrix" title="ts2vg.HorizontalVG.adjacency_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adjacency_matrix</span></code></a>([triangle, use_weights, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.adjacency_matrix" title="ts2vg.HorizontalVG.adjacency_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adjacency_matrix</span></code></a>([triangle, use_weights, ...])</p></td>
 <td><p>Adjacency matrix of the graph.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#ts2vg.HorizontalVG.as_igraph" title="ts2vg.HorizontalVG.as_igraph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_igraph</span></code></a>()</p></td>
@@ -320,8 +540,8 @@ Default <code class="docutils literal notranslate"><span class="pre">0</span></c
 </div>
 <p class="rubric">Attribute details</p>
 <dl class="py attribute">
-<dt id="ts2vg.HorizontalVG.degree_counts">
-<code class="sig-name descname"><span class="pre">degree_counts</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L276-L289"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degree_counts" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.degree_counts">
+<span class="sig-name descname"><span class="pre">degree_counts</span></span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L276-L289"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degree_counts" title="Link to this definition">#</a></dt>
 <dd><p>Degree counts of the graph.</p>
 <p>Two lists <cite>ks</cite>, <cite>cs</cite> are returned.
 <cite>cs[i]</cite> is the number of nodes in the graph that have degree <cite>ks[i]</cite>.</p>
@@ -329,8 +549,8 @@ Default <code class="docutils literal notranslate"><span class="pre">0</span></c
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="ts2vg.HorizontalVG.degree_distribution">
-<code class="sig-name descname"><span class="pre">degree_distribution</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L291-L304"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degree_distribution" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.degree_distribution">
+<span class="sig-name descname"><span class="pre">degree_distribution</span></span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L291-L304"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degree_distribution" title="Link to this definition">#</a></dt>
 <dd><p>Degree distribution of the graph.</p>
 <p>Two lists <cite>ks</cite>, <cite>ps</cite> are returned.
 <cite>ps[i]</cite> is the empirical probability that a node in the graph has degree <cite>ks[i]</cite>.</p>
@@ -338,25 +558,25 @@ Default <code class="docutils literal notranslate"><span class="pre">0</span></c
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="ts2vg.HorizontalVG.degrees">
-<code class="sig-name descname"><span class="pre">degrees</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L252-L266"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degrees" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.degrees">
+<span class="sig-name descname"><span class="pre">degrees</span></span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L252-L266"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degrees" title="Link to this definition">#</a></dt>
 <dd><p>Degree sequence of the graph.</p>
 <p>Return a list of degree values for each node in the graph, in the same order as the input time series.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="ts2vg.HorizontalVG.degrees_in">
-<code class="sig-name descname"><span class="pre">degrees_in</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L268-L270"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degrees_in" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.degrees_in">
+<span class="sig-name descname"><span class="pre">degrees_in</span></span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L268-L270"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degrees_in" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="ts2vg.HorizontalVG.degrees_out">
-<code class="sig-name descname"><span class="pre">degrees_out</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L272-L274"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degrees_out" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.degrees_out">
+<span class="sig-name descname"><span class="pre">degrees_out</span></span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L272-L274"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.degrees_out" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="ts2vg.HorizontalVG.edges">
-<code class="sig-name descname"><span class="pre">edges</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L197-L209"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.edges" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.edges">
+<span class="sig-name descname"><span class="pre">edges</span></span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L197-L209"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.edges" title="Link to this definition">#</a></dt>
 <dd><p>List of edges (links) of the graph.</p>
 <p>If the graph is unweighted, a list of tuple pairs <cite>(source_node, target_node)</cite>.
 If the graph is weighted, an iterable of tuple triplets <cite>(source_node, target_node, weight)</cite>.</p>
@@ -364,53 +584,77 @@ If the graph is weighted, an iterable of tuple triplets <cite>(source_node, targ
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="ts2vg.HorizontalVG.edges_unweighted">
-<code class="sig-name descname"><span class="pre">edges_unweighted</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L211-L226"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.edges_unweighted" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of edges of the graph without including the weights.</p>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.edges_unweighted">
+<span class="sig-name descname"><span class="pre">edges_unweighted</span></span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L211-L226"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.edges_unweighted" title="Link to this definition">#</a></dt>
+<dd><p>List of edges (links) of the graph without including the weights.</p>
 <p>A list of tuple pairs <cite>(source_node, target_node)</cite>.
 For unweighted graphs this is the same as <a class="reference internal" href="#ts2vg.HorizontalVG.edges" title="ts2vg.HorizontalVG.edges"><code class="xref py py-attr docutils literal notranslate"><span class="pre">edges</span></code></a>.</p>
 <p>Nodes are identified using an integer from 0 to <em>n</em>-1 assigned sequentially in the same order as the input time series.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="ts2vg.HorizontalVG.is_directed">
-<code class="sig-name descname"><span class="pre">is_directed</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L165-L168"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.is_directed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.is_directed">
+<span class="sig-name descname"><span class="pre">is_directed</span></span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L165-L168"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.is_directed" title="Link to this definition">#</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the graph is directed, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="ts2vg.HorizontalVG.is_weighted">
-<code class="sig-name descname"><span class="pre">is_weighted</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L170-L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.is_weighted" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.is_weighted">
+<span class="sig-name descname"><span class="pre">is_weighted</span></span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L170-L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.is_weighted" title="Link to this definition">#</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the graph is weighted, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="ts2vg.HorizontalVG.n_edges">
-<code class="sig-name descname"><span class="pre">n_edges</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L182-L195"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.n_edges" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.n_edges">
+<span class="sig-name descname"><span class="pre">n_edges</span></span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L182-L195"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.n_edges" title="Link to this definition">#</a></dt>
 <dd><p>Number of edges (links) in the graph.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="ts2vg.HorizontalVG.n_vertices">
-<code class="sig-name descname"><span class="pre">n_vertices</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L175-L180"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.n_vertices" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.n_vertices">
+<span class="sig-name descname"><span class="pre">n_vertices</span></span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L175-L180"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.n_vertices" title="Link to this definition">#</a></dt>
 <dd><p>Number of vertices (nodes) in the graph.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="ts2vg.HorizontalVG.weights">
-<code class="sig-name descname"><span class="pre">weights</span></code><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L237-L250"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.weights" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.weights">
+<span class="sig-name descname"><span class="pre">weights</span></span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L237-L250"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.weights" title="Link to this definition">#</a></dt>
 <dd><p>Weights of the edges of the graph.</p>
 <p>Return a 1D array containing the weights of the edges of the graph (listed in the same order as in <a class="reference internal" href="#ts2vg.HorizontalVG.edges" title="ts2vg.HorizontalVG.edges"><code class="xref py py-attr docutils literal notranslate"><span class="pre">edges</span></code></a>).
 <code class="docutils literal notranslate"><span class="pre">None</span></code> if the graph is unweighted.</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.ts">
+<span class="sig-name descname"><span class="pre">ts</span></span><a class="headerlink" href="#ts2vg.HorizontalVG.ts" title="Link to this definition">#</a></dt>
+<dd><p>1D array of the time series. <code class="docutils literal notranslate"><span class="pre">None</span></code> if the graph has not been built yet.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.xs">
+<span class="sig-name descname"><span class="pre">xs</span></span><a class="headerlink" href="#ts2vg.HorizontalVG.xs" title="Link to this definition">#</a></dt>
+<dd><p>1D array of the X coordinates of the time series. <code class="docutils literal notranslate"><span class="pre">None</span></code> if the graph has not been built yet.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.directed">
+<span class="sig-name descname"><span class="pre">directed</span></span><a class="headerlink" href="#ts2vg.HorizontalVG.directed" title="Link to this definition">#</a></dt>
+<dd><p><cite>str</cite> indicating the strategy used for the edge directions (same as passed to the constructor). <code class="docutils literal notranslate"><span class="pre">None</span></code> if the graph is undirected.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.weighted">
+<span class="sig-name descname"><span class="pre">weighted</span></span><a class="headerlink" href="#ts2vg.HorizontalVG.weighted" title="Link to this definition">#</a></dt>
+<dd><p><cite>str</cite> indicating the strategy used for the edge weights (same as passed to the constructor). <code class="docutils literal notranslate"><span class="pre">None</span></code> if the graph is unweighted.</p>
+</dd></dl>
+
 <p class="rubric">Method details</p>
 <dl class="py method">
-<dt id="ts2vg.HorizontalVG.adjacency_matrix">
-<code class="sig-name descname"><span class="pre">adjacency_matrix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">triangle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'both'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_weight_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">nan</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L306-L374"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.adjacency_matrix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.adjacency_matrix">
+<span class="sig-name descname"><span class="pre">adjacency_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">triangle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'both'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_weight_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">nan</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L306-L374"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.adjacency_matrix" title="Link to this definition">#</a></dt>
 <dd><p>Adjacency matrix of the graph.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>triangle</strong> (<em>str</em>) – <p>One of <code class="docutils literal notranslate"><span class="pre">'lower'</span></code> (uses the lower triangle of the matrix),
 <code class="docutils literal notranslate"><span class="pre">'upper'</span></code> (uses the upper triangle of the matrix)
@@ -429,39 +673,39 @@ Only applicable for weighted graphs and when using <code class="docutils literal
 </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><em>2D array</em> – Adjacency matrix of the graph.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ts2vg.HorizontalVG.as_igraph">
-<code class="sig-name descname"><span class="pre">as_igraph</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L376-L394"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_igraph" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.as_igraph">
+<span class="sig-name descname"><span class="pre">as_igraph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L376-L394"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_igraph" title="Link to this definition">#</a></dt>
 <dd><p>Return an <a class="reference external" href="https://igraph.org/python/">igraph</a> graph object corresponding to this graph.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">igraph</span></code> package is required.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ts2vg.HorizontalVG.as_networkx">
-<code class="sig-name descname"><span class="pre">as_networkx</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L396-L418"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_networkx" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.as_networkx">
+<span class="sig-name descname"><span class="pre">as_networkx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L396-L418"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_networkx" title="Link to this definition">#</a></dt>
 <dd><p>Return a <a class="reference external" href="https://networkx.github.io/">NetworkX</a> graph object corresponding to this graph.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">networkx</span></code> package is required.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ts2vg.HorizontalVG.as_snap">
-<code class="sig-name descname"><span class="pre">as_snap</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L420-L444"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_snap" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.as_snap">
+<span class="sig-name descname"><span class="pre">as_snap</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L420-L444"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.as_snap" title="Link to this definition">#</a></dt>
 <dd><p>Return a <a class="reference external" href="https://snap.stanford.edu/snappy/">SNAP</a> graph object corresponding to this graph.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">snap</span></code> package is required.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ts2vg.HorizontalVG.build">
-<code class="sig-name descname"><span class="pre">build</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_degrees</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L104-L163"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.build" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_degrees</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L104-L163"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.build" title="Link to this definition">#</a></dt>
 <dd><p>Compute and build the visibility graph for the given time series.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ts</strong> (<em>1D array like</em>) – Input time series.</p></li>
 <li><p><strong>xs</strong> (<em>1D array like</em><em>, </em><em>optional</em>) – <p>X coordinates for the time series.
@@ -472,31 +716,31 @@ Length of <code class="docutils literal notranslate"><span class="pre">xs</span>
 Default <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><em>self</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ts2vg.HorizontalVG.node_positions">
-<code class="sig-name descname"><span class="pre">node_positions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L446-L451"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.node_positions" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.node_positions">
+<span class="sig-name descname"><span class="pre">node_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L446-L451"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.node_positions" title="Link to this definition">#</a></dt>
 <dd><p>Dictionary with nodes as keys and positions <em>(x, y)</em> as values.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="ts2vg.HorizontalVG.summary">
-<code class="sig-name descname"><span class="pre">summary</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Visibility</span> <span class="pre">Graph'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L453-L476"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.summary" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ts2vg.HorizontalVG.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Visibility</span> <span class="pre">Graph'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/CarlosBergillos/ts2vg/blob/main/ts2vg/graph/base.py#L453-L476"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ts2vg.HorizontalVG.summary" title="Link to this definition">#</a></dt>
 <dd><p>Prints (or returns) a simple text summary describing the visibility graph.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>prints</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> prints the summary, otherwise returns the summary as a string.
 Default <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
 <li><p><strong>title</strong> (<em>str</em>) – Title for the table. Default is ‘Visibility Graph’.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><em>str</em> – A string containing the short summary (only if <code class="docutils literal notranslate"><span class="pre">prints=False</span></code>).</p>
 </dd>
 </dl>
@@ -504,36 +748,104 @@ Default <code class="docutils literal notranslate"><span class="pre">True</span>
 
 </dd></dl>
 
+</section>
+
+
+                </article>
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG"><code class="docutils literal notranslate"><span class="pre">HorizontalVG</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.degree_counts"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.degree_counts</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.degree_distribution"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.degree_distribution</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.degrees"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.degrees</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.degrees_in"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.degrees_in</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.degrees_out"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.degrees_out</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.edges"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.edges</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.edges_unweighted"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.edges_unweighted</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.is_directed"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.is_directed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.is_weighted"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.is_weighted</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.n_edges"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.n_edges</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.n_vertices"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.n_vertices</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.weights"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.weights</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.ts"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.ts</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.xs"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.xs</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.directed"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.directed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.weighted"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.weighted</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.adjacency_matrix"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.adjacency_matrix()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.as_igraph"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.as_igraph()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.as_networkx"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.as_networkx()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.as_snap"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.as_snap()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.build"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.build()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.node_positions"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.node_positions()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ts2vg.HorizontalVG.summary"><code class="docutils literal notranslate"><span class="pre">HorizontalVG.summary()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023, Carlos Bergillos.
+      <br/>
+    
+  </p>
 </div>
-
-
-              </div>
-              
-              
-          </main>
-          
-
-      </div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.5.
+    <br/>
+  </p>
+</div>
+      
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
 
-  <footer class="footer mt-5 mt-md-0">
-  <div class="container">
-    
-    <div class="footer-item">
-      <p class="copyright">
-    &copy; Copyright 2023, Carlos Bergillos.<br/>
-</p>
-    </div>
-    
-    <div class="footer-item">
-      <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
-</p>
-    </div>
-    
-  </div>
-</footer>
+  </footer>
   </body>
 </html>
