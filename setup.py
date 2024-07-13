@@ -1,5 +1,4 @@
-import sys
-from setuptools import setup, find_packages, Extension
+from setuptools import setup, Extension
 from numpy import get_include as get_np_include
 from Cython.Build import cythonize
 
