@@ -7,6 +7,11 @@ on:
     branches: [main]
     types: [published]
   workflow_dispatch:
+    inputs:
+      skip_existing:
+        description: 'Skip publishing existing releases.'
+        type: boolean
+        default: false
 
 jobs:
   build-wheels:
@@ -26,7 +31,7 @@ jobs:
           python-version: '3.12'
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.19.2
+        uses: pypa/cibuildwheel@v2.22.0
         with:
           output-dir: dist
         env:
@@ -88,3 +93,4 @@ jobs:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages-dir: dist
+          skip-existing: ${{ inputs.skip_existing || false }}
