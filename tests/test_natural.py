@@ -412,7 +412,7 @@ def test_adjacency_matrix_use_weights(sample_ts):
         [np.nan,    sqrt(13.0), sqrt(2.0),  np.nan      ],
     ]
 
-    np.testing.assert_array_equal(out_got, out_truth)
+    np.testing.assert_allclose(out_got, out_truth)
 
 
 def test_adjacency_matrix_use_weights_no_weight_value(sample_ts):
@@ -426,7 +426,7 @@ def test_adjacency_matrix_use_weights_no_weight_value(sample_ts):
         [-1,        sqrt(13.0), sqrt(2.0),  -1          ],
     ]
 
-    np.testing.assert_array_equal(out_got, out_truth)
+    np.testing.assert_allclose(out_got, out_truth)
 
 
 def test_adjacency_matrix_directed_upper(sample_ts):
@@ -457,7 +457,7 @@ def test_adjacency_matrix_directed_both(sample_ts):
     np.testing.assert_array_equal(out_got, out_truth)
 
 
-def test_adjacency_matrix():
+def test_adjacency_matrix_unbuilt():
     vg = ts2vg.NaturalVG()
 
     with pytest.raises(ts2vg.graph.base.NotBuiltError):
@@ -520,9 +520,95 @@ def test_degrees_out_ttb(sample_ts):
     np.testing.assert_array_equal(out_got, out_truth)
 
 
-def test_not_built():
+def test_degrees_only_degrees(sample_ts):
+    vg = ts2vg.NaturalVG().build(sample_ts, only_degrees=True)
+    out_got = vg.degrees
+
+    out_truth = [1, 3, 2, 2]
+
+    np.testing.assert_array_equal(out_got, out_truth)
+
+
+def test_degrees_in_only_degrees(sample_ts):
+    vg = ts2vg.NaturalVG().build(sample_ts, only_degrees=True)
+    out_got = vg.degrees_in
+
+    out_truth = [0, 1, 1, 2]
+
+    np.testing.assert_array_equal(out_got, out_truth)
+
+
+def test_degrees_out_only_degrees(sample_ts):
+    vg = ts2vg.NaturalVG().build(sample_ts, only_degrees=True)
+    out_got = vg.degrees_out
+
+    out_truth = [1, 2, 1, 0]
+
+    np.testing.assert_array_equal(out_got, out_truth)
+
+
+def test_degrees_in_ltr_only_degrees(sample_ts):
+    vg = ts2vg.NaturalVG(directed="left_to_right").build(sample_ts, only_degrees=True)
+    out_got = vg.degrees_in
+
+    out_truth = [0, 1, 1, 2]
+
+    np.testing.assert_array_equal(out_got, out_truth)
+
+
+def test_degrees_out_ltr_only_degrees(sample_ts):
+    vg = ts2vg.NaturalVG(directed="left_to_right").build(sample_ts, only_degrees=True)
+    out_got = vg.degrees_out
+
+    out_truth = [1, 2, 1, 0]
+
+    np.testing.assert_array_equal(out_got, out_truth)
+
+
+def test_degrees_in_ttb_only_degrees(sample_ts):
+    vg = ts2vg.NaturalVG(directed="top_to_bottom").build(sample_ts, only_degrees=True)
+    out_got = vg.degrees_in
+
+    out_truth = [1, 0, 1, 2]
+
+    np.testing.assert_array_equal(out_got, out_truth)
+
+
+def test_degrees_out_ttb_only_degrees(sample_ts):
+    vg = ts2vg.NaturalVG(directed="top_to_bottom").build(sample_ts, only_degrees=True)
+    out_got = vg.degrees_out
+
+    out_truth = [0, 3, 1, 0]
+
+    np.testing.assert_array_equal(out_got, out_truth)
+
+
+def test_degree_counts(sample_ts):
+    out_got = ts2vg.NaturalVG().build(sample_ts).degree_counts
+
+    out_truth = ([1, 2, 3], [1, 2, 1])
+
+    np.testing.assert_array_equal(out_got, out_truth)
+
+def test_degree_distribution(sample_ts):
+    out_got = ts2vg.NaturalVG().build(sample_ts).degree_distribution
+
+    out_truth = ([1, 2, 3], [0.25, 0.5, 0.25])
+
+    np.testing.assert_allclose(out_got, out_truth)
+
+def test_unbuilt():
+    vg = ts2vg.NaturalVG()
+
     with pytest.raises(ts2vg.graph.base.NotBuiltError):
-        ts2vg.NaturalVG().edges
+        vg.edges
+
+
+def test_unbuilt_only_degrees(sample_ts):
+    vg = ts2vg.NaturalVG().build(sample_ts, only_degrees=True)
+
+    with pytest.raises(ts2vg.graph.base.NotBuiltError):
+        vg.edges
 
 
 def test_empty_ts(empty_ts):

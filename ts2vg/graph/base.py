@@ -1,7 +1,19 @@
 import numpy as np
-from typing import Optional
+from numpy.typing import ArrayLike, NDArray
+
+from typing import Any, Dict, Optional, List, Literal, Tuple, Union, cast, overload
 
 from ts2vg.graph.summary import simple_summary
+
+
+# use TypeAlias in Python >= 3.10
+IgraphGraphType = Any  # igraph.Graph
+NetworkxGraphType = Any  # networkx.Graph
+SnapGraphType = Any  # Union[snap.TUNGraph, snap.TNGraph]
+UnweightedEdgeList = List[Tuple[int, int]]
+WeightedEdgeList = List[Tuple[int, int, float]]
+EdgeList = Union[UnweightedEdgeList, WeightedEdgeList]
+
 
 _DIRECTED_OPTIONS = {
     None: 0,
@@ -23,7 +35,6 @@ _WEIGHTED_OPTIONS = {
     "abs_angle": 10,
     "num_penetrations": 11,
 }
-
 
 class NotBuiltError(Exception):
     """
@@ -52,17 +63,17 @@ class VG:
         max_weight: Optional[float] = None,
         penetrable_limit: int = 0,
     ):
-        self.ts = None
+        self.ts: Optional[NDArray[np.float64]] = None
         """1D array of the time series. ``None`` if the graph has not been built yet."""
 
-        self.xs = None
+        self.xs: Optional[NDArray[np.float64]] = None
         """1D array of the X coordinates of the time series. ``None`` if the graph has not been built yet."""
 
-        self._m = None
-        self._edges = None
-        self._degrees = None
-        self._degrees_in = None
-        self._degrees_out = None
+        self._m: Optional[int] = None
+        self._edges: Optional[EdgeList] = None
+        self._degrees: Optional[NDArray[np.uint32]] = None
+        self._degrees_in: Optional[NDArray[np.uint32]] = None
+        self._degrees_out: Optional[NDArray[np.uint32]] = None
 
         if directed not in _DIRECTED_OPTIONS:
             raise ValueError(
@@ -97,11 +108,11 @@ class VG:
 
         self.penetrable_limit = penetrable_limit
 
-    def _validate_is_built(self):
-        if self._edges is None:
-            raise NotBuiltError("Cannot access graph edges, use 'build' first.")
+    def _validate_is_built(self) -> None:
+        if self.ts is None or self._edges is None:
+            raise NotBuiltError("Visibility graph has has not been built yet, call '.build(...)' first.")
 
-    def build(self, ts, xs=None, only_degrees: bool = False):
+    def build(self, ts: ArrayLike, xs: Optional[ArrayLike] = None, only_degrees: bool = False) -> "VG":  # -> typing.Self
         """
         Compute and build the visibility graph for the given time series.
 
@@ -130,12 +141,12 @@ class VG:
             raise ValueError("Input time series must be one-dimensional.")
 
         if xs is None:
-            self.xs = np.arange(len(ts), dtype=np.float64)
+            self.xs = np.arange(len(self.ts), dtype=np.float64)
         else:
-            if len(xs) != len(self.ts):
-                raise ValueError(f"Length of 'xs' ({len(xs)}) does not match length of 'ts' ({len(self.ts)}).")
-
             self.xs = np.asarray(xs, dtype=np.float64)
+
+            if len(self.xs) != len(self.ts):
+                raise ValueError(f"Length of 'xs' ({len(self.xs)}) does not match length of 'ts' ({len(self.ts)}).")            
 
             if self.xs.ndim != 1:
                 raise ValueError("Input 'xs' series must be one-dimensional.")
@@ -146,9 +157,9 @@ class VG:
         if only_degrees and self.is_weighted:
             raise ValueError("Building with 'only_degrees' is only supported for unweighted graphs.")
 
-        if len(ts) == 0:
+        if len(self.ts) == 0:
             # empty time series results in an empty graph
-            self._edges = None if only_degrees else []
+            self._edges = None if only_degrees else cast(EdgeList, [])
             self._degrees_in = np.zeros(0, dtype=np.uint32)
             self._degrees_out = np.zeros(0, dtype=np.uint32)
             self._degrees = np.zeros(0, dtype=np.uint32)
@@ -173,17 +184,21 @@ class VG:
         return self.weighted is not None
 
     @property
-    def n_vertices(self):
+    def n_vertices(self) -> int:
         """
         Number of vertices (nodes) in the graph.
         """
+        self._validate_is_built()
+
         return self.ts.size
 
     @property
-    def n_edges(self):
+    def n_edges(self) -> int:
         """
         Number of edges (links) in the graph.
         """
+        self._validate_is_built()
+
         if self._m is None:
             if self._edges is not None:
                 self._m = len(self._edges)
@@ -195,7 +210,7 @@ class VG:
         return self._m
 
     @property
-    def edges(self):
+    def edges(self) -> EdgeList:
         """
         List of edges (links) of the graph.
 
@@ -209,7 +224,7 @@ class VG:
         return self._edges
 
     @property
-    def edges_unweighted(self):
+    def edges_unweighted(self) -> UnweightedEdgeList:
         """
         List of edges (links) of the graph without including the weights.
 
@@ -221,89 +236,93 @@ class VG:
         self._validate_is_built()
 
         if not self.is_weighted:
-            return self.edges
+            return cast(UnweightedEdgeList, self.edges)
 
-        return [(source_node, target_node) for (source_node, target_node, _) in self.edges]
-
-    @property
-    def _edges_array(self):
-        arr = np.asarray(self._edges, dtype="int64")  # could be 'uint64' but then it breaks np.bincount
-
-        if self.is_weighted:
-            return arr[:, :2]
-
-        return arr
+        return [(source_node, target_node) for (source_node, target_node, _) in cast(WeightedEdgeList, self.edges)]
 
     @property
-    def weights(self):
+    def weights(self) -> Optional[List[float]]:
         """
         Weights of the edges of the graph.
 
-        Return a 1D array containing the weights of the edges of the graph (listed in the same order as in :attr:`edges`).
+        A list of the weights of the edges of the graph (listed in the same order as in :attr:`edges`).
         ``None`` if the graph is unweighted.
         """
         self._validate_is_built()
 
-        if self.weighted is None:
+        if not self.is_weighted:
             return None
 
-        return np.fromiter((w for (_, _, w) in self.edges), dtype="float64", count=self.n_edges)
+        return [weight for (_, _, weight) in cast(WeightedEdgeList, self.edges)]
 
     @property
-    def degrees(self):
+    def degrees(self) -> NDArray[np.uint32]:
         """
         Degree sequence of the graph.
 
-        Return a list of degree values for each node in the graph, in the same order as the input time series.
+        An array of degree values for each node in the graph, in the same order as the input time series.
         """
         if self._degrees is not None:
             pass
         elif self._edges is not None:
-            self._degrees = np.bincount(self._edges_array.flat)
+            edges_array = np.asarray(self.edges_unweighted, dtype=np.uint32)
+            self._degrees = np.bincount(edges_array.flat).astype(np.uint32)
         else:
             raise NotBuiltError("Cannot access graph edges, use 'build' first.")
 
         return self._degrees
 
     @property
-    def degrees_in(self):
+    def degrees_in(self) -> NDArray[np.uint32]:
+        self._validate_is_built()
+
         return self._degrees_in
 
     @property
-    def degrees_out(self):
+    def degrees_out(self) -> NDArray[np.uint32]:
+        self._validate_is_built()
+
         return self._degrees_out
 
     @property
-    def degree_counts(self):
+    def degree_counts(self) -> tuple[NDArray, NDArray[np.intp]]:
         """
         Degree counts of the graph.
 
-        Two lists `ks`, `cs` are returned.
+        Two arrays `ks`, `cs` are returned.
         `cs[i]` is the number of nodes in the graph that have degree `ks[i]`.
 
         The count of any other degree value not listed in `ks` is 0.
         """
-        ks, counts = np.unique(self.degrees, return_counts=True)
-        cs = counts
+        self._validate_is_built()
+
+        ks, cs = np.unique(self.degrees, return_counts=True)
 
         return ks, cs
 
     @property
-    def degree_distribution(self):
+    def degree_distribution(self) -> tuple[NDArray, NDArray[np.floating]]:
         """
         Degree distribution of the graph.
 
-        Two lists `ks`, `ps` are returned.
+        Two arrays `ks`, `ps` are returned.
         `ps[i]` is the empirical probability that a node in the graph has degree `ks[i]`.
 
         The probability for any other degree value not listed in `ks` is 0.
         """
-        ks, counts = self.degree_counts
-        ps = counts / self.n_vertices
+        self._validate_is_built()
+
+        ks, cs = self.degree_counts
+        ps = cs / self.n_vertices
 
         return ks, ps
 
-    def adjacency_matrix(self, triangle="both", use_weights=False, no_weight_value=np.nan):
+    def adjacency_matrix(
+        self,
+        triangle: Literal["lower", "upper", "both"] = "both",
+        use_weights: bool = False,
+        no_weight_value: float = np.nan,
+    ) -> Union[NDArray[np.uint32], NDArray[np.float64]]:
         """
         Adjacency matrix of the graph.
 
@@ -325,7 +344,7 @@ class VG:
             Default ``False``.
 
         no_weight_value : float
-            The default value used in the matrix for the cases where the nodes are not connected.
+            The value used in the matrix for the cases where the nodes are not connected.
             Only applicable for weighted graphs and when using ``use_weights=True``.
 
             Default ``np.nan``.
@@ -347,11 +366,11 @@ class VG:
         if use_weights and not self.is_weighted:
             raise ValueError(f"'use_weights=True' only valid for weighted graphs.")
 
-        e = self._edges_array
+        e = np.asarray(self.edges_unweighted, dtype=np.uint32)
         w = self.weights
 
         if self.is_weighted and use_weights:
-            m = np.full((self.n_vertices, self.n_vertices), fill_value=no_weight_value, dtype="float64")
+            m = np.full((self.n_vertices, self.n_vertices), fill_value=no_weight_value, dtype=np.float64)
             if self.is_directed:
                 m[e[:, 0], e[:, 1]] = w
             else:
@@ -361,7 +380,7 @@ class VG:
                 if triangle == "both" or triangle == "lower":
                     m[e[:, 1], e[:, 0]] = w
         else:
-            m = np.zeros((self.n_vertices, self.n_vertices), dtype="uint8")
+            m = np.zeros((self.n_vertices, self.n_vertices), dtype=np.uint32)
             if self.is_directed:
                 m[e[:, 0], e[:, 1]] = 1
             else:
@@ -373,7 +392,7 @@ class VG:
 
         return m
 
-    def as_igraph(self):
+    def as_igraph(self) -> IgraphGraphType:
         """
         Return an `igraph <https://igraph.org/python/>`_ graph object corresponding to this graph.
 
@@ -393,7 +412,7 @@ class VG:
 
         return g
 
-    def as_networkx(self):
+    def as_networkx(self) -> NetworkxGraphType:
         """
         Return a `NetworkX <https://networkx.github.io/>`_ graph object corresponding to this graph.
 
@@ -417,7 +436,7 @@ class VG:
 
         return g
 
-    def as_snap(self):
+    def as_snap(self) -> SnapGraphType:
         """
         Return a `SNAP <https://snap.stanford.edu/snappy/>`_ graph object corresponding to this graph.
 
@@ -443,14 +462,20 @@ class VG:
 
         return g
 
-    def node_positions(self):
+    def node_positions(self) -> Dict[int, Tuple[float, float]]:
         """
         Dictionary with nodes as keys and positions *(x, y)* as values.
         """
 
         return {i: (self.xs[i], self.ts[i]) for i in range(self.n_vertices)}
 
-    def summary(self, prints: bool = True, title: str = "Visibility Graph"):
+    @overload
+    def summary(self, prints: Literal[True] = True, title: str = "Visibility Graph") -> str: ...
+
+    @overload
+    def summary(self, prints: Literal[False], title: str = "Visibility Graph") -> None: ...
+
+    def summary(self, prints: bool = True, title: str = "Visibility Graph") -> Optional[str]:
         """
         Prints (or returns) a simple text summary describing the visibility graph.
 
@@ -472,8 +497,9 @@ class VG:
 
         if prints:
             print(text)
+            return None
         else:
             return text
 
-    # def _compute_graph(self):
-    #     raise NotImplementedError()
+    def _compute_graph(self, only_degrees: bool) -> Tuple[EdgeList, NDArray[np.uint32], NDArray[np.uint32]]:
+        raise NotImplementedError()

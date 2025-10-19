@@ -45,8 +45,9 @@ email = "c.bergillos.v@gmail.com"
 ts2vg = "ts2vg.cli:main"
 
 [project.optional-dependencies]
-tests = [
-    "pytest",
+dev = [
+    "pytest==7.4.2",
+    "mypy==1.5.1",
 ]
 
 [tool.setuptools.packages.find]
@@ -54,3 +55,19 @@ include = ["ts2vg*"]
 
 [tool.setuptools.dynamic]
 version.attr = "ts2vg._version.__version__"
+
+[tool.mypy]
+packages = ["ts2vg"]
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = [
+    "igraph",
+    "networkx",
+    "snap",
+    "ts2vg.graph._natural",
+    "ts2vg.graph._natural_penetrable",
+    "ts2vg.graph._horizontal",
+    "ts2vg.graph._horizontal_penetrable",
+]
+ignore_missing_imports = true
