@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath("../../"))
 import ts2vg
 
 project = "ts2vg"
-copyright = "2023, Carlos Bergillos"
+copyright = "2025, Carlos Bergillos"
 author = "Carlos Bergillos"
 release = ts2vg.__version__
 version = ts2vg.__version__
@@ -89,6 +89,7 @@ html_theme_options = {
     ],
     "show_prev_next": False,
     "navigation_with_keys": False,
+    
 }
 
 favicons = [

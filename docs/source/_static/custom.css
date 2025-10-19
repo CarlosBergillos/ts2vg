@@ -1,9 +1,12 @@
 /* theme customizations */
-:root {
-    --pst-color-brand: 37, 115, 175;
-    --pst-color-inline-code: var(--pst-color-brand);
-    --pst-color-link: 100, 100, 250;
-    --pst-color-link-hover: 250, 100, 100;
+html[data-theme="light"] {
+    --pst-color-primary: #4b8ed4;
+    --pst-color-secondary: #0a7d91;
+}
+
+html[data-theme="dark"] {
+    --pst-color-primary: #4b8ed4;
+    --pst-color-secondary: #0a7d91;
 }
 
 .viewcode-link {
@@ -13,7 +16,7 @@
 /* logo-like */
 
 .ts2vg, .navbar-brand p.title {
-    color: rgba(var(--pst-color-brand), 1);
+    color: var(--pst-color-primary);
     font-weight: bolder;
 }
 
