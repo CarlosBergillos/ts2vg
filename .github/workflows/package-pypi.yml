@@ -8,6 +8,10 @@ on:
     types: [published]
   workflow_dispatch:
     inputs:
+      build_versions:
+        description: 'Python versions to build.'
+        type: string
+        default: 'cp39-* cp310-* cp311-* cp312-* cp313-* cp314-*'
       skip_existing:
         description: 'Skip publishing existing releases.'
         type: boolean
@@ -35,7 +39,7 @@ jobs:
         with:
           output-dir: dist
         env:
-          CIBW_BUILD: cp39-* cp310-* cp311-* cp312-* cp313-* cp314-*
+          CIBW_BUILD: ${{ inputs.build_versions }}
           CIBW_ARCHS_WINDOWS: auto
           CIBW_ARCHS_MACOS: "x86_64 arm64"
           CIBW_ARCHS_LINUX: auto
