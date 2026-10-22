@@ -352,7 +352,7 @@ def test_degrees(sample_ts):
     np.testing.assert_array_equal(out_got, out_truth)
 
 
-def test_not_built():
+def test_unbuilt():
     with pytest.raises(ts2vg.graph.base.NotBuiltError):
         ts2vg.HorizontalVG().edges
 

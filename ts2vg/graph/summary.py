@@ -1,4 +1,10 @@
-def _simple_title_line(title, line_width):
+from typing import Any, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ts2vg.graph.base import VG
+
+
+def _simple_title_line(title: str, line_width: int) -> str:
     line = " " * ((line_width - len(title)) // 2)
     line += title
     line += " " * ((line_width - len(title)) // 2)
@@ -8,11 +14,7 @@ def _simple_title_line(title, line_width):
     return line
 
 
-def _simple_key_value_line(key, value, line_width):
-    key = str(key)
-
-    value = str(value)
-
+def _simple_key_value_line(key: str, value: str, line_width: int) -> str:
     line = key
     line += " " * (line_width - len(key) - len(value))
     line += value
@@ -21,20 +23,22 @@ def _simple_key_value_line(key, value, line_width):
     return line
 
 
-def simple_summary(vg: "ts2vg.graph.base.VG", title: str = "Visibility Graph", line_width: int = 48):
-    vg_config = {
+def simple_summary(vg: "VG", title: str = "Visibility Graph", line_width: int = 48) -> str:
+    vg._validate_is_built()
+
+    vg_config: dict[str, str] = {
         "General Type:": vg._general_type_name,
         "Directed:": vg.directed if vg.is_directed else "undirected",
         "Weighted:": vg.weighted if vg.is_weighted else "unweighted",
-        "Parametric Min. Weight:": vg.min_weight if vg.min_weight is not None else "--",
-        "Parametric Max. Weight:": vg.max_weight if vg.max_weight is not None else "--",
-        "Penetrable Limit:": vg.penetrable_limit,
+        "Parametric Min. Weight:": str(vg.min_weight) if vg.min_weight is not None else "--",
+        "Parametric Max. Weight:": str(vg.max_weight) if vg.max_weight is not None else "--",
+        "Penetrable Limit:": str(vg.penetrable_limit),
     }
 
-    built_vg_config = {
-        "Time Series Length:": len(vg.ts),
-        "No. Vertices:": vg.n_vertices,
-        "No. Edges:": vg.n_edges,
+    built_vg_config: dict[str, str] = {
+        "Time Series Length:": str(vg.n_vertices),
+        "No. Vertices:": str(vg.n_vertices),
+        "No. Edges:": str(vg.n_edges),
     }
 
     txt = _simple_title_line(title, line_width)

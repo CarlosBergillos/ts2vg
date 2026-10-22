@@ -58,9 +58,9 @@ def linear_ts_small():
 
 @pytest.fixture
 def linear_ts_large():
-    return 99999999 + np.arange(0, 1_000, 0.1, dtype="float64")
+    return 99999999 + np.arange(0, 1_000, 0.1, dtype=np.float64)
 
 
 @pytest.fixture
 def linear_ts_large_negative():
-    return -99999999 - np.arange(0, 1_000, 0.1, dtype="float64")
+    return -99999999 - np.arange(0, 1_000, 0.1, dtype=np.float64)
