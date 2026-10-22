@@ -1,5 +1,4 @@
 import argparse
-from typing import Dict, List, Type
 from pathlib import Path
 
 import numpy as np
@@ -7,21 +6,21 @@ import numpy as np
 from ts2vg import NaturalVG, HorizontalVG
 from ts2vg.graph.base import _DIRECTED_OPTIONS, _WEIGHTED_OPTIONS, VG
 
-_OUTPUT_MODES: Dict[str, str] = {
+_OUTPUT_MODES: dict[str, str] = {
     "el": "edge list",
     "ds": "degree sequence",
     "dd": "degree distribution",
     "dc": "degree counts",
 }
 
-_GRAPH_TYPES: Dict[str, Type[VG]] = {
+_GRAPH_TYPES: dict[str, type[VG]] = {
     "natural": NaturalVG,
     "horizontal": HorizontalVG,
 }
 
 
 class SmartFormatter(argparse.HelpFormatter):
-    def _split_lines(self, text: str, width: int) -> List[str]:
+    def _split_lines(self, text: str, width: int) -> list[str]:
         if text.startswith("R|"):
             return text[2:].splitlines()
         return argparse.HelpFormatter._split_lines(self, text, width)
@@ -33,7 +32,7 @@ class SmartFormatter(argparse.HelpFormatter):
             return metavar
 
         else:
-            parts: List[str] = []
+            parts: list[str] = []
 
             if action.nargs == 0:
                 parts.extend(action.option_strings)
