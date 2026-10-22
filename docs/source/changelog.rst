@@ -1,6 +1,16 @@
 Changelog
 =========
 
+**1.2.5** 
+---------
+
+*22-10-2026*
+
+Highlights:
+
++ Added support up to Python 3.15.
+
+
 **1.2.4** 
 ---------
 
