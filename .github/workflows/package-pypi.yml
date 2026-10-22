@@ -11,7 +11,7 @@ on:
       build_versions:
         description: 'Python versions to build.'
         type: string
-        default: 'cp39-* cp310-* cp311-* cp312-* cp313-* cp314-*'
+        default: 'cp39-* cp310-* cp311-* cp312-* cp313-* cp314-* cp315-*'
       skip_existing:
         description: 'Skip publishing existing releases.'
         type: boolean
