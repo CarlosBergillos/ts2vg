@@ -7,10 +7,10 @@ name = "ts2vg"
 description = "Build visibility graphs from time series data."
 readme = "README.rst"
 requires-python = ">=3.11"
-license.file = "LICENSE"
+license = "MIT"
+license-files = ["LICENSE"]
 keywords = ["graph", "network", "visibility", "time", "series"]
 classifiers = [
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
