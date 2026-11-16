@@ -20,7 +20,7 @@ _DIRECTED_OPTIONS: dict[str | None, int] = {
     "top_to_bottom": 2,
 }
 
-_WEIGHTED_OPTIONS: dict[str| None, int] = {
+_WEIGHTED_OPTIONS: dict[str | None, int] = {
     None: 0,
     "distance": 1,
     "sq_distance": 2,
@@ -35,11 +35,13 @@ _WEIGHTED_OPTIONS: dict[str| None, int] = {
     "num_penetrations": 11,
 }
 
+
 class NotBuiltError(Exception):
     """
     Exception class to raise if certain graph attributes or methods are accessed before
     the graph has been built.
     """
+
 
 @dataclass(frozen=True)
 class _BuildResult:
@@ -49,6 +51,7 @@ class _BuildResult:
     degrees: NDArray[np.uint32]
     degrees_in: NDArray[np.uint32]
     degrees_out: NDArray[np.uint32]
+
 
 @dataclass(frozen=True)
 class _BuildResultOnlyDegrees:
@@ -114,22 +117,28 @@ class VG:
         self.max_weight: float | None = max_weight
 
         if penetrable_limit < 0:
-            raise ValueError(f"'penetrable_limit' cannot be negative (got {penetrable_limit}).")
+            raise ValueError(
+                f"'penetrable_limit' cannot be negative (got {penetrable_limit})."
+            )
 
         self.penetrable_limit: int | None = penetrable_limit
 
         self._result: _BuildResult | _BuildResultOnlyDegrees | None = None
 
-
     def _validate_is_built(self, allow_degrees_only: bool = False) -> None:
         if self._result is None:
-            raise NotBuiltError("Visibility graph has has not been built, call '.build(...)' first.")
-        
+            raise NotBuiltError(
+                "Visibility graph has has not been built, call '.build(...)' first."
+            )
+
         if not allow_degrees_only and isinstance(self._result, _BuildResultOnlyDegrees):
-            raise NotBuiltError("Visibility graph has been built with only_degrees=True, edges are not available.")
+            raise NotBuiltError(
+                "Visibility graph has been built with only_degrees=True, edges are not available."
+            )
 
-
-    def build(self, ts: ArrayLike, xs: ArrayLike | None = None, only_degrees: bool = False) -> Self:
+    def build(
+        self, ts: ArrayLike, xs: ArrayLike | None = None, only_degrees: bool = False
+    ) -> Self:
         """
         Compute and build the visibility graph for the given time series.
 
@@ -163,7 +172,9 @@ class VG:
             self.xs = np.asarray(xs, dtype=np.float64)
 
             if len(self.xs) != len(self.ts):
-                raise ValueError(f"Length of 'xs' ({len(self.xs)}) does not match length of 'ts' ({len(self.ts)}).")            
+                raise ValueError(
+                    f"Length of 'xs' ({len(self.xs)}) does not match length of 'ts' ({len(self.ts)})."
+                )
 
             if self.xs.ndim != 1:
                 raise ValueError("Input 'xs' series must be one-dimensional.")
@@ -172,7 +183,9 @@ class VG:
                 raise ValueError("Input 'xs' series must be monotonically increasing.")
 
         if only_degrees and self.is_weighted:
-            raise ValueError("Building with 'only_degrees' is only supported for unweighted graphs.")
+            raise ValueError(
+                "Building with 'only_degrees' is only supported for unweighted graphs."
+            )
 
         if len(self.ts) == 0:
             # empty time series results in an empty graph
@@ -277,7 +290,10 @@ class VG:
         if not self.is_weighted:
             return cast(UnweightedEdgeList, self.edges)
 
-        return [(source_node, target_node) for (source_node, target_node, _) in cast(WeightedEdgeList, self.edges)]
+        return [
+            (source_node, target_node)
+            for (source_node, target_node, _) in cast(WeightedEdgeList, self.edges)
+        ]
 
     @property
     def weights(self) -> list[float] | None:
@@ -388,10 +404,14 @@ class VG:
         self._validate_is_built()
 
         if triangle != "both" and self.is_directed:
-            raise ValueError(f"'triangle' value '{triangle}' not valid for directed graphs.")
+            raise ValueError(
+                f"'triangle' value '{triangle}' not valid for directed graphs."
+            )
 
         if triangle not in ["lower", "upper", "both"]:
-            raise ValueError(f"'triangle' must be one of 'lower', 'upper', 'both'. Got '{triangle}'.")
+            raise ValueError(
+                f"'triangle' must be one of 'lower', 'upper', 'both'. Got '{triangle}'."
+            )
 
         if use_weights and not self.is_weighted:
             raise ValueError(f"'use_weights=True' only valid for weighted graphs.")
@@ -400,7 +420,11 @@ class VG:
         w = self.weights
 
         if self.is_weighted and use_weights:
-            m = np.full((self.n_vertices, self.n_vertices), fill_value=no_weight_value, dtype=np.float64)
+            m = np.full(
+                (self.n_vertices, self.n_vertices),
+                fill_value=no_weight_value,
+                dtype=np.float64,
+            )
             if self.is_directed:
                 m[e[:, 0], e[:, 1]] = w
             else:
@@ -503,12 +527,18 @@ class VG:
         return {i: (self.xs[i], self.ts[i]) for i in range(self.n_vertices)}
 
     @overload
-    def summary(self, prints: Literal[True] = True, title: str = "Visibility Graph") -> str: ...
+    def summary(
+        self, prints: Literal[True] = True, title: str = "Visibility Graph"
+    ) -> str: ...
 
     @overload
-    def summary(self, prints: Literal[False], title: str = "Visibility Graph") -> None: ...
+    def summary(
+        self, prints: Literal[False], title: str = "Visibility Graph"
+    ) -> None: ...
 
-    def summary(self, prints: bool = True, title: str = "Visibility Graph") -> str | None:
+    def summary(
+        self, prints: bool = True, title: str = "Visibility Graph"
+    ) -> str | None:
         """
         Prints (or returns) a simple text summary describing the visibility graph.
 
@@ -534,5 +564,7 @@ class VG:
         else:
             return text
 
-    def _compute_graph(self, only_degrees: bool) -> tuple[EdgeList, NDArray[np.uint32], NDArray[np.uint32]]:
+    def _compute_graph(
+        self, only_degrees: bool
+    ) -> tuple[EdgeList, NDArray[np.uint32], NDArray[np.uint32]]:
         raise NotImplementedError()

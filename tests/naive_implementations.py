@@ -2,7 +2,7 @@
 Naive pure-Python implementations of visibility graph algorithms for time series.
 
 The implementations here do intentionally not make use of any optimizations.
-They aim to be as simple and clear as possible, and to be used as a reference during tests.
+They aim to be as simple and clear as possible to be used as a reference during tests.
 """
 
 

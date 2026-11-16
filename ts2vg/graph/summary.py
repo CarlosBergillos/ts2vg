@@ -23,15 +23,21 @@ def _simple_key_value_line(key: str, value: str, line_width: int) -> str:
     return line
 
 
-def simple_summary(vg: "VG", title: str = "Visibility Graph", line_width: int = 48) -> str:
+def simple_summary(
+    vg: "VG", title: str = "Visibility Graph", line_width: int = 48
+) -> str:
     vg._validate_is_built()
 
     vg_config: dict[str, str] = {
         "General Type:": vg._general_type_name,
         "Directed:": cast(str, vg.directed) if vg.is_directed else "undirected",
         "Weighted:": cast(str, vg.weighted) if vg.is_weighted else "unweighted",
-        "Parametric Min. Weight:": str(vg.min_weight) if vg.min_weight is not None else "--",
-        "Parametric Max. Weight:": str(vg.max_weight) if vg.max_weight is not None else "--",
+        "Parametric Min. Weight:": (
+            str(vg.min_weight) if vg.min_weight is not None else "--"
+        ),
+        "Parametric Max. Weight:": (
+            str(vg.max_weight) if vg.max_weight is not None else "--"
+        ),
         "Penetrable Limit:": str(vg.penetrable_limit),
     }
 

@@ -45,8 +45,9 @@ ts2vg = "ts2vg.cli:main"
 
 [project.optional-dependencies]
 dev = [
-    "pytest==7.4.2",
-    "mypy==1.5.1",
+    "pytest==9.2.0",
+    "mypy==2.4.1",
+    "black==26.10.1",
 ]
 
 [tool.setuptools.packages.find]

@@ -67,10 +67,9 @@ class HorizontalVG(VG):
 
     _general_type_name = "Horizontal Visibility Graph"
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-
-    def _compute_graph(self, only_degrees: bool) -> tuple[EdgeList, NDArray[np.uint32], NDArray[np.uint32]]:
+    def _compute_graph(
+        self, only_degrees: bool
+    ) -> tuple[EdgeList, NDArray[np.uint32], NDArray[np.uint32]]:
         if self.penetrable_limit == 0:
             return _compute_graph_dc(
                 self.ts,

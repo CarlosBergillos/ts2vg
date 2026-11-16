@@ -141,7 +141,9 @@ def main() -> int:
 
     ts = np.loadtxt(input_path_, dtype=np.float64)
 
-    g = _GRAPH_TYPES[gtype](directed=directed, weighted=weighted, penetrable_limit=penetrable_limit)
+    g = _GRAPH_TYPES[gtype](
+        directed=directed, weighted=weighted, penetrable_limit=penetrable_limit
+    )
     g.build(ts, only_degrees=build_only_degrees)
 
     if output_mode == "el":
