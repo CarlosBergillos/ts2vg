@@ -6,15 +6,13 @@ build-backend = "setuptools.build_meta"
 name = "ts2vg"
 description = "Build visibility graphs from time series data."
 readme = "README.rst"
-requires-python = ">=3.9"
-license.file = "LICENSE"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
 keywords = ["graph", "network", "visibility", "time", "series"]
 classifiers = [
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
@@ -46,8 +44,10 @@ email = "c.bergillos.v@gmail.com"
 ts2vg = "ts2vg.cli:main"
 
 [project.optional-dependencies]
-tests = [
-    "pytest",
+dev = [
+    "pytest==9.2.0",
+    "mypy==2.4.1",
+    "black==26.10.1",
 ]
 
 [tool.setuptools.packages.find]
@@ -55,3 +55,19 @@ include = ["ts2vg*"]
 
 [tool.setuptools.dynamic]
 version.attr = "ts2vg._version.__version__"
+
+[tool.mypy]
+packages = ["ts2vg"]
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = [
+    "igraph",
+    "networkx",
+    "snap",
+    "ts2vg.graph._natural",
+    "ts2vg.graph._natural_penetrable",
+    "ts2vg.graph._horizontal",
+    "ts2vg.graph._horizontal_penetrable",
+]
+ignore_missing_imports = true
