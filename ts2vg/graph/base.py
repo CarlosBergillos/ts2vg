@@ -6,14 +6,12 @@ from typing import Any, Literal, Self, TypeAlias, cast, overload
 
 from ts2vg.graph.summary import simple_summary
 
-
-# use TypeAlias in Python >= 3.10
-IgraphGraphType = Any  # igraph.Graph
-NetworkxGraphType = Any  # networkx.Graph
-SnapGraphType = Any  # Union[snap.TUNGraph, snap.TNGraph]
 UnweightedEdgeList: TypeAlias = list[tuple[int, int]]
 WeightedEdgeList: TypeAlias = list[tuple[int, int, float]]
 EdgeList: TypeAlias = UnweightedEdgeList | WeightedEdgeList
+IgraphGraphType: TypeAlias = Any  # "igraph.Graph"
+NetworkxGraphType: TypeAlias = Any  # "networkx.Graph"
+SnapGraphType: TypeAlias = Any  # "snap.TUNGraph" | "snap.TNGraph"
 
 
 _DIRECTED_OPTIONS: dict[str | None, int] = {
